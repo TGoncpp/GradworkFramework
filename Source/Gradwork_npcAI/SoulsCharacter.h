@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Gradwork_npcAICharacter.h"
-#include "MyGradwork_npcAICharacter.generated.h"
+#include "SoulsCharacter.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class GRADWORK_NPCAI_API AMyGradwork_npcAICharacter : public AGradwork_npcAICharacter
+class GRADWORK_NPCAI_API ASoulsCharacter : public AGradwork_npcAICharacter
 {
 	GENERATED_BODY()
 	
