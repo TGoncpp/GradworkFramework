@@ -17,7 +17,7 @@ enum class EActions
 	Heal
 };
 
-UCLASS()
+UCLASS(Blueprintable, BlueprintType)
 class GRADWORK_NPCAI_API ABattleActionBase : public AActor
 {
 	GENERATED_BODY()
@@ -29,18 +29,23 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void Execute();
-	float GetExecutionTime() const { return m_ExecutionTime; }
+	float GetExecutionTime() const { return ExecutionTime; }
 	void EnQueue(float timePermitedInQueue);
 	bool ToLongInQueue(float deltaTime);
+	FString GetActionName() const { return ActionName; }
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	EActions m_ActionType = EActions::Quick;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(BlueprintReadWrite)
-	float m_ExecutionTime{ 1.0f };
-	UPROPERTY(BlueprintReadWrite)
-	float m_Cost{ 0.0f };
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float ExecutionTime{ 1.0f };
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Cost{ 0.0f };
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString ActionName{ "default"};
 
 private:
 	float M_InQueueTimeLeft{ 0.0f };

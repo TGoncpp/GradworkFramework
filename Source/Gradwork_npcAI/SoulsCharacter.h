@@ -7,15 +7,16 @@
 #include "Containers/RingBuffer.h"
 #include "TimerManager.h"
 #include "Containers/Map.h"
+#include "BattleActionBase.h"
 
 
 #include "SoulsCharacter.generated.h"
 
-class ABattleActionBase;
+//class ABattleActionBase;
 enum class EActions;
 
 
-UCLASS()
+UCLASS(Blueprintable)
 class GRADWORK_NPCAI_API ASoulsCharacter : public AGradwork_npcAICharacter
 {
 	GENERATED_BODY()
@@ -24,6 +25,10 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void BeginPlay() override;
 
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TMap<EActions, ABattleActionBase*> m_Actions;
 
 protected:
 	//Battle Actions
@@ -42,6 +47,16 @@ protected:
 	/** fast attack input */
 	virtual void Heal(const FInputActionValue& Value)override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray< ABattleActionBase*> m_ActionsArr;
+
+#pragma region mapsetting
+
+	UFUNCTION(BlueprintCallable)
+	void AddAction(ABattleActionBase* newAction);
+
+#pragma endregion mapsetting
+
 
 private:
 	FTimerHandle  m_Timer;
@@ -49,14 +64,13 @@ private:
 	bool m_IsIdle = true;
 	const int MAX_QUEUESIZE = 5;
 	const float MAX_IN_QUEUE_TIME = 1.0f;
-
-	UPROPERTY(EditAnywhere)
-	TMap<EActions, ABattleActionBase*> m_Actions;
-
-	TRingBuffer<ABattleActionBase*> m_ActionQueue;
+	TRingBuffer< ABattleActionBase*> m_ActionQueue;
 
 	void ExecuteAttacks();
 
 	void ReturnToIdle();
+
+	//DebugFunctions
+	void PrintQueue();
 	
 };

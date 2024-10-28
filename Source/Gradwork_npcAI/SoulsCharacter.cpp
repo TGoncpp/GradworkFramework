@@ -1,5 +1,4 @@
 #include "SoulsCharacter.h"
-#include "BattleActionBase.h"
 
 
 void ASoulsCharacter::Tick(float DeltaTime)
@@ -12,13 +11,16 @@ void ASoulsCharacter::Tick(float DeltaTime)
 	if (m_IsIdle)
 	{
 		m_IsIdle = false;
+
 		ABattleActionBase* nextAction = m_ActionQueue[0];
 		m_ActionQueue.PopFront();
 		GetWorld()->GetTimerManager().SetTimer(m_Timer, this, &ASoulsCharacter::ReturnToIdle,nextAction->GetExecutionTime(), false);
 		nextAction->EnQueue(MAX_IN_QUEUE_TIME);
+
+		nextAction->Execute();
 	}
 
-	//Remove actions in queue who stayed to long
+	//Remove actions from queue who stayed to long
 	const float elapsedTime = GetWorld()->GetDeltaSeconds();
 	for (auto action : m_ActionQueue)
 	{
@@ -41,40 +43,49 @@ void ASoulsCharacter::BeginPlay()
 //implementations
 //--------------------------------------------------------------
 
+#pragma region inputhandleling
 void ASoulsCharacter::QuickAttack(const FInputActionValue& Value)
 {
 	if (m_ActionQueue.Num() < MAX_QUEUESIZE)
-		m_ActionQueue.Add(m_Actions[EActions::Quick]);
+		m_ActionQueue.Add(Cast<ABattleActionBase>(m_Actions[EActions::Quick]));
+
+	PrintQueue();
 }
 
 void ASoulsCharacter::HardAttack(const FInputActionValue& Value)
 {
 	if (m_ActionQueue.Num() < MAX_QUEUESIZE)
-		m_ActionQueue.Add(m_Actions[EActions::Hard]);
-
+		m_ActionQueue.Add(Cast<ABattleActionBase>(m_Actions[EActions::Hard]));
+	PrintQueue();
 }
 
 void ASoulsCharacter::ThrowAttack(const FInputActionValue& Value)
 {
 	if (m_ActionQueue.Num() < MAX_QUEUESIZE)
-		m_ActionQueue.Add(m_Actions[EActions::Throw]);
-
+		m_ActionQueue.Add(Cast<ABattleActionBase>(m_Actions[EActions::Throw]));
+	PrintQueue();
 }
 
 void ASoulsCharacter::Block(const FInputActionValue& Value)
 {
 	if (m_ActionQueue.Num() < MAX_QUEUESIZE)
-		m_ActionQueue.Add(m_Actions[EActions::Block]);
-
+		m_ActionQueue.Add(Cast<ABattleActionBase>(m_Actions[EActions::Block]));
+	PrintQueue();
 }
 
 void ASoulsCharacter::Heal(const FInputActionValue& Value)
 {
 	if (m_ActionQueue.Num() < MAX_QUEUESIZE)
-		m_ActionQueue.Add(m_Actions[EActions::Heal]);
-
+		m_ActionQueue.Add(Cast<ABattleActionBase>(m_Actions[EActions::Heal]));
+	PrintQueue();
 }
 
+void ASoulsCharacter::AddAction(ABattleActionBase* newAction)
+{
+	m_Actions.Add(newAction->m_ActionType, newAction);
+}
+
+#pragma endregion inputhandeling
 
 
 void ASoulsCharacter::ExecuteAttacks()
@@ -85,4 +96,13 @@ void ASoulsCharacter::ExecuteAttacks()
 void ASoulsCharacter::ReturnToIdle()
 {
 	m_IsIdle = true;
+}
+
+void ASoulsCharacter::PrintQueue()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "new ation");
+	for (const auto& action : m_ActionQueue)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue,action->GetActionName());
+	}
 }
