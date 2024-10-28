@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+
 #include "Gradwork_npcAICharacter.generated.h"
 
 class USpringArmComponent;
