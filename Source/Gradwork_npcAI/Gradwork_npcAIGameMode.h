@@ -13,6 +13,9 @@ class AGradwork_npcAIGameMode : public AGameModeBase
 
 public:
 	AGradwork_npcAIGameMode();
+
+	virtual void BeginPlay() override;
+
 };
 
 

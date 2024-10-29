@@ -13,4 +13,17 @@ AGradwork_npcAIGameMode::AGradwork_npcAIGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+
+	
+}
+
+void AGradwork_npcAIGameMode::BeginPlay()
+{
+	//get refrence to game instance
+	UGameInstance* gameInstance = GetWorld()->GetGameInstance();
+
+	//Create instance off a player and his controller
+	FString errorMessage;
+	ULocalPlayer* player = gameInstance->CreateLocalPlayer(0, errorMessage, true);
+	checkf(player, TEXT("local player failed load"));
 }

@@ -35,7 +35,6 @@ public:
 	AGradwork_npcAICharacter();
 	
 
-
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
 
