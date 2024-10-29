@@ -26,26 +26,26 @@ public:
 	virtual void BeginPlay() override;
 
 
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<EActions, ABattleActionBase*> m_Actions;
 
-protected:
 	//Battle Actions
 	/** fast attack input */
-	virtual void QuickAttack(const FInputActionValue& Value)override;
+	virtual void QuickAttack()override;
 
 	/** fast attack input */
-	virtual void HardAttack(const FInputActionValue& Value)override;
+	virtual void HardAttack()override;
 
 	/** fast attack input */
-	virtual void ThrowAttack(const FInputActionValue& Value)override;
+	virtual void ThrowAttack()override;
 
 	/** fast attack input */
-	virtual void Block(const FInputActionValue& Value)override;
+	virtual void Block()override;
 				
 	/** fast attack input */
-	virtual void Heal(const FInputActionValue& Value)override;
+	virtual void Heal()override;
+
+protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray< ABattleActionBase*> m_ActionsArr;

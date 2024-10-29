@@ -44,7 +44,7 @@ void ASoulsCharacter::BeginPlay()
 //--------------------------------------------------------------
 
 #pragma region inputhandleling
-void ASoulsCharacter::QuickAttack(const FInputActionValue& Value)
+void ASoulsCharacter::QuickAttack()
 {
 	if (m_ActionQueue.Num() < MAX_QUEUESIZE)
 		m_ActionQueue.Add(Cast<ABattleActionBase>(m_Actions[EActions::Quick]));
@@ -52,28 +52,28 @@ void ASoulsCharacter::QuickAttack(const FInputActionValue& Value)
 	PrintQueue();
 }
 
-void ASoulsCharacter::HardAttack(const FInputActionValue& Value)
+void ASoulsCharacter::HardAttack()
 {
 	if (m_ActionQueue.Num() < MAX_QUEUESIZE)
 		m_ActionQueue.Add(Cast<ABattleActionBase>(m_Actions[EActions::Hard]));
 	PrintQueue();
 }
 
-void ASoulsCharacter::ThrowAttack(const FInputActionValue& Value)
+void ASoulsCharacter::ThrowAttack()
 {
 	if (m_ActionQueue.Num() < MAX_QUEUESIZE)
 		m_ActionQueue.Add(Cast<ABattleActionBase>(m_Actions[EActions::Throw]));
 	PrintQueue();
 }
 
-void ASoulsCharacter::Block(const FInputActionValue& Value)
+void ASoulsCharacter::Block()
 {
 	if (m_ActionQueue.Num() < MAX_QUEUESIZE)
 		m_ActionQueue.Add(Cast<ABattleActionBase>(m_Actions[EActions::Block]));
 	PrintQueue();
 }
 
-void ASoulsCharacter::Heal(const FInputActionValue& Value)
+void ASoulsCharacter::Heal()
 {
 	if (m_ActionQueue.Num() < MAX_QUEUESIZE)
 		m_ActionQueue.Add(Cast<ABattleActionBase>(m_Actions[EActions::Heal]));

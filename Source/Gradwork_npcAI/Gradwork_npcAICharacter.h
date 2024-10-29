@@ -29,47 +29,12 @@ class AGradwork_npcAICharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
 	
-	/** MappingContext */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputMappingContext* DefaultMappingContext;
-
-	/** Jump Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* JumpAction;
-
-	/** Move Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* MoveAction;
-
-	/** Move Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* QuickAttackAction;
 	
-	/** Move Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* HardAttackAction;
-	
-	/** Move Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* BlockAction;
-	
-	/** Move Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* HealAction;
-	
-	/** Move Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* ThrowAction;
-
-	/** Look Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* LookAction;
 
 public:
 	AGradwork_npcAICharacter();
 	
 
-protected:
 
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
@@ -79,20 +44,21 @@ protected:
 			
 	//Battle Actions
 	/** fast attack input */
-	virtual void QuickAttack(const FInputActionValue& Value) { GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "Quick"); };
+	virtual void QuickAttack() { GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "Quick"); };
 			
 	/** fast attack input */
-	virtual void HardAttack(const FInputActionValue& Value){ GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "Hard"); };
+	virtual void HardAttack(){ GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "Hard"); };
 			
 	/** fast attack input */
-	virtual void ThrowAttack(const FInputActionValue& Value){ GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "Throw"); };
+	virtual void ThrowAttack(){ GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "Throw"); };
 			
 	/** fast attack input */
-	virtual void Block(const FInputActionValue& Value){ GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "Block"); };
+	virtual void Block(){ GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "Block"); };
 			
 	/** fast attack input */
-	virtual void Heal(const FInputActionValue& Value){ GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "Heal"); };
+	virtual void Heal(){ GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "Heal"); };
 			
+protected:
 
 protected:
 	// APawn interface

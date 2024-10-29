@@ -59,14 +59,14 @@ void AGradwork_npcAICharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
-	//Add Input Mapping Context
-	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
-	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
-		{
-			Subsystem->AddMappingContext(DefaultMappingContext, 0);
-		}
-	}
+	////Add Input Mapping Context
+	//if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+	//{
+	//	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+	//	{
+	//		Subsystem->AddMappingContext(DefaultMappingContext, 0);
+	//	}
+	//}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -74,37 +74,7 @@ void AGradwork_npcAICharacter::BeginPlay()
 
 void AGradwork_npcAICharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	// Set up action bindings
-	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
-		
-		// Jumping
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
-
-		// Moving
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AGradwork_npcAICharacter::Move);
-
-		// Looking
-		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AGradwork_npcAICharacter::Look);
-
-		//Battle Actions
-		//Quick attack
-		EnhancedInputComponent->BindAction(QuickAttackAction, ETriggerEvent::Started, this, &AGradwork_npcAICharacter::QuickAttack);
-		
-		//Hard attack
-		EnhancedInputComponent->BindAction(HardAttackAction, ETriggerEvent::Started, this, &AGradwork_npcAICharacter::HardAttack);
-		
-		//Throw attack
-		EnhancedInputComponent->BindAction(ThrowAction, ETriggerEvent::Started, this, &AGradwork_npcAICharacter::ThrowAttack);
-		
-		//Block
-		EnhancedInputComponent->BindAction(BlockAction, ETriggerEvent::Triggered, this, &AGradwork_npcAICharacter::Block);
-		
-		//Heal
-		EnhancedInputComponent->BindAction(HealAction, ETriggerEvent::Started, this, &AGradwork_npcAICharacter::Heal);
-
-	}
-	else
+	
 	{
 		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' Failed to find an Enhanced Input component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
 	}
@@ -146,29 +116,5 @@ void AGradwork_npcAICharacter::Look(const FInputActionValue& Value)
 	}
 }
 
-//void AGradwork_npcAICharacter::QuickAttack(const FInputActionValue& Value)
-//{
-//
-//}
-//
-//void AGradwork_npcAICharacter::HardAttack(const FInputActionValue& Value)
-//{
-//
-//}
-//
-//void AGradwork_npcAICharacter::ThrowAttack(const FInputActionValue& Value)
-//{
-//
-//}
-//
-//void AGradwork_npcAICharacter::Block(const FInputActionValue& Value)
-//{
-//
-//}
-//
-//void AGradwork_npcAICharacter::Heal(const FInputActionValue& Value)
-//{
-//
-//}
 
 
