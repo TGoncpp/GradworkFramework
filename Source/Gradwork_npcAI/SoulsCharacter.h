@@ -23,6 +23,7 @@ class GRADWORK_NPCAI_API ASoulsCharacter : public AGradwork_npcAICharacter
 
 public:
 	virtual void Tick(float DeltaTime) override;
+	void RemoveActionsThatAreToLongInQueue();
 	virtual void BeginPlay() override;
 
 
