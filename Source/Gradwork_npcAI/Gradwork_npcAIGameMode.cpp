@@ -13,7 +13,6 @@ AGradwork_npcAIGameMode::AGradwork_npcAIGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
-
 	
 }
 
