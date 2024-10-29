@@ -33,9 +33,8 @@ public:
 	void EnQueue(float timePermitedInQueue);
 	bool ToLongInQueue(float deltaTime);
 	FString GetActionName() const { return ActionName; }
-	//this is ment for extending your block on hold button
-	void ExtendActivationTime(float extendTime) { ExecutionTime += extendTime; };
-
+	EActions GetActionType() const { return m_ActionType; }
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EActions m_ActionType = EActions::Quick;
 protected:

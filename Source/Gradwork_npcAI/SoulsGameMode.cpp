@@ -6,6 +6,6 @@ void ASoulsGameMode::BeginPlay()
 	UGameInstance* gameInstance = GetWorld()->GetGameInstance();
 	checkf(gameInstance, TEXT("gameInstance failed load"));
 
-
+	CreateHud();
 	
 }

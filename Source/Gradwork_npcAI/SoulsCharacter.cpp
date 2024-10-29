@@ -20,8 +20,7 @@ void ASoulsCharacter::Tick(float DeltaTime)
 		nextAction->Execute();
 	}
 
-	//!!Causes Crashes!!
-	RemoveActionsThatAreToLongInQueue();
+	//RemoveActionsThatAreToLongInQueue();
 
 }
 
@@ -32,7 +31,8 @@ void ASoulsCharacter::RemoveActionsThatAreToLongInQueue()
 	int numOfOvertime = 0;
 	for (auto action : m_ActionQueue)
 	{
-		if (action->ToLongInQueue(elapsedTime))
+		// dont add block so the time after release and block stop remains consistent
+		if (action->ToLongInQueue(elapsedTime) && action->GetActionType() != EActions::Block) 
 		{
 			++numOfOvertime;
 		}
