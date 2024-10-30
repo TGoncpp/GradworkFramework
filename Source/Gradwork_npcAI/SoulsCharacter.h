@@ -43,6 +43,9 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void Ragdoll();
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void RiseAgain();
 
 protected:
 	UPROPERTY(VisibleAnywhere)
@@ -71,5 +74,5 @@ private:
 	void ReturnToIdle();
 	//DebugFunctions
 	void PrintQueue();
-	
+
 };

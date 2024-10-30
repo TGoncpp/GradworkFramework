@@ -23,6 +23,8 @@ void ASoulsCharacter::BeginPlay()
 
 	//add event for dead from healthcomponent
 	m_HealthComponent->OnDead.AddDynamic(this, &ASoulsCharacter::Ragdoll);
+	//add event for revive from healthcomponent
+	m_HealthComponent->OnRevive.AddDynamic(this, &ASoulsCharacter::RiseAgain);
 }
 
 void ASoulsCharacter::Tick(float DeltaTime)

@@ -7,6 +7,7 @@
 #include "HealthComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDeadEvent);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FReviveEvent);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class GRADWORK_NPCAI_API UHealthComponent : public UActorComponent
@@ -23,10 +24,13 @@ public:
 	void RecieveDamage(float damage);
 
 	void Die();
-
+	void Revive();
 
 	UPROPERTY()
 	FDeadEvent OnDead;
+	
+	UPROPERTY()
+	FReviveEvent OnRevive;
 		
 protected:
 	// Called when the game starts
@@ -35,4 +39,8 @@ protected:
 private:	
 	float m_Health = 0.0f;
 	const float MAX_HEALTH = 100.0f;
+	float m_ReviveTime = 2.0f;
+
+	FTimerHandle  m_Timer;
+
 };

@@ -40,5 +40,12 @@ void UHealthComponent::RecieveDamage(float damage)
 void UHealthComponent::Die()
 {
 	OnDead.Broadcast();
+	GetWorld()->GetTimerManager().SetTimer(m_Timer, this, &UHealthComponent::Revive, m_ReviveTime, false);
+}
+
+void UHealthComponent::Revive()
+{
+	m_Health = MAX_HEALTH;
+	OnRevive.Broadcast();
 }
 
