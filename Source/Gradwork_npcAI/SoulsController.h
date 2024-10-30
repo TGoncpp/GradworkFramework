@@ -80,6 +80,7 @@ private:
 	void HardAttack() { m_PlayerRefrence->HardAttack(); };
 	void Heal() { m_PlayerRefrence->Heal(); };
 	void Block() { m_PlayerRefrence->Block(); };
+	void StopBlock() { m_PlayerRefrence->StopBlock(); };
 	void Throw() { m_PlayerRefrence->ThrowAttack(); };
 
 #pragma endregion ActionFunctions

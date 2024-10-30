@@ -1,5 +1,4 @@
 #include "BattleActionBase.h"
-//#include "SoulsCharacter.h"
 #include "HealthComponent.h"
 #include "StaminaComponent.h"
 #include "KnockbackComponent.h"
@@ -7,7 +6,6 @@
 
 ABattleActionBase::ABattleActionBase()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 }
@@ -17,6 +15,7 @@ void ABattleActionBase::BeginPlay()
 	Super::BeginPlay();
 
 	Tags.Add("Weapon");
+
 	m_TriggerCapsule = FindComponentByClass< UCapsuleComponent>();
 	checkf(m_TriggerCapsule, TEXT("No capsuleComponent found in battle action called: %s"), *ActionName);
 	m_TriggerCapsule->OnComponentBeginOverlap.AddDynamic(this, &ABattleActionBase::OnOverlapBegin);
@@ -26,7 +25,7 @@ void ABattleActionBase::BeginPlay()
 void ABattleActionBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	//update will happen in blueprint
 }
 
 

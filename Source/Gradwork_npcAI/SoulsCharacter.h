@@ -27,59 +27,57 @@ class GRADWORK_NPCAI_API ASoulsCharacter : public AGradwork_npcAICharacter
 public:
 	ASoulsCharacter();
 	virtual void Tick(float DeltaTime) override;
+
 	void RemoveActionsThatAreToLongInQueue();
 	virtual void BeginPlay() override;
 
+#pragma region Battle Actions
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TMap<EActions, ABattleActionBase*> m_Actions;
-
-	//Battle Actions
 	virtual void QuickAttack()override;
 	virtual void HardAttack()override;
 	virtual void ThrowAttack()override;
 	virtual void Block()override;				
+	virtual void StopBlock()override;
 	virtual void Heal()override;
-
+	
+#pragma endregion Battle Actions
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void Ragdoll();
-	
 	UFUNCTION(BlueprintImplementableEvent)
 	void RiseAgain();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TMap<EActions, ABattleActionBase*> m_Actions;
 	
 protected:
+
+	UFUNCTION(BlueprintCallable)
+	void AddAction(ABattleActionBase* newAction);
+
+#pragma region components
 	UPROPERTY(VisibleAnywhere)
 	UHealthComponent* m_HealthComponent = nullptr;
 	UPROPERTY(VisibleAnywhere)
 	UStaminaComponent* m_StaminaComponent = nullptr;
 	UPROPERTY(VisibleAnywhere)
 	UKnockBackComponent* m_KnockbackComponent = nullptr;
-
-#pragma region mapsetting
-
-	UFUNCTION(BlueprintCallable)
-	void AddAction(ABattleActionBase* newAction);
-
-#pragma endregion mapsetting
-
+#pragma endregion components
 
 private:
+	void ExecuteAttacks();
+	void ReturnToIdle();
+	UFUNCTION()
+	void ResetQueue();
+
+	//DebugFunctions
+	void PrintQueue();
+
+
 	FTimerHandle  m_Timer;
 	bool m_IsIdle = true;
 	const int MAX_QUEUESIZE = 5;
 	const float MAX_IN_QUEUE_TIME = 1.0f;
 	TRingBuffer< ABattleActionBase*> m_ActionQueue;
 	ABattleActionBase* m_ActivatedAction = nullptr;
-
-	void ExecuteAttacks();
-
-	void ReturnToIdle();
-
-	UFUNCTION()
-	void ResetQueue();
-
-
-	//DebugFunctions
-	void PrintQueue();
 };

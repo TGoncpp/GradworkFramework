@@ -58,6 +58,9 @@ void ASoulsController::OnPossess(APawn* pawn)
 		//Block
 		if (BlockAction)
 			EnhancedInputComponent->BindAction(BlockAction, ETriggerEvent::Triggered, this, &ASoulsController::Block);
+		//StopBlock
+		if (BlockAction)
+			EnhancedInputComponent->BindAction(BlockAction, ETriggerEvent::Completed, this, &ASoulsController::StopBlock);
 
 		//Heal
 		if (HealAction)

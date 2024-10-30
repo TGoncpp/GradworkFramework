@@ -33,6 +33,8 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void Execute();
 	UFUNCTION(BlueprintImplementableEvent)
+	void DeActivate();
+	UFUNCTION(BlueprintImplementableEvent)
 	void ResetAction();
 
 	//Queue functions

@@ -62,12 +62,6 @@ void UKnockBackComponent::RecieveDamage(const FVector& direction, float knocktim
 		m_OwnerMovementComponent->DisableMovement();
 	}
 
-	//TODO send message to player 
-	//reset actions                -
-	//clear actionqueue            X 
-	//disable actions              X
-
-	//TODO : check what goes wrong here
 	OnGetHit.Broadcast();
 
 }

@@ -53,6 +53,9 @@ public:
 			
 	/** fast attack input */
 	virtual void Block(){ GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "Block"); };
+
+	virtual void StopBlock() { GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "StopBlock"); };
+
 			
 	/** fast attack input */
 	virtual void Heal(){ GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "Heal"); };

@@ -45,10 +45,13 @@ void ASoulsCharacter::Tick(float DeltaTime)
 	{
 		m_IsIdle = false;
 
-		//ABattleActionBase* nextAction = m_ActionQueue.First();
 		m_ActivatedAction = m_ActionQueue.First();
 		m_ActionQueue.PopFront();
-		GetWorld()->GetTimerManager().SetTimer(m_Timer, this, &ASoulsCharacter::ReturnToIdle, m_ActivatedAction->GetExecutionTime(), false);
+		
+		//if action is block -> continue until it is released. else stop after set amount off time
+		if (m_ActivatedAction->GetActionType() != EActions::Block)
+			GetWorld()->GetTimerManager().SetTimer(m_Timer, this, &ASoulsCharacter::ReturnToIdle, m_ActivatedAction->GetExecutionTime(), false);
+
 		m_ActivatedAction->EnQueue(MAX_IN_QUEUE_TIME);
 
 		if (m_ActivatedAction->HasSufficentStamina())
@@ -109,6 +112,17 @@ void ASoulsCharacter::Block()
 		m_ActionQueue.Add(m_Actions[EActions::Block]);
 
 	PrintQueue();
+}
+
+void ASoulsCharacter::StopBlock()
+{
+	//set to true to activate the queue again
+	m_IsIdle = true;
+	//remove all other actions from queue, else it get stuck on second block.
+	int size = m_ActionQueue.Num();
+	m_ActionQueue.PopFront(size);
+	//Deactivate the blueprint, this is only with blocking because other actions will be cancelled at a timer
+	m_ActivatedAction->DeActivate();
 }
 
 void ASoulsCharacter::Heal()
