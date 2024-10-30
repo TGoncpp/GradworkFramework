@@ -16,6 +16,7 @@
 enum class EActions;
 class UHealthComponent;
 class UStaminaComponent;
+class UKnockBackComponent;
 
 
 UCLASS(Blueprintable)
@@ -46,12 +47,14 @@ public:
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void RiseAgain();
-
+	
 protected:
 	UPROPERTY(VisibleAnywhere)
 	UHealthComponent* m_HealthComponent = nullptr;
 	UPROPERTY(VisibleAnywhere)
 	UStaminaComponent* m_StaminaComponent = nullptr;
+	UPROPERTY(VisibleAnywhere)
+	UKnockBackComponent* m_KnockbackComponent = nullptr;
 
 #pragma region mapsetting
 
@@ -63,16 +66,20 @@ protected:
 
 private:
 	FTimerHandle  m_Timer;
-
 	bool m_IsIdle = true;
 	const int MAX_QUEUESIZE = 5;
 	const float MAX_IN_QUEUE_TIME = 1.0f;
 	TRingBuffer< ABattleActionBase*> m_ActionQueue;
+	ABattleActionBase* m_ActivatedAction = nullptr;
 
 	void ExecuteAttacks();
 
 	void ReturnToIdle();
+
+	UFUNCTION()
+	void ResetQueue();
+
+
 	//DebugFunctions
 	void PrintQueue();
-
 };

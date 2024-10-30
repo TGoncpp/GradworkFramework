@@ -2,6 +2,7 @@
 //#include "SoulsCharacter.h"
 #include "HealthComponent.h"
 #include "StaminaComponent.h"
+#include "KnockbackComponent.h"
 #include "Components/CapsuleComponent.h"
 
 ABattleActionBase::ABattleActionBase()
@@ -55,16 +56,25 @@ void ABattleActionBase::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AAct
 {
 	if (OtherActor != this && OtherActor->Tags.Contains("Body"))
 	{
-		//ASoulsCharacter* enemy = Cast<ASoulsCharacter>(OtherActor);
+		//send message to enemy health component
 		UHealthComponent* enemyHealthComp = OtherActor->FindComponentByClass<UHealthComponent>();
 		if (enemyHealthComp)
 		{
 			enemyHealthComp->RecieveDamage(Damage);
 		}
-		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "collision");
 
+		//send message to enemy knockback component
+		UKnockBackComponent* enemyKnockbackComp = OtherActor->FindComponentByClass<UKnockBackComponent>();
+		if (enemyKnockbackComp)
+		{
+			FVector direction = OtherActor->GetActorLocation() - GetActorLocation();
+			direction.Normalize();
+			direction.Z = 0.1f;
+			enemyKnockbackComp->RecieveDamage(direction, KnockPower);
+		}
+
+		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "collision");
 	}
-	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "fake collision");
 }
 
 

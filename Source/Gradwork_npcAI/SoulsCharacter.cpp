@@ -1,6 +1,7 @@
 #include "SoulsCharacter.h"
 #include "HealthComponent.h"
 #include "StaminaComponent.h"
+#include "KnockbackComponent.h"
 
 
 ASoulsCharacter::ASoulsCharacter()
@@ -12,6 +13,10 @@ ASoulsCharacter::ASoulsCharacter()
 	//Add StaminaComponent
 	m_StaminaComponent = CreateDefaultSubobject<UStaminaComponent>(TEXT("staminaComp"));
 	AddOwnedComponent(m_StaminaComponent);
+
+	//Add knockbackComponent
+	m_KnockbackComponent = CreateDefaultSubobject<UKnockBackComponent>(TEXT("KnockbackComp"));
+	AddOwnedComponent(m_KnockbackComponent);
 }
 
 void ASoulsCharacter::BeginPlay()
@@ -25,12 +30,14 @@ void ASoulsCharacter::BeginPlay()
 	m_HealthComponent->OnDead.AddDynamic(this, &ASoulsCharacter::Ragdoll);
 	//add event for revive from healthcomponent
 	m_HealthComponent->OnRevive.AddDynamic(this, &ASoulsCharacter::RiseAgain);
+	//add event for knockback from knockbackcomponent
+	m_KnockbackComponent->OnGetHit.AddDynamic(this, &ASoulsCharacter::ResetQueue);
 }
 
 void ASoulsCharacter::Tick(float DeltaTime)
 {
 	//Do nothing if no actions enqueued
-	if (m_ActionQueue.Num() <= 0)
+	if (m_ActionQueue.Num() <= 0 || m_KnockbackComponent->IsStunned())
 		return;
 
 	//if not doing an action, start the first off the queue
@@ -38,13 +45,14 @@ void ASoulsCharacter::Tick(float DeltaTime)
 	{
 		m_IsIdle = false;
 
-		ABattleActionBase* nextAction = m_ActionQueue.First();
+		//ABattleActionBase* nextAction = m_ActionQueue.First();
+		m_ActivatedAction = m_ActionQueue.First();
 		m_ActionQueue.PopFront();
-		GetWorld()->GetTimerManager().SetTimer(m_Timer, this, &ASoulsCharacter::ReturnToIdle,nextAction->GetExecutionTime(), false);
-		nextAction->EnQueue(MAX_IN_QUEUE_TIME);
+		GetWorld()->GetTimerManager().SetTimer(m_Timer, this, &ASoulsCharacter::ReturnToIdle, m_ActivatedAction->GetExecutionTime(), false);
+		m_ActivatedAction->EnQueue(MAX_IN_QUEUE_TIME);
 
-		if (nextAction->HasSufficentStamina())
-			nextAction->Execute();
+		if (m_ActivatedAction->HasSufficentStamina())
+			m_ActivatedAction->Execute();
 	}
 
 	//RemoveActionsThatAreToLongInQueue();
@@ -136,4 +144,14 @@ void ASoulsCharacter::PrintQueue()
 	//{
 	//	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue,action->GetActionName());
 	//}
+}
+
+void ASoulsCharacter::ResetQueue()
+{
+	int size = m_ActionQueue.Num();
+	if (size > 0)
+		m_ActionQueue.Pop(size);
+	
+	if (m_ActivatedAction)
+		m_ActivatedAction->ResetAction();
 }

@@ -32,6 +32,8 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void Execute();
+	UFUNCTION(BlueprintImplementableEvent)
+	void ResetAction();
 
 	//Queue functions
 	void EnQueue(float timePermitedInQueue);
@@ -57,6 +59,8 @@ protected:
 	float Cost{ 35.0f };
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Damage{ 15.0f };
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float KnockPower{ 1.0f };
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString ActionName{ "default"};
 
