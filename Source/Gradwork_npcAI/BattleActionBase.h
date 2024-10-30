@@ -7,6 +7,7 @@
 
 #include "BattleActionBase.generated.h"
 
+
 UENUM()
 enum class EActions
 {
@@ -27,11 +28,20 @@ public:
 	ABattleActionBase();
 	virtual void Tick(float DeltaTime) override;
 
+	void AddParent(AActor* parent);
+
 	UFUNCTION(BlueprintImplementableEvent)
 	void Execute();
-	float GetExecutionTime() const { return ExecutionTime; }
+
+	//Queue functions
 	void EnQueue(float timePermitedInQueue);
 	bool ToLongInQueue(float deltaTime);
+
+	//stamina
+	bool HasSufficentStamina() const;
+
+	//getters
+	float GetExecutionTime() const { return ExecutionTime; }
 	FString GetActionName() const { return ActionName; }
 	EActions GetActionType() const { return m_ActionType; }
 	
@@ -44,10 +54,20 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float ExecutionTime{ 1.0f };
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float Cost{ 0.0f };
+	float Cost{ 35.0f };
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Damage{ 15.0f };
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString ActionName{ "default"};
 
 private:
 	float M_InQueueTimeLeft{ 0.0f };
+	UFUNCTION()
+	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, 
+						AActor* OtherActor, 
+						UPrimitiveComponent* OtherComp, 
+						int32 OtherBodyIndex, 
+						bool bFromSweep, const FHitResult& SweepResult);
+	class UCapsuleComponent* m_TriggerCapsule = nullptr;
+	AActor* m_ParentActor = nullptr;
 };

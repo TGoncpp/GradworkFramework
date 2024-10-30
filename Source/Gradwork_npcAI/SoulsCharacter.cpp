@@ -1,5 +1,26 @@
 #include "SoulsCharacter.h"
+#include "HealthComponent.h"
+#include "StaminaComponent.h"
 
+
+ASoulsCharacter::ASoulsCharacter()
+{
+	//Add healthComponent
+	m_HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("healthComp"));
+	AddOwnedComponent(m_HealthComponent);
+
+	//Add StaminaComponent
+	m_StaminaComponent = CreateDefaultSubobject<UStaminaComponent>(TEXT("staminaComp"));
+	AddOwnedComponent(m_StaminaComponent);
+}
+
+void ASoulsCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	m_ActionQueue.Reserve(MAX_QUEUESIZE);
+	Tags.Add("Body");
+}
 
 void ASoulsCharacter::Tick(float DeltaTime)
 {
@@ -17,7 +38,8 @@ void ASoulsCharacter::Tick(float DeltaTime)
 		GetWorld()->GetTimerManager().SetTimer(m_Timer, this, &ASoulsCharacter::ReturnToIdle,nextAction->GetExecutionTime(), false);
 		nextAction->EnQueue(MAX_IN_QUEUE_TIME);
 
-		nextAction->Execute();
+		if (nextAction->HasSufficentStamina())
+			nextAction->Execute();
 	}
 
 	//RemoveActionsThatAreToLongInQueue();
@@ -40,13 +62,6 @@ void ASoulsCharacter::RemoveActionsThatAreToLongInQueue()
 
 	//remove the amount that was overtime from the front off queue
 	m_ActionQueue.PopFront(numOfOvertime);
-}
-
-void ASoulsCharacter::BeginPlay()
-{
-	Super::BeginPlay();
-
-	m_ActionQueue.Reserve(MAX_QUEUESIZE);
 }
 
 
@@ -93,6 +108,7 @@ void ASoulsCharacter::Heal()
 void ASoulsCharacter::AddAction(ABattleActionBase* newAction)
 {
 	m_Actions.Add(newAction->m_ActionType, newAction);
+	newAction->AddParent(this);
 }
 
 #pragma endregion inputhandeling

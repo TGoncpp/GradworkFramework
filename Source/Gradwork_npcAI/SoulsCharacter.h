@@ -14,6 +14,8 @@
 
 //class ABattleActionBase;
 enum class EActions;
+class UHealthComponent;
+class UStaminaComponent;
 
 
 UCLASS(Blueprintable)
@@ -22,6 +24,7 @@ class GRADWORK_NPCAI_API ASoulsCharacter : public AGradwork_npcAICharacter
 	GENERATED_BODY()
 
 public:
+	ASoulsCharacter();
 	virtual void Tick(float DeltaTime) override;
 	void RemoveActionsThatAreToLongInQueue();
 	virtual void BeginPlay() override;
@@ -47,9 +50,10 @@ public:
 	virtual void Heal()override;
 
 protected:
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray< ABattleActionBase*> m_ActionsArr;
+	UPROPERTY(VisibleAnywhere)
+	UHealthComponent* m_HealthComponent = nullptr;
+	UPROPERTY(VisibleAnywhere)
+	UStaminaComponent* m_StaminaComponent = nullptr;
 
 #pragma region mapsetting
 
