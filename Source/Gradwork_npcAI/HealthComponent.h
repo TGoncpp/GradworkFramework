@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "HealthComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDeadEvent);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class GRADWORK_NPCAI_API UHealthComponent : public UActorComponent
@@ -21,6 +22,12 @@ public:
 	float GetHealthPercentage() const { return m_Health/MAX_HEALTH; }
 	void RecieveDamage(float damage);
 
+	void Die();
+
+
+	UPROPERTY()
+	FDeadEvent OnDead;
+		
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -28,6 +35,4 @@ protected:
 private:	
 	float m_Health = 0.0f;
 	const float MAX_HEALTH = 100.0f;
-
-		
 };

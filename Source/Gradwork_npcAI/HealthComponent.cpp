@@ -32,5 +32,13 @@ void UHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 void UHealthComponent::RecieveDamage(float damage)
 {
 	m_Health -= damage;
+
+	if (m_Health <= 0)
+		Die();
+}
+
+void UHealthComponent::Die()
+{
+	OnDead.Broadcast();
 }
 

@@ -34,20 +34,15 @@ public:
 	TMap<EActions, ABattleActionBase*> m_Actions;
 
 	//Battle Actions
-	/** fast attack input */
 	virtual void QuickAttack()override;
-
-	/** fast attack input */
 	virtual void HardAttack()override;
-
-	/** fast attack input */
 	virtual void ThrowAttack()override;
-
-	/** fast attack input */
-	virtual void Block()override;
-				
-	/** fast attack input */
+	virtual void Block()override;				
 	virtual void Heal()override;
+
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void Ragdoll();
 
 protected:
 	UPROPERTY(VisibleAnywhere)
@@ -74,7 +69,6 @@ private:
 	void ExecuteAttacks();
 
 	void ReturnToIdle();
-
 	//DebugFunctions
 	void PrintQueue();
 	

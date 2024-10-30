@@ -20,6 +20,9 @@ void ASoulsCharacter::BeginPlay()
 
 	m_ActionQueue.Reserve(MAX_QUEUESIZE);
 	Tags.Add("Body");
+
+	//add event for dead from healthcomponent
+	m_HealthComponent->OnDead.AddDynamic(this, &ASoulsCharacter::Ragdoll);
 }
 
 void ASoulsCharacter::Tick(float DeltaTime)
