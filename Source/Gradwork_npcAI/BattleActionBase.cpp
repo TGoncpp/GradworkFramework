@@ -105,7 +105,7 @@ void ABattleActionBase::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AAct
 			FVector direction = OtherActor->GetActorLocation() - GetActorLocation();
 			direction.Normalize();
 			direction.Z = 0.1f;
-			enemyKnockbackComp->RecieveDamage(direction, KnockPower);
+			enemyKnockbackComp->RecieveDamage(direction, KnockTime);
 		}
 
 	}

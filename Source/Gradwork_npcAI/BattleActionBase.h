@@ -34,9 +34,7 @@ public:
 	void Execute();
 	UFUNCTION(BlueprintImplementableEvent)
 	void DeActivate();
-	UFUNCTION(BlueprintImplementableEvent)
-	void ResetAction();
-
+	
 	//Queue functions
 	void EnQueue(float timePermitedInQueue);
 	bool ToLongInQueue(float deltaTime);
@@ -68,7 +66,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Damage{ 15.0f };
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float KnockPower{ 1.0f };
+	float KnockTime{ 1.0f };
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString ActionName{ "default"};
 

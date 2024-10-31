@@ -182,7 +182,6 @@ void ASoulsCharacter::ResetQueue()
 	
 	if (m_ActivatedAction)
 	{
-		m_ActivatedAction->ResetAction();
 		m_ActivatedAction->DeActivate();
 	}
 }
