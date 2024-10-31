@@ -53,19 +53,17 @@ bool ABattleActionBase::HasSufficentStamina() const
 
 void ABattleActionBase::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (OtherActor != this && OtherActor->Tags.Contains("Body"))
+	if (OtherActor != this && OtherActor->Tags.Contains("Body") && OtherActor != m_ParentActor)
 	{
 		//BLOCK
 		//get refrence off current action off OtherActor
 		ABattleActionBase* blockAction = nullptr;
 		TArray<AActor*> AttachedActors;
 		OtherActor->GetAttachedActors(AttachedActors);
-		//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Blue, FString::Printf(TEXT("Found Action num : %i"), AttachedActors.Num()));
 		for (AActor* Actor : AttachedActors)
 		{
 			if (Actor->Tags.Contains("Block"))
 			{
-				GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Blue, "Found blockAction");
 				blockAction = Cast<ABattleActionBase>(Actor);
 			}
 		}
@@ -78,7 +76,7 @@ void ABattleActionBase::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AAct
 			if (enemyStaminaComp && enemyStaminaComp->SuccesfullExecution(Damage))
 			{
 				GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "Blocked");
-				//TODO: send message to attack to deactivate
+				DeActivate();
 				return;
 			}
 			//if block failes, stop block and clear stamina

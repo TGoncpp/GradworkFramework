@@ -33,7 +33,7 @@ void UKnockBackComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 		return;
 
 	//move player in knowkback direction
-	GetOwner()->AddActorLocalOffset(m_NormalisedKnockDirection * m_FallSpeed * DeltaTime);
+	GetOwner()->AddActorWorldOffset(m_NormalisedKnockDirection * m_FallSpeed * DeltaTime);
 	m_CurrentKnockTime -= DeltaTime;
 
 	//update stunTime
