@@ -55,6 +55,12 @@ void ABattleActionBase::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AAct
 {
 	if (OtherActor != this && OtherActor->Tags.Contains("Body") && OtherActor != m_ParentActor)
 	{
+		//STUNNED
+		UKnockBackComponent* enemyKnockbackComp = OtherActor->FindComponentByClass<UKnockBackComponent>();
+		if (enemyKnockbackComp && enemyKnockbackComp->IsStunned())
+			return;
+			
+
 		//BLOCK
 		//get refrence off current action off OtherActor
 		ABattleActionBase* blockAction = nullptr;
@@ -94,7 +100,6 @@ void ABattleActionBase::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AAct
 		}
 
 		//send message to enemy knockback component
-		UKnockBackComponent* enemyKnockbackComp = OtherActor->FindComponentByClass<UKnockBackComponent>();
 		if (enemyKnockbackComp)
 		{
 			FVector direction = OtherActor->GetActorLocation() - GetActorLocation();

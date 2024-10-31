@@ -37,6 +37,13 @@ void UHealthComponent::RecieveDamage(float damage)
 		Die();
 }
 
+void UHealthComponent::Recover()
+{
+	m_Health += MAX_HEALTH * 0.7f;
+	if (m_Health > MAX_HEALTH)
+		m_Health = MAX_HEALTH;
+}
+
 void UHealthComponent::Die()
 {
 	OnDead.Broadcast();

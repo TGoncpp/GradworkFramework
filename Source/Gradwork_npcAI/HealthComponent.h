@@ -22,6 +22,8 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	float GetHealthPercentage() const { return m_Health/MAX_HEALTH; }
 	void RecieveDamage(float damage);
+	UFUNCTION(BlueprintCallable, Category = "Heal")
+	void Recover();
 
 	void Die();
 	void Revive();

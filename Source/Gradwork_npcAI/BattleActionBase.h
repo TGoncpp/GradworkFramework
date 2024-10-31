@@ -48,6 +48,8 @@ public:
 	float GetExecutionTime() const { return ExecutionTime; }
 	FString GetActionName() const { return ActionName; }
 	EActions GetActionType() const { return m_ActionType; }
+	UFUNCTION(BlueprintCallable, Category = "Heal")
+	AActor* GetParent() const { return m_ParentActor; }
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EActions m_ActionType = EActions::Quick;

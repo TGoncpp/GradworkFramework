@@ -27,11 +27,15 @@ void ASoulsCharacter::BeginPlay()
 	Tags.Add("Body");
 
 	//add event for dead from healthcomponent
-	m_HealthComponent->OnDead.AddDynamic(this, &ASoulsCharacter::Ragdoll);
 	//add event for revive from healthcomponent
-	m_HealthComponent->OnRevive.AddDynamic(this, &ASoulsCharacter::RiseAgain);
+	if (m_HealthComponent)
+	{
+		m_HealthComponent->OnDead.AddDynamic(this, &ASoulsCharacter::Ragdoll);
+		m_HealthComponent->OnRevive.AddDynamic(this, &ASoulsCharacter::RiseAgain);
+	}
 	//add event for knockback from knockbackcomponent
-	m_KnockbackComponent->OnGetHit.AddDynamic(this, &ASoulsCharacter::ResetQueue);
+	if (m_KnockbackComponent)
+		m_KnockbackComponent->OnGetHit.AddDynamic(this, &ASoulsCharacter::ResetQueue);
 }
 
 void ASoulsCharacter::Tick(float DeltaTime)
@@ -158,6 +162,7 @@ void ASoulsCharacter::ExecuteAttacks()
 void ASoulsCharacter::ReturnToIdle()
 {
 	m_IsIdle = true;
+	m_ActivatedAction = nullptr;
 }
 
 void ASoulsCharacter::PrintQueue()
@@ -176,5 +181,8 @@ void ASoulsCharacter::ResetQueue()
 		m_ActionQueue.Pop(size);
 	
 	if (m_ActivatedAction)
+	{
 		m_ActivatedAction->ResetAction();
+		m_ActivatedAction->DeActivate();
+	}
 }
