@@ -18,6 +18,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	bool SuccesfullExecution(float cost);
+	void ClearStamina();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	float GetStaminaPercentage() const { return m_Stamina / MAX_STAMINA; }

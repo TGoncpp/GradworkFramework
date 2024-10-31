@@ -51,3 +51,8 @@ bool UStaminaComponent::SuccesfullExecution(float cost)
 	return true;
 }
 
+void UStaminaComponent::ClearStamina()
+{
+	m_Stamina = 0.0f;
+}
+

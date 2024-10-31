@@ -37,8 +37,14 @@ void ASoulsCharacter::BeginPlay()
 void ASoulsCharacter::Tick(float DeltaTime)
 {
 	//Do nothing if no actions enqueued
-	if (m_ActionQueue.Num() <= 0 || m_KnockbackComponent->IsStunned())
+	if (m_ActionQueue.Num() <= 0 )
 		return;
+	//When stunned but block is still active
+	if (m_KnockbackComponent->IsStunned())
+	{
+		StopBlock();
+		return;
+	}
 
 	//if not doing an action, start the first off the queue
 	if (m_IsIdle)
@@ -116,6 +122,9 @@ void ASoulsCharacter::Block()
 
 void ASoulsCharacter::StopBlock()
 {
+	if (!m_ActivatedAction || m_ActivatedAction->GetActionType() != EActions::Block)
+		return;
+
 	//set to true to activate the queue again
 	m_IsIdle = true;
 	//remove all other actions from queue, else it get stuck on second block.

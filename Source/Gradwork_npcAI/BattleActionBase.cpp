@@ -55,6 +55,39 @@ void ABattleActionBase::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AAct
 {
 	if (OtherActor != this && OtherActor->Tags.Contains("Body"))
 	{
+		//BLOCK
+		//get refrence off current action off OtherActor
+		ABattleActionBase* blockAction = nullptr;
+		TArray<AActor*> AttachedActors;
+		OtherActor->GetAttachedActors(AttachedActors);
+		//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Blue, FString::Printf(TEXT("Found Action num : %i"), AttachedActors.Num()));
+		for (AActor* Actor : AttachedActors)
+		{
+			if (Actor->Tags.Contains("Block"))
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Blue, "Found blockAction");
+				blockAction = Cast<ABattleActionBase>(Actor);
+			}
+		}
+
+		//Check if blocking
+		if (blockAction && blockAction->BlockIsActive)
+		{
+			//adjust stamina if block
+			UStaminaComponent* enemyStaminaComp = OtherActor->FindComponentByClass<UStaminaComponent>();
+			if (enemyStaminaComp && enemyStaminaComp->SuccesfullExecution(Damage))
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "Blocked");
+				//TODO: send message to attack to deactivate
+				return;
+			}
+			//if block failes, stop block and clear stamina
+			//when stunned, block will be stopped in soulsCharacter Tick
+			enemyStaminaComp->ClearStamina();
+		}
+
+
+		//NO BLOCK
 		//send message to enemy health component
 		UHealthComponent* enemyHealthComp = OtherActor->FindComponentByClass<UHealthComponent>();
 		if (enemyHealthComp)
@@ -72,7 +105,6 @@ void ABattleActionBase::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AAct
 			enemyKnockbackComp->RecieveDamage(direction, KnockPower);
 		}
 
-		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "collision");
 	}
 }
 

@@ -51,6 +51,10 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EActions m_ActionType = EActions::Quick;
+
+	//is set only in blueprint
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Block")
+	bool BlockIsActive = false;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
