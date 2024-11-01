@@ -56,6 +56,7 @@ public:
 
 	virtual void StopBlock() { GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "StopBlock"); };
 
+	virtual void LockOn() { GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "LockOn"); };
 			
 	/** fast attack input */
 	virtual void Heal(){ GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "Heal"); };
@@ -68,6 +69,9 @@ protected:
 	
 	// To add mapping context
 	virtual void BeginPlay();
+
+	bool m_IsLockOn = false;
+
 
 public:
 	/** Returns CameraBoom subobject **/

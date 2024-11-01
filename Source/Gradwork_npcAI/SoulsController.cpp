@@ -42,6 +42,10 @@ void ASoulsController::OnPossess(APawn* pawn)
 		if (LookAction)
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ASoulsController::Look);
 
+		// Looking
+		if (LockOnAction)
+		EnhancedInputComponent->BindAction(LockOnAction, ETriggerEvent::Started, this, &ASoulsController::LockOn);
+
 		//Battle Actions
 		//Quick attack
 		if (QuickAttackAction)

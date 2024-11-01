@@ -58,6 +58,10 @@ public:
 	/** Look Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction = nullptr;
+	
+	/** Look Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* LockOnAction = nullptr;
 
 #pragma endregion Actions
 
@@ -82,6 +86,7 @@ private:
 	void Block() { m_PlayerRefrence->Block(); };
 	void StopBlock() { m_PlayerRefrence->StopBlock(); };
 	void Throw() { m_PlayerRefrence->ThrowAttack(); };
+	void LockOn() { m_PlayerRefrence->LockOn(); };
 
 #pragma endregion ActionFunctions
 

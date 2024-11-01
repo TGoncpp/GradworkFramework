@@ -39,6 +39,7 @@ public:
 	virtual void Block()override;				
 	virtual void StopBlock()override;
 	virtual void Heal()override;
+	virtual void LockOn()override;
 	
 #pragma endregion Battle Actions
 
@@ -47,13 +48,18 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void RiseAgain();
 
+	UFUNCTION(BlueprintCallable)
+	void FoundTarget(ASoulsCharacter* target);
+	
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<EActions, ABattleActionBase*> m_Actions;
-	
 protected:
 
 	UFUNCTION(BlueprintCallable)
 	void AddAction(ABattleActionBase* newAction);
+
+	ASoulsCharacter* m_Target = nullptr;
 
 #pragma region components
 	UPROPERTY(VisibleAnywhere)
@@ -69,6 +75,7 @@ private:
 	void ReturnToIdle();
 	UFUNCTION()
 	void ResetQueue();
+	void LookAtTarget();
 
 	//DebugFunctions
 	void PrintQueue();

@@ -2,7 +2,7 @@
 #include "HealthComponent.h"
 #include "StaminaComponent.h"
 #include "KnockbackComponent.h"
-
+#include "Kismet/KismetMathLibrary.h"
 
 ASoulsCharacter::ASoulsCharacter()
 {
@@ -40,6 +40,9 @@ void ASoulsCharacter::BeginPlay()
 
 void ASoulsCharacter::Tick(float DeltaTime)
 {
+	if (m_IsLockOn)
+		LookAtTarget();
+
 	//Do nothing if no actions enqueued
 	if (m_ActionQueue.Num() <= 0 )
 		return;
@@ -145,6 +148,23 @@ void ASoulsCharacter::Heal()
 	PrintQueue();
 }
 
+void ASoulsCharacter::LockOn()
+{
+	if (!m_Target)
+	{
+		m_IsLockOn = false;
+		return;
+	}
+
+	m_IsLockOn = !m_IsLockOn;
+
+}
+
+void ASoulsCharacter::FoundTarget(ASoulsCharacter* target)
+{
+	m_Target = target;
+}
+
 void ASoulsCharacter::AddAction(ABattleActionBase* newAction)
 {
 	m_Actions.Add(newAction->m_ActionType, newAction);
@@ -184,4 +204,18 @@ void ASoulsCharacter::ResetQueue()
 	{
 		m_ActivatedAction->DeActivate();
 	}
+}
+
+void ASoulsCharacter::LookAtTarget()
+{
+	FVector ActorLocation = GetActorLocation();
+	FVector TargetLocation;
+	if (m_Target)
+		TargetLocation = m_Target->GetActorLocation();
+
+	// Calculate the rotation needed to look at the target
+	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(ActorLocation, TargetLocation);
+
+	// Set the actor's rotation to the calculated rotation
+	SetActorRotation(LookAtRotation);
 }
