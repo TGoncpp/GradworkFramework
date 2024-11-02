@@ -12,7 +12,7 @@ void ANPC_Controller::BeginPlay()
 
     AIPerceptionComponent = FindComponentByClass< UAIPerceptionComponent>();
     checkf(AIPerceptionComponent, TEXT("Invallid or missing AIPerceptioncomponent found in AIController"));
-    AIPerceptionComponent->OnPerceptionUpdated.AddDynamic(this, &ANPC_Controller::OnPerceptionUpdated);
+    AIPerceptionComponent->OnTargetPerceptionUpdated.AddDynamic(this, &ANPC_Controller::OnPerceptionUpdated);
 
 
 }
@@ -31,14 +31,9 @@ void ANPC_Controller::OnUnPossess()
     Super::OnUnPossess();
 }
 
-void ANPC_Controller::OnPerceptionUpdated(const TArray<AActor*>& UpdatedActors)
+void ANPC_Controller::OnPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 {
+    GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Blue, TEXT("update perception"));
 
-    for (auto& actor : UpdatedActors)
-    {
-        if (actor != m_NpcRefrence && Tags.Contains("Character"))
-        {
-            GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Blue, TEXT("found the enemy"));
-        }
-   }
+    
 }

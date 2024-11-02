@@ -127,7 +127,6 @@ void ASoulsCharacter::Block()
 	}
 	
 	PrintQueue();
-
 }
 
 void ASoulsCharacter::StopBlock()

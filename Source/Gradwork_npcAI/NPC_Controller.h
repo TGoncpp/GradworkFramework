@@ -41,7 +41,7 @@ private:
 
 	//Perception
 	UFUNCTION()
-	void OnPerceptionUpdated(const TArray<AActor*>& UpdatedActors);
+	void OnPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
 
 	//CharacterRefrence
 	UPROPERTY()
