@@ -10,8 +10,8 @@ void ASoulsController::OnPossess(APawn* pawn)
 {
 	Super::OnPossess(pawn);
 
-	m_PlayerRefrence = Cast<ASoulsCharacter>(pawn);
-	checkf(m_PlayerRefrence, TEXT("Invallid or missing player refrence in controller"));
+	m_NpcRefrence = Cast<ASoulsCharacter>(pawn);
+	checkf(m_NpcRefrence, TEXT("Invallid or missing player refrence in controller"));
 
 	//Get local player subsystem
 	UEnhancedInputLocalPlayerSubsystem* Subsystem =

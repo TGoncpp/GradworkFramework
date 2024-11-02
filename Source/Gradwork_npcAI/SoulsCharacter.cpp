@@ -42,35 +42,35 @@ void ASoulsCharacter::Tick(float DeltaTime)
 {
 	if (m_IsLockOn)
 		LookAtTarget();
-
+	
 	//Do nothing if no actions enqueued
 	if (m_ActionQueue.Num() <= 0 )
 		return;
 	//When stunned but block is still active
-	if (m_KnockbackComponent->IsStunned())
+	if (m_KnockbackComponent && m_KnockbackComponent->IsStunned())
 	{
 		StopBlock();
 		return;
 	}
-
+	
 	//if not doing an action, start the first off the queue
 	if (m_IsIdle)
 	{
 		m_IsIdle = false;
-
+	
 		m_ActivatedAction = m_ActionQueue.First();
 		m_ActionQueue.PopFront();
 		
 		//if action is block -> continue until it is released. else stop after set amount off time
 		if (m_ActivatedAction->GetActionType() != EActions::Block)
 			GetWorld()->GetTimerManager().SetTimer(m_Timer, this, &ASoulsCharacter::ReturnToIdle, m_ActivatedAction->GetExecutionTime(), false);
-
+		
 		m_ActivatedAction->EnQueue(MAX_IN_QUEUE_TIME);
-
+		
 		if (m_ActivatedAction->HasSufficentStamina())
 			m_ActivatedAction->Execute();
 	}
-
+	
 	//RemoveActionsThatAreToLongInQueue();
 
 }
@@ -122,9 +122,12 @@ void ASoulsCharacter::ThrowAttack()
 void ASoulsCharacter::Block()
 {
 	if (m_ActionQueue.Num() < MAX_QUEUESIZE)
+	{
 		m_ActionQueue.Add(m_Actions[EActions::Block]);
-
+	}
+	
 	PrintQueue();
+
 }
 
 void ASoulsCharacter::StopBlock()

@@ -72,21 +72,21 @@ protected:
 private:
 	//CharacterRefrence
 	UPROPERTY()
-	ASoulsCharacter* m_PlayerRefrence = nullptr;
+	ASoulsCharacter* m_NpcRefrence = nullptr;
 
 #pragma region ActionFunctions
 
-	void Jump() { m_PlayerRefrence->Jump(); };
-	void StopJumping() { m_PlayerRefrence->StopJumping(); };
-	void Move(const FInputActionValue& Value) { m_PlayerRefrence->Move(Value); };
-	void Look(const FInputActionValue& Value) { m_PlayerRefrence->Look(Value); };
-	void QuickAttack() { m_PlayerRefrence->QuickAttack(); };
-	void HardAttack() { m_PlayerRefrence->HardAttack(); };
-	void Heal() { m_PlayerRefrence->Heal(); };
-	void Block() { m_PlayerRefrence->Block(); };
-	void StopBlock() { m_PlayerRefrence->StopBlock(); };
-	void Throw() { m_PlayerRefrence->ThrowAttack(); };
-	void LockOn() { m_PlayerRefrence->LockOn(); };
+	void Jump() { m_NpcRefrence->Jump(); };
+	void StopJumping() { m_NpcRefrence->StopJumping(); };
+	void Move(const FInputActionValue& Value) { m_NpcRefrence->Move(Value); };
+	void Look(const FInputActionValue& Value) { m_NpcRefrence->Look(Value); };
+	void QuickAttack() { m_NpcRefrence->QuickAttack(); };
+	void HardAttack() { m_NpcRefrence->HardAttack(); };
+	void Heal() { m_NpcRefrence->Heal(); };
+	void Block() { m_NpcRefrence->Block(); };
+	void StopBlock() { m_NpcRefrence->StopBlock(); };
+	void Throw() { m_NpcRefrence->ThrowAttack(); };
+	void LockOn() { m_NpcRefrence->LockOn(); };
 
 #pragma endregion ActionFunctions
 
