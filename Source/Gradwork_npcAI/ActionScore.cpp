@@ -6,17 +6,13 @@
 ActionScore::ActionScore()
 {
 	m_Scores.Empty();
+	m_Scores.Reserve(10);
 }
 
 ActionScore* ActionScore::CreateActionScore(TArray<float> wheights, TArray<UCurveFloat*> actionCurves)
 {
-	if (wheights.Num() != actionCurves.Num())
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red,TEXT("the arrays have to have the same aount off elements!!!!"));
-		return nullptr;
-	}
+	checkf(wheights.Num() == actionCurves.Num(), TEXT("the arrays have to have the same aount off weights and ghraps!!!!"));
 
-	m_Scores.Reserve(10);
 	for (int index = 0; index < actionCurves.Num(); ++index)
 	{
 		checkf(actionCurves[index], TEXT("actioncurve is invallid on index : %i"), index);
@@ -28,12 +24,17 @@ ActionScore* ActionScore::CreateActionScore(TArray<float> wheights, TArray<UCurv
 
 float ActionScore::CalculateActionScore() const
 {
+	checkf(m_Scores.Num() != 0, TEXT("no score is storred."));
+
 	float totalWeight = 0;
 	float totalscore = 0;
+	int index = 0;
 	for (const auto& score : m_Scores)
 	{
+		checkf( score, TEXT("INVALLID score stored in index %i"), index);
 		totalWeight += score->m_Weight;
 		totalscore += score->CalculateActionScore(0.5f); //change this magic number to a blackboard value
+		index++;
 	}
 
 
