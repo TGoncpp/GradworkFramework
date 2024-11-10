@@ -171,6 +171,8 @@ void ASoulsCharacter::AddAction(ABattleActionBase* newAction)
 {
 	m_Actions.Add(newAction->m_ActionType, newAction);
 	newAction->AddParent(this);
+	newAction->AddParentMovementComp(GetCharacterMovement());
+
 }
 
 #pragma endregion inputhandeling

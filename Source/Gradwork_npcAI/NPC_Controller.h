@@ -19,25 +19,36 @@ class GRADWORK_NPCAI_API ANPC_Controller : public AAIController
 public:
 	ANPC_Controller();
 
+	UFUNCTION(BlueprintCallable, Category = "AI-Input")
+	void StopAIMovement();
+
+	UFUNCTION(BlueprintCallable, Category = "AI-Input")
+	void LockOn() { m_NpcRefrence->LockOn(); };
 
 protected:
 	virtual void BeginPlay() override;
 	
-	UtilityAI* m_BehaviourSystem = nullptr;
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void OnUnPossess() override;
 
+	UtilityAI* m_BehaviourSystem = nullptr;
+
 private:
 	//Actions
-	void Move(const FInputActionValue& Value) { m_NpcRefrence->Move(Value); };
-	void Look(const FInputActionValue& Value) { m_NpcRefrence->Look(Value); };
+	//void Move(const FInputActionValue& Value) { m_NpcRefrence->Move(Value); };
+	//void Look(const FInputActionValue& Value) { m_NpcRefrence->Look(Value); };
 	void QuickAttack() { m_NpcRefrence->QuickAttack(); };
 	void HardAttack() { m_NpcRefrence->HardAttack(); };
 	void Heal() { m_NpcRefrence->Heal(); };
 	void Block() { m_NpcRefrence->Block(); };
 	void StopBlock() { m_NpcRefrence->StopBlock(); };
 	void Throw() { m_NpcRefrence->ThrowAttack(); };
-	void LockOn() { m_NpcRefrence->LockOn(); };
+
+	//movement
+	void SetMovement(const FVector2D& newMoveInput);
+	void UpdateMovement()const;
+
+	FVector2D m_MovementVector = FVector2D{0.0, 0.0};
 
 	//Perception
 	UFUNCTION()

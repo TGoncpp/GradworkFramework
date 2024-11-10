@@ -3,6 +3,7 @@
 #include "StaminaComponent.h"
 #include "KnockbackComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 ABattleActionBase::ABattleActionBase()
 {
@@ -50,6 +51,11 @@ bool ABattleActionBase::HasSufficentStamina() const
 	return staminaComp->SuccesfullExecution(Cost);
 }
 
+
+UCharacterMovementComponent* ABattleActionBase::GetParentMovementComp() const
+{
+	return m_parentMovementComp;;
+}
 
 void ABattleActionBase::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
@@ -115,5 +121,10 @@ void ABattleActionBase::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AAct
 void ABattleActionBase::AddParent(AActor* parent)
 {
 	m_ParentActor = parent;
+}
+
+void ABattleActionBase::AddParentMovementComp(UCharacterMovementComponent* parentMoveComp)
+{
+	m_parentMovementComp = parentMoveComp;
 }
 

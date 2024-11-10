@@ -37,3 +37,20 @@ void ANPC_Controller::OnPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 
     
 }
+
+void ANPC_Controller::SetMovement(const FVector2D& newMoveInput)
+{
+    m_MovementVector = newMoveInput;
+    m_NpcRefrence->Move(m_MovementVector);
+
+}
+
+void ANPC_Controller::UpdateMovement() const
+{
+    m_NpcRefrence->Move(m_MovementVector);
+}
+
+void ANPC_Controller::StopAIMovement()
+{
+    m_MovementVector = { 0.0, 0.0 };
+}

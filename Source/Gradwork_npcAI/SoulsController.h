@@ -80,13 +80,14 @@ private:
 	void StopJumping() { m_NpcRefrence->StopJumping(); };
 	void Move(const FInputActionValue& Value) { m_NpcRefrence->Move(Value); };
 	void Look(const FInputActionValue& Value) { m_NpcRefrence->Look(Value); };
+	void LockOn() { m_NpcRefrence->LockOn(); };
+
 	void QuickAttack() { m_NpcRefrence->QuickAttack(); };
 	void HardAttack() { m_NpcRefrence->HardAttack(); };
 	void Heal() { m_NpcRefrence->Heal(); };
 	void Block() { m_NpcRefrence->Block(); };
 	void StopBlock() { m_NpcRefrence->StopBlock(); };
 	void Throw() { m_NpcRefrence->ThrowAttack(); };
-	void LockOn() { m_NpcRefrence->LockOn(); };
 
 #pragma endregion ActionFunctions
 

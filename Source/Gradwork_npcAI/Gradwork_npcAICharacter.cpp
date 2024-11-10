@@ -76,6 +76,7 @@ void AGradwork_npcAICharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
 	FVector2D MovementVector = Value.Get<FVector2D>();
+	//GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Emerald, FString::Printf(TEXT("X: %f, Y: %f"), MovementVector.X, MovementVector.Y));
 
 	//For camera independent movement
 	//if (Controller != nullptr)
@@ -97,6 +98,12 @@ void AGradwork_npcAICharacter::Move(const FInputActionValue& Value)
 
 	AddMovementInput(GetActorForwardVector(), MovementVector.Y);
 	AddMovementInput(GetActorRightVector(), MovementVector.X);
+}
+
+void AGradwork_npcAICharacter::Move(const FVector2D& Value)
+{
+	AddMovementInput(GetActorForwardVector(), Value.Y);
+	AddMovementInput(GetActorRightVector(), Value.X);
 }
 
 void AGradwork_npcAICharacter::Look(const FInputActionValue& Value)

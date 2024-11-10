@@ -37,9 +37,13 @@ public:
 
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
+	void Move(const FVector2D& Value);
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
+
+	virtual void LockOn() { GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "LockOn"); };
+			
 			
 	//Battle Actions
 	/** fast attack input */
@@ -55,9 +59,6 @@ public:
 	virtual void Block(){ GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "Block"); };
 
 	virtual void StopBlock() { GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "StopBlock"); };
-
-	virtual void LockOn() { GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "LockOn"); };
-			
 	/** fast attack input */
 	virtual void Heal(){ GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "Heal"); };
 			

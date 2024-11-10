@@ -7,6 +7,7 @@
 
 #include "BattleActionBase.generated.h"
 
+class UCharacterMovementComponent;
 
 UENUM()
 enum class EActions
@@ -29,6 +30,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void AddParent(AActor* parent);
+	void AddParentMovementComp(UCharacterMovementComponent* parentMoveComp);
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void Execute();
@@ -70,6 +72,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString ActionName{ "default"};
 
+	UFUNCTION(BlueprintCallable, Category = "actions")
+	UCharacterMovementComponent* GetParentMovementComp()const;
+
 private:
 	float M_InQueueTimeLeft{ 0.0f };
 	UFUNCTION()
@@ -78,6 +83,8 @@ private:
 						UPrimitiveComponent* OtherComp, 
 						int32 OtherBodyIndex, 
 						bool bFromSweep, const FHitResult& SweepResult);
+
 	class UCapsuleComponent* m_TriggerCapsule = nullptr;
 	AActor* m_ParentActor = nullptr;
+	UCharacterMovementComponent* m_parentMovementComp = nullptr;
 };
