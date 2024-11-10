@@ -1,5 +1,5 @@
 #include "NPC_Controller.h"
-#include "UtilityAI.h"
+#include "UtilityAIBehaviour.h"
 
 
 ANPC_Controller::ANPC_Controller()
@@ -22,6 +22,7 @@ void ANPC_Controller::OnPossess(APawn* InPawn)
     Super::OnPossess(InPawn);
 
     m_NpcRefrence = Cast<ASoulsCharacter>(InPawn);
+    
     
     GetWorld()->GetTimerManager().SetTimer(m_Timer, this, &ANPC_Controller::Block, 4.0f, false);
 }
@@ -93,3 +94,27 @@ void ANPC_Controller::StopAIMovement()
 {
     m_MovementVector = { 0.0, 0.0 };
 }
+
+void ANPC_Controller::AddUtillityToBehaviourMap(AUtilityAIBehaviour* actionScore)
+{
+    m_BehaviourSystems.Add(EBehaviour::Utility, actionScore);
+    if (m_BehaviourSystems.Num() == 0 || m_BehaviourSystems[EBehaviour::Utility] == nullptr)
+    {
+        GEngine->AddOnScreenDebugMessage(-1, 13.0f, FColor::Blue, TEXT("failed adding off behaviour"));
+        return;
+    }
+
+
+    m_SelectedBehaviourSystem = m_BehaviourSystems[EBehaviour::Utility];//remove this when making more systems
+}
+
+
+//void ANPC_Controller::AddGOAPToBehaviourMap(AIBehaviourBase* actionScore)
+//{
+//    m_BehaviourSystems.Add(EBehaviour::GOAP, actionScore);
+//}
+//
+//void ANPC_Controller::AddHybridToBehaviourMap(AIBehaviourBase* actionScore)
+//{
+//    m_BehaviourSystems.Add(EBehaviour::Hybrid, actionScore);
+//}

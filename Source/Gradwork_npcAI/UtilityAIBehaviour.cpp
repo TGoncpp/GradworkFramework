@@ -15,7 +15,18 @@ AUtilityAIBehaviour::AUtilityAIBehaviour()
 void AUtilityAIBehaviour::BeginPlay()
 {
 	Super::BeginPlay();
+
+	CreateActionToScore();
 	
+}
+
+void AUtilityAIBehaviour::AddCurvesToScoreableList(TArray<UCurveFloat*> curves, TArray<float> wheights)
+{
+	ActionScore* newActiontoScore = NewObject< ActionScore>(this);
+	newActiontoScore = newActiontoScore->CreateActionScore(wheights, curves);
+	m_ActionScores.Add(newActiontoScore);
+	
+
 }
 
 // Called every frame
@@ -23,5 +34,16 @@ void AUtilityAIBehaviour::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+EAction AUtilityAIBehaviour::Execute(FVector2D& moveInput)
+{
+	if (m_ActionScores.Num()> 0 && m_ActionScores[0] != nullptr)
+		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("calculated value off action index 0 : %f"),m_ActionScores[0]->CalculateActionScore()));
+	else
+		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, FString::Printf(TEXT("no entery in map off behaviours : %i"),m_ActionScores.Num()));
+
+
+	return EAction();
 }
 

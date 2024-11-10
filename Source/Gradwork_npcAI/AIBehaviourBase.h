@@ -11,6 +11,7 @@ enum class EBehaviour
 	Hybrid
 };
 
+UENUM()
 enum class EAction
 {
 	Walk,
@@ -25,7 +26,7 @@ class GRADWORK_NPCAI_API AIBehaviourBase
 {
 public:
 	AIBehaviourBase();
-	~AIBehaviourBase();
+	virtual ~AIBehaviourBase();
 
 	virtual EAction Execute(FVector2D& moveInput) = 0;
 

@@ -25,6 +25,15 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "AI-Input")
 	void LockOn() { m_NpcRefrence->LockOn(); };
 
+	UFUNCTION(BlueprintCallable, Category = "AI-Input")
+	void AddUtillityToBehaviourMap(AUtilityAIBehaviour* actionScore);
+	
+	//UFUNCTION(BlueprintCallable, Category = "AI-Input")
+	//void AddGOAPToBehaviourMap(AIBehaviourBase* actionScore);
+	//
+	//UFUNCTION(BlueprintCallable, Category = "AI-Input")
+	//void AddHybridToBehaviourMap(AIBehaviourBase* actionScore);
+
 protected:
 	virtual void BeginPlay() override;
 	
