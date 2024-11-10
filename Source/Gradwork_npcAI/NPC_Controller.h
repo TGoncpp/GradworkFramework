@@ -5,11 +5,11 @@
 #include "SoulsCharacter.h"
 #include "Perception/AIPerceptionComponent.h"
 #include "Perception/AISenseConfig_Sight.h"
+#include "AIBehaviourBase.h"
 
 
 #include "NPC_Controller.generated.h"
 
-class UtilityAI;
 
 UCLASS()
 class GRADWORK_NPCAI_API ANPC_Controller : public AAIController
@@ -31,7 +31,9 @@ protected:
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void OnUnPossess() override;
 
-	UtilityAI* m_BehaviourSystem = nullptr;
+	virtual void Tick(float DeltaTime) override;
+
+	void SelectBehaviourSystem(const EBehaviour& selectedState) { m_SelectedBehaviourSystem = m_BehaviourSystems[selectedState]; }
 
 private:
 	//Actions
@@ -63,4 +65,7 @@ private:
 	UAIPerceptionComponent* AIPerceptionComponent = nullptr;
 	FTimerHandle  m_Timer;
 
+	//behavioursystems
+	TMap< EBehaviour,AIBehaviourBase*> m_BehaviourSystems;
+	AIBehaviourBase* m_SelectedBehaviourSystem = nullptr;
 };

@@ -31,6 +31,45 @@ void ANPC_Controller::OnUnPossess()
     Super::OnUnPossess();
 }
 
+void ANPC_Controller::Tick(float DeltaTime)
+{
+    Super::Tick(DeltaTime);
+
+    if (!m_SelectedBehaviourSystem)
+        return;
+    EAction newInput = m_SelectedBehaviourSystem->Execute(m_MovementVector);
+
+    switch (newInput)
+    {
+    case EAction::HardAttack:
+        m_NpcRefrence->StopBlock();
+        m_NpcRefrence->HardAttack();
+        break;
+    case EAction::QuickAttack:
+        m_NpcRefrence->StopBlock();
+        m_NpcRefrence->QuickAttack();
+        break;
+    case EAction::Heal:
+        m_NpcRefrence->StopBlock();
+        m_NpcRefrence->Heal();
+        break;
+    case EAction::Throw:
+        m_NpcRefrence->StopBlock();
+        m_NpcRefrence->ThrowAttack();
+        break;
+    case EAction::Walk:
+        m_NpcRefrence->Move(m_MovementVector);
+        break;
+    case EAction::Block:
+        m_NpcRefrence->Block();
+        break;
+    default:
+        break;
+    }
+}
+
+
+
 void ANPC_Controller::OnPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 {
     GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Blue, TEXT("update perception"));
