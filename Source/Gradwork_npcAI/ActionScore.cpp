@@ -11,12 +11,16 @@ ActionScore::ActionScore()
 
 ActionScore::~ActionScore()
 {
-	for (int index = 0; index < m_Scores.Num(); ++index)
-	{
-		if (m_Scores[index] )
-			delete m_Scores[index];
-	}
+	//for (int index = 0; index < m_Scores.Num(); ++index)
+	//{
+	//	if (m_Scores[index] )
+	//	{
+	//		delete m_Scores[index];
+	//		m_Scores[index] = nullptr;
+	//	}
+	//}
 	m_Scores.Empty();
+
 }
 
 ActionScore* ActionScore::CreateActionScore(TArray<float> wheights, TArray<UCurveFloat*> actionCurves)
@@ -28,7 +32,7 @@ ActionScore* ActionScore::CreateActionScore(TArray<float> wheights, TArray<UCurv
 		checkf(actionCurves.IsValidIndex(index), TEXT("Index %i is out of bounds for actionCurves"), index); 
 		checkf(actionCurves[index], TEXT("actionCurve is invalid on index: %i"), index);
 		checkf(wheights.IsValidIndex(index), TEXT("Index %i is out of bounds for weights"), index);
-		m_Scores.Add(new Score(wheights[index], actionCurves[index]));
+		m_Scores.Add(Score(wheights[index], actionCurves[index]));
 	}
 	
 	return this;
@@ -43,9 +47,10 @@ float ActionScore::CalculateActionScore() const
 	int index = 0;
 	for (const auto& score : m_Scores)
 	{
-		checkf( score, TEXT("INVALLID score stored in index %i"), index);
-		totalWeight += score->m_Weight;
-		totalscore += score->CalculateActionScore(0.5f); //change this magic number to a blackboard value
+		//checkf( score, TEXT("INVALLID score stored in index %i"), index);
+		totalWeight += score.m_Weight;
+
+		totalscore += score.CalculateActionScore(0.5f); //change this magic number to a blackboard value
 		index++;
 	}
 
@@ -64,8 +69,13 @@ Score::Score(float weight, UCurveFloat* curve)
 	m_Curve = curve;
 }
 
+
 float Score::CalculateActionScore(float Xvalue) const
 {
-	return m_Curve->GetFloatValue(Xvalue) * m_Weight;
+	if (m_Curve)
+		return m_Curve->GetFloatValue(Xvalue) * m_Weight;
+
+	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, FString::Printf(TEXT("no vallid curve in score for calculations")));
+	return 0.0f;
 }
 

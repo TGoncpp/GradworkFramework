@@ -13,12 +13,7 @@ AUtilityAIBehaviour::AUtilityAIBehaviour()
 
 AUtilityAIBehaviour::~AUtilityAIBehaviour()
 {
-	for (auto& score : m_ActionScores)
-	{
-		if (score && score->IsValidLowLevel())
-			score->ConditionalBeginDestroy(); 
-	}
-	m_ActionScores.Empty();
+	
 }
 
 // Called when the game starts or when spawned
@@ -28,6 +23,21 @@ void AUtilityAIBehaviour::BeginPlay()
 
 	CreateActionToScore();
 	
+}
+
+void AUtilityAIBehaviour::BeginDestroy()
+{
+	Super::BeginDestroy();
+
+	for (auto& score : m_ActionScores)
+	{
+		if (score && score->IsValidLowLevel())
+		{
+			score->ConditionalBeginDestroy();
+			score = nullptr;
+		}
+	}
+	m_ActionScores.Empty();
 }
 
 void AUtilityAIBehaviour::AddCurvesToScoreableList(TArray<UCurveFloat*> curves, TArray<float> wheights)

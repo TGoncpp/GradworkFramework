@@ -27,6 +27,6 @@ public:
 	float CalculateActionScore() const;
 
 private:
-	TArray<Score*> m_Scores;
+	TArray<Score> m_Scores;
 
 };
