@@ -11,6 +11,16 @@ AUtilityAIBehaviour::AUtilityAIBehaviour()
 
 }
 
+AUtilityAIBehaviour::~AUtilityAIBehaviour()
+{
+	for (auto& score : m_ActionScores)
+	{
+		if (score && score->IsValidLowLevel())
+			score->ConditionalBeginDestroy(); 
+	}
+	m_ActionScores.Empty();
+}
+
 // Called when the game starts or when spawned
 void AUtilityAIBehaviour::BeginPlay()
 {

@@ -9,13 +9,25 @@ ActionScore::ActionScore()
 	m_Scores.Reserve(10);
 }
 
+ActionScore::~ActionScore()
+{
+	for (int index = 0; index < m_Scores.Num(); ++index)
+	{
+		if (m_Scores[index] )
+			delete m_Scores[index];
+	}
+	m_Scores.Empty();
+}
+
 ActionScore* ActionScore::CreateActionScore(TArray<float> wheights, TArray<UCurveFloat*> actionCurves)
 {
 	checkf(wheights.Num() == actionCurves.Num(), TEXT("the arrays have to have the same aount off weights and ghraps!!!!"));
 
 	for (int index = 0; index < actionCurves.Num(); ++index)
 	{
-		checkf(actionCurves[index], TEXT("actioncurve is invallid on index : %i"), index);
+		checkf(actionCurves.IsValidIndex(index), TEXT("Index %i is out of bounds for actionCurves"), index); 
+		checkf(actionCurves[index], TEXT("actionCurve is invalid on index: %i"), index);
+		checkf(wheights.IsValidIndex(index), TEXT("Index %i is out of bounds for weights"), index);
 		m_Scores.Add(new Score(wheights[index], actionCurves[index]));
 	}
 	

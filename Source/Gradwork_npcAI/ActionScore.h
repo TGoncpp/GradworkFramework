@@ -21,6 +21,7 @@ class GRADWORK_NPCAI_API ActionScore : public AActor
 {
 public:
 	ActionScore();
+	~ActionScore();
 
 	ActionScore* CreateActionScore(TArray<float> wheights, TArray<UCurveFloat*> actionCurves);
 	float CalculateActionScore() const;

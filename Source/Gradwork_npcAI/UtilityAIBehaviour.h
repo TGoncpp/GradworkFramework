@@ -18,7 +18,7 @@ class GRADWORK_NPCAI_API AUtilityAIBehaviour : public AActor, public AIBehaviour
 public:	
 	// Sets default values for this actor's properties
 	AUtilityAIBehaviour();
-	virtual ~AUtilityAIBehaviour() = default;
+	virtual ~AUtilityAIBehaviour();
 	virtual void Tick(float DeltaTime) override;
 
 	virtual EAction Execute(FVector2D& moveInput)override;
