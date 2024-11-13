@@ -1,12 +1,10 @@
 
 #include "ActionScore.h"
-
+#include "BlackBoard.h"
 
 
 ActionScore::ActionScore()
 {
-	m_Scores.Empty();
-	m_Scores.Reserve(10);
 }
 
 ActionScore::~ActionScore()
@@ -23,7 +21,13 @@ ActionScore::~ActionScore()
 
 }
 
-ActionScore* ActionScore::CreateActionScore(TArray<float> wheights, TArray<UCurveFloat*> actionCurves)
+void ActionScore::Init()
+{
+	m_Scores.Empty();
+	m_Scores.Reserve(10);
+}
+
+void ActionScore::CreateActionScore(TArray<float> wheights, TArray<UCurveFloat*> actionCurves, TArray<FString> blackboardKeys)
 {
 	checkf(wheights.Num() == actionCurves.Num(), TEXT("the arrays have to have the same aount off weights and ghraps!!!!"));
 
@@ -32,26 +36,26 @@ ActionScore* ActionScore::CreateActionScore(TArray<float> wheights, TArray<UCurv
 		checkf(actionCurves.IsValidIndex(index), TEXT("Index %i is out of bounds for actionCurves"), index); 
 		checkf(actionCurves[index], TEXT("actionCurve is invalid on index: %i"), index);
 		checkf(wheights.IsValidIndex(index), TEXT("Index %i is out of bounds for weights"), index);
-		m_Scores.Add(Score(wheights[index], actionCurves[index]));
+		m_Scores.Add(Score(wheights[index], blackboardKeys[index], actionCurves[index]));
 	}
 	
-	return this;
 }
 
-float ActionScore::CalculateActionScore() const
+float ActionScore::CalculateActionScore(BlackBoard* blackboard) const
 {
 	checkf(m_Scores.Num() != 0, TEXT("no score is storred."));
 
 	float totalWeight = 0;
 	float totalscore = 0;
-	int index = 0;
 	for (const auto& score : m_Scores)
 	{
-		//checkf( score, TEXT("INVALLID score stored in index %i"), index);
-		totalWeight += score.m_Weight;
+		//checkf( score.m_Curve, TEXT("INVALLID score stored in index %i"), index);
+		if (!score.curve)
+			return 0.0f;
 
-		totalscore += score.CalculateActionScore(0.5f); //change this magic number to a blackboard value
-		index++;
+		totalWeight += score.weight;
+
+		totalscore += score.CalculateActionScore(blackboard);
 	}
 
 
@@ -59,21 +63,11 @@ float ActionScore::CalculateActionScore() const
 }
 
 
-//-----------------------------------------------
-//SCORE
-//______________________________________________
 
-Score::Score(float weight, UCurveFloat* curve)
+float Score::CalculateActionScore(BlackBoard* blackboard) const
 {
-	m_Weight = weight;
-	m_Curve = curve;
-}
-
-
-float Score::CalculateActionScore(float Xvalue) const
-{
-	if (m_Curve)
-		return m_Curve->GetFloatValue(Xvalue) * m_Weight;
+	if (curve)
+		return curve->GetFloatValue(blackboard->GetKeyValue(blackboardKey)) * weight;
 
 	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, FString::Printf(TEXT("no vallid curve in score for calculations")));
 	return 0.0f;

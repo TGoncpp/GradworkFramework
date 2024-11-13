@@ -10,6 +10,7 @@
 
 #include "NPC_Controller.generated.h"
 
+class BlackBoard;
 
 UCLASS()
 class GRADWORK_NPCAI_API ANPC_Controller : public AAIController
@@ -27,6 +28,11 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "AI-Input")
 	void AddUtillityToBehaviourMap(AUtilityAIBehaviour* actionScore);
+
+	UFUNCTION(BlueprintCallable, Category = "blackboard")
+	void AddToBlackboard(const FString& key, float value);
+	UFUNCTION(BlueprintCallable, Category = "blackboard")
+	void UpdateBlackboard(const FString& key, float value);
 	
 	//UFUNCTION(BlueprintCallable, Category = "AI-Input")
 	//void AddGOAPToBehaviourMap(AIBehaviourBase* actionScore);
@@ -42,7 +48,7 @@ protected:
 
 	virtual void Tick(float DeltaTime) override;
 
-	void SelectBehaviourSystem(const EBehaviour& selectedState) { m_SelectedBehaviourSystem = m_BehaviourSystems[selectedState]; }
+	//void SelectBehaviourSystem(const EBehaviour& selectedState) { m_SelectedBehaviourSystem = m_BehaviourSystems[selectedState]; }
 
 private:
 	//Actions
@@ -76,5 +82,6 @@ private:
 
 	//behavioursystems
 	TMap< EBehaviour,AIBehaviourBase*> m_BehaviourSystems;
-	AIBehaviourBase* m_SelectedBehaviourSystem = nullptr;
+	AUtilityAIBehaviour* m_SelectedBehaviourSystem = nullptr;
+	TUniquePtr< BlackBoard> m_Blackboard = nullptr;
 };

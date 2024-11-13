@@ -10,6 +10,7 @@
 
 #include "UtilityAIBehaviour.generated.h"
 
+
 UCLASS()
 class GRADWORK_NPCAI_API AUtilityAIBehaviour : public AActor, public AIBehaviourBase
 {
@@ -31,13 +32,12 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void CreateActionToScore();
 	UFUNCTION(BlueprintCallable)
-	void AddCurvesToScoreableList(TArray<UCurveFloat*> curves, TArray<float> wheights);
+	void AddCurvesToScoreableList(TArray<UCurveFloat*> curves, TArray<float> wheights, TArray<FString> blackboardKeys);
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<UCurveFloat*> actionCurves;
 
 private:	
-	TArray< ActionScore*> m_ActionScores;
-
+	TArray< TUniquePtr< ActionScore>> m_ActionScores;
 };

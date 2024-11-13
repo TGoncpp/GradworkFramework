@@ -2,6 +2,7 @@
 
 
 #include "UtilityAIBehaviour.h"
+#include "BlackBoard.h"
 
 // Sets default values
 AUtilityAIBehaviour::AUtilityAIBehaviour()
@@ -29,23 +30,14 @@ void AUtilityAIBehaviour::BeginDestroy()
 {
 	Super::BeginDestroy();
 
-	for (auto& score : m_ActionScores)
-	{
-		if (score && score->IsValidLowLevel())
-		{
-			score->ConditionalBeginDestroy();
-			score = nullptr;
-		}
-	}
 	m_ActionScores.Empty();
 }
 
-void AUtilityAIBehaviour::AddCurvesToScoreableList(TArray<UCurveFloat*> curves, TArray<float> wheights)
+void AUtilityAIBehaviour::AddCurvesToScoreableList(TArray<UCurveFloat*> curves, TArray<float> wheights, TArray<FString> blackboardKeys)
 {
-	ActionScore* newActiontoScore = NewObject< ActionScore>(this);
-	newActiontoScore = newActiontoScore->CreateActionScore(wheights, curves);
-	m_ActionScores.Add(newActiontoScore);
-	
+	m_ActionScores.Add(MakeUnique< ActionScore>());
+	m_ActionScores.Last()->Init();
+	m_ActionScores.Last()->CreateActionScore(wheights, curves, blackboardKeys);
 
 }
 
@@ -58,8 +50,9 @@ void AUtilityAIBehaviour::Tick(float DeltaTime)
 
 EAction AUtilityAIBehaviour::Execute(FVector2D& moveInput)
 {
-	if (m_ActionScores.Num()> 0 && m_ActionScores[0] != nullptr)
-		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("calculated value off action index 0 : %f"),m_ActionScores[0]->CalculateActionScore()));
+	
+	if (m_ActionScores.Num()> 0 && m_ActionScores[0] != nullptr && m_BlackboardRef)
+		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("calculated value off action index 0 : %f"),m_ActionScores[0]->CalculateActionScore(m_BlackboardRef)));
 	else
 		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, FString::Printf(TEXT("no entery in map off behaviours : %i"),m_ActionScores.Num()));
 

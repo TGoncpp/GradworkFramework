@@ -6,27 +6,31 @@
 /**
  * 
  */
-class Score
+class BlackBoard;
+
+struct Score
 {
-public:
-	Score(float weight, UCurveFloat* curve);
-	float CalculateActionScore(float Xvalue) const;
+	float weight = 0;
+	FString blackboardKey;
+	UCurveFloat* curve = nullptr;
 
-	float m_Weight = 0;
-	UCurveFloat* m_Curve = nullptr;
-
+	float CalculateActionScore(BlackBoard* blackboard) const;
 };
 
-class GRADWORK_NPCAI_API ActionScore : public AActor
+class GRADWORK_NPCAI_API ActionScore 
 {
 public:
 	ActionScore();
 	~ActionScore();
 
-	ActionScore* CreateActionScore(TArray<float> wheights, TArray<UCurveFloat*> actionCurves);
-	float CalculateActionScore() const;
+	void Init();
+
+	void CreateActionScore(TArray<float> wheights, TArray<UCurveFloat*> actionCurves, TArray<FString> blackboardKeys);
+	float CalculateActionScore(BlackBoard* blackboard) const;
 
 private:
+
+	
 	TArray<Score> m_Scores;
 
 };

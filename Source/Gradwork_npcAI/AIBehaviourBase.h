@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "BlackBoard.h"
 
 enum class EBehaviour
 {
@@ -30,6 +31,10 @@ public:
 
 	virtual EAction Execute(FVector2D& moveInput) = 0;
 
+	void AddBlackboardRefrence(BlackBoard* blackboardRef);
+
 protected:
 	FVector2D m_MoveInput{ 0.0, 0.0 };
+	BlackBoard* m_BlackboardRef = nullptr;
+
 };
