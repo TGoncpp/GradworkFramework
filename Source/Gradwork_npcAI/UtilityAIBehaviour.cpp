@@ -57,7 +57,7 @@ EAction AUtilityAIBehaviour::Execute(FVector2D& moveInput)
 	{
 		for (const auto& action : m_ActionScores)
 		{
-			int score = action->CalculateActionScore(m_BlackboardRef);
+			float score = action->CalculateActionScore(m_BlackboardRef);
 			//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("calculated value off action index 0 : %f"),score));
 			
 			if (score > highestScore)

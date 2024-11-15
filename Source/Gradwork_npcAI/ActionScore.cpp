@@ -55,6 +55,7 @@ float ActionScore::CalculateActionScore(BlackBoard* blackboard) const
 		totalscore += score.CalculateActionScore(blackboard);
 	}
 
+	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("ToatalScore off action : %f, totalweight: %f, score : %f"), totalscore, totalWeight, totalscore / totalWeight));
 
 	return totalscore/totalWeight;
 }
@@ -76,7 +77,7 @@ float Score::CalculateActionScore(BlackBoard* blackboard) const
 		float curveValue = curve->GetFloatValue(blackBoardValue);
 		
 		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("blackboardValue : %f"), blackBoardValue));
-		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("value from curve : %f"), curveValue ));
+		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("weighted value from curve : %f"), curveValue * weight));
 		return curveValue * weight;
 	}
 
