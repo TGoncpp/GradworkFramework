@@ -33,7 +33,7 @@ void BlackBoard::UpdateKey(const FString& key, float value)
 		}
 	}
 	
-	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("this keyvalue was not found with UpdateKey in blackboard!")));
+	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("this keyvalue was not found with UpdateKey in blackboard!")));
 
 	/*if (m_KeyValues.Contains(key))
 		m_KeyValues[key] = value;
@@ -46,7 +46,7 @@ float BlackBoard::GetKeyValue(const FString& key) const
 	{
 		if (keyValue.key == key)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, FString::Printf(TEXT("!!!!!!!!!!!!!!!!!!!!!!!!key found blackboard!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")));
+			//GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, FString::Printf(TEXT("!!!!!!!!!!!!!!!!!!!!!!!!key found blackboard!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")));
 			return keyValue.value;
 		}
 	}

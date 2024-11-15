@@ -50,13 +50,29 @@ void AUtilityAIBehaviour::Tick(float DeltaTime)
 
 EAction AUtilityAIBehaviour::Execute(FVector2D& moveInput)
 {
+	float highestScore = 0.0f;
+	EAction selectedAction = EAction::Idle;
 	
-	if (m_ActionScores.Num() > 0 && m_ActionScores[0] != nullptr && m_BlackboardRef)return EAction();
+	if (m_ActionScores.Num() > 0 && m_ActionScores[0] != nullptr && m_BlackboardRef)
+	{
+		for (const auto& action : m_ActionScores)
+		{
+			int score = action->CalculateActionScore(m_BlackboardRef);
+			//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("calculated value off action index 0 : %f"),score));
+			
+			if (score > highestScore)
+			{
+				highestScore = score;
+				selectedAction = action->GetActionType();
+			}
+		}
+		return selectedAction;
+	}
 		//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("calculated value off action index 0 : %f"),m_ActionScores[0]->CalculateActionScore(m_BlackboardRef)));
 	else
 		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, FString::Printf(TEXT("no entery in map off behaviours : %i"),m_ActionScores.Num()));
 
 
-	return EAction();
+	return selectedAction;
 }
 

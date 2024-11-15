@@ -49,12 +49,9 @@ float ActionScore::CalculateActionScore(BlackBoard* blackboard) const
 	float totalscore = 0;
 	for (const auto& score : m_Scores)
 	{
-		//checkf( score.m_Curve, TEXT("INVALLID score stored in index %i"), index);
-		if (!score.curve)
-			return 0.0f;
-
+		checkf(score.curve, TEXT("no curve is storred."));
+		
 		totalWeight += score.weight;
-
 		totalscore += score.CalculateActionScore(blackboard);
 	}
 
@@ -63,13 +60,36 @@ float ActionScore::CalculateActionScore(BlackBoard* blackboard) const
 }
 
 
+EAction ActionScore::GetActionType() const
+{
+	return m_ActionType;
+}
+
 
 float Score::CalculateActionScore(BlackBoard* blackboard) const
 {
-	if (curve)
-		return curve->GetFloatValue(blackboard->GetKeyValue(blackboardKey)) * weight;
+	if (curve && curve->FloatCurve.GetNumKeys() > 0)
+	{
+		//PrintCurveKeys();
+		
+		float blackBoardValue = blackboard->GetKeyValue(blackboardKey);
+		float curveValue = curve->GetFloatValue(blackBoardValue);
+		
+		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("blackboardValue : %f"), blackBoardValue));
+		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("value from curve : %f"), curveValue ));
+		return curveValue * weight;
+	}
 
 	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, FString::Printf(TEXT("no vallid curve in score for calculations")));
 	return 0.0f;
+}
+
+void Score::PrintCurveKeys() const
+{
+	const TArray<FRichCurveKey>& Keys = curve->FloatCurve.GetConstRefOfKeys();
+	for (const FRichCurveKey& Key : Keys)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Black, FString::Printf(TEXT("Key Time: %f, Key Value: %f"), Key.Time, Key.Value));
+	}
 }
 

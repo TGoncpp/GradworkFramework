@@ -16,6 +16,7 @@ struct Score
 	UCurveFloat* curve = nullptr;
 
 	float CalculateActionScore(BlackBoard* blackboard) const;
+	void PrintCurveKeys() const;
 };
 
 class GRADWORK_NPCAI_API ActionScore 
@@ -28,6 +29,7 @@ public:
 
 	void CreateActionScore(TArray<float> wheights, TArray<UCurveFloat*> actionCurves, TArray<FString> blackboardKeys, EAction AttackToScoreType);
 	float CalculateActionScore(BlackBoard* blackboard) const;
+	EAction GetActionType() const;
 
 private:
 

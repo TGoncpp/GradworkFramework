@@ -41,9 +41,12 @@ void ANPC_Controller::Tick(float DeltaTime)
         return;
 
     EAction newInput = m_SelectedBehaviourSystem->Execute(m_MovementVector);
-    return;//->TODO:  remove when execute is fully implemented
+
     switch (newInput)
     {
+    case EAction::Idle:
+        GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Blue, TEXT("selected Idle action"));
+        break;
     case EAction::HardAttack:
         m_NpcRefrence->StopBlock();
         m_NpcRefrence->HardAttack();

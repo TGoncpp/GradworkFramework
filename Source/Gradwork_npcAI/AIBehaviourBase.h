@@ -15,6 +15,7 @@ enum class EBehaviour
 UENUM(BlueprintType)
 enum class EAction : uint8
 {
+	Idle UMETA(DisplayName = "Idle"),
 	Walk UMETA(DisplayName = "Walk"),
 	Block UMETA(DisplayName = "Block"),
 	Heal UMETA(DisplayName = "Heal"),
