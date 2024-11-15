@@ -1,7 +1,7 @@
 
 #include "ActionScore.h"
 #include "BlackBoard.h"
-
+#include "AIBehaviourBase.h"
 
 ActionScore::ActionScore()
 {
@@ -27,7 +27,7 @@ void ActionScore::Init()
 	m_Scores.Reserve(10);
 }
 
-void ActionScore::CreateActionScore(TArray<float> wheights, TArray<UCurveFloat*> actionCurves, TArray<FString> blackboardKeys)
+void ActionScore::CreateActionScore(TArray<float> wheights, TArray<UCurveFloat*> actionCurves, TArray<FString> blackboardKeys, EAction ActionToScoreType)
 {
 	checkf(wheights.Num() == actionCurves.Num(), TEXT("the arrays have to have the same aount off weights and ghraps!!!!"));
 
@@ -38,7 +38,7 @@ void ActionScore::CreateActionScore(TArray<float> wheights, TArray<UCurveFloat*>
 		checkf(wheights.IsValidIndex(index), TEXT("Index %i is out of bounds for weights"), index);
 		m_Scores.Add(Score(wheights[index], blackboardKeys[index], actionCurves[index]));
 	}
-	
+	m_ActionType = ActionToScoreType;
 }
 
 float ActionScore::CalculateActionScore(BlackBoard* blackboard) const

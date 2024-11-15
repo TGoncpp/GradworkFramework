@@ -12,15 +12,15 @@ enum class EBehaviour
 	Hybrid
 };
 
-UENUM()
-enum class EAction
+UENUM(BlueprintType)
+enum class EAction : uint8
 {
-	Walk,
-	Block,
-	Heal,
-	Throw,
-	QuickAttack,
-	HardAttack
+	Walk UMETA(DisplayName = "Walk"),
+	Block UMETA(DisplayName = "Block"),
+	Heal UMETA(DisplayName = "Heal"),
+	Throw UMETA(DisplayName = "Throw"),
+	QuickAttack UMETA(DisplayName = "QuickAttack"),
+	HardAttack UMETA(DisplayName = "HardAttack")
 };
 
 class GRADWORK_NPCAI_API AIBehaviourBase

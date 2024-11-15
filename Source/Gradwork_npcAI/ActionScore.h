@@ -7,6 +7,7 @@
  * 
  */
 class BlackBoard;
+enum class EAction : uint8;
 
 struct Score
 {
@@ -25,12 +26,12 @@ public:
 
 	void Init();
 
-	void CreateActionScore(TArray<float> wheights, TArray<UCurveFloat*> actionCurves, TArray<FString> blackboardKeys);
+	void CreateActionScore(TArray<float> wheights, TArray<UCurveFloat*> actionCurves, TArray<FString> blackboardKeys, EAction AttackToScoreType);
 	float CalculateActionScore(BlackBoard* blackboard) const;
 
 private:
 
-	
+	EAction m_ActionType;
 	TArray<Score> m_Scores;
 
 };

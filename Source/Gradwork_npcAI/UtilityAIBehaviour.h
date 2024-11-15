@@ -32,7 +32,7 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void CreateActionToScore();
 	UFUNCTION(BlueprintCallable)
-	void AddCurvesToScoreableList(TArray<UCurveFloat*> curves, TArray<float> wheights, TArray<FString> blackboardKeys);
+	void AddCurvesToScoreableList(TArray<UCurveFloat*> curves, TArray<float> wheights, TArray<FString> blackboardKeys, EAction ActionToScoreType);
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

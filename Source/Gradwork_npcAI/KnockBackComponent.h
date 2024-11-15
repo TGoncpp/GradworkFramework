@@ -33,7 +33,7 @@ protected:
 private:	
 	float m_CurrentKnockTime = 0.0f;
 	FVector m_NormalisedKnockDirection = { 0.0f, 0.0f, 0.0f };
-	float m_FallSpeed = 500.0f;
+	float m_FallSpeed = 1200.0f;
 	UCharacterMovementComponent* m_OwnerMovementComponent = nullptr;
 	bool m_WasHit = false;
 };
