@@ -55,6 +55,8 @@ public:
 	bool IsBlocking() const;
 	UFUNCTION(BlueprintCallable, Category = "Actions")
 	bool IsHealing() const;
+	UFUNCTION(BlueprintCallable, Category = "Actions")
+	bool IsThrowing() const;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EActions m_ActionType = EActions::Quick;

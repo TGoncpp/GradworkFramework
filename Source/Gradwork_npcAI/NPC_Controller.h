@@ -32,7 +32,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "blackboard")
 	void AddToBlackboard( float value, const FString& key);
 	UFUNCTION(BlueprintCallable, Category = "blackboard")
-	void UpdateBlackboard(const FString& key, float value);
+	void UpdateBlackboard(float value, const FString& key);
 	
 	//UFUNCTION(BlueprintCallable, Category = "AI-Input")
 	//void AddGOAPToBehaviourMap(AIBehaviourBase* actionScore);

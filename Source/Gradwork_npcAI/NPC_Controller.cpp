@@ -127,7 +127,7 @@ void ANPC_Controller::AddToBlackboard(float value, const FString& key)
         m_Blackboard->AddBlackboardValue(key, value);
 }
 
-void ANPC_Controller::UpdateBlackboard(const FString& key, float value)
+void ANPC_Controller::UpdateBlackboard(float value, const FString& key)
 {
     if (m_Blackboard)
         m_Blackboard->UpdateKey(key, value);

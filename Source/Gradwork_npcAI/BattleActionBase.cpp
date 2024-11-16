@@ -61,6 +61,11 @@ bool ABattleActionBase::IsHealing() const
 	return m_ActionType == EActions::Heal;
 }
 
+bool ABattleActionBase::IsThrowing() const
+{
+	return m_ActionType == EActions::Throw;
+}
+
 
 UCharacterMovementComponent* ABattleActionBase::GetParentMovementComp() const
 {
