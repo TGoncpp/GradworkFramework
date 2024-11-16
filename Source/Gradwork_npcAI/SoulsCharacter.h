@@ -31,6 +31,20 @@ public:
 	void RemoveActionsThatAreToLongInQueue();
 	virtual void BeginPlay() override;
 
+
+#pragma region Getters
+
+	UFUNCTION(BlueprintCallable, Category = "Refrences")
+	UHealthComponent* GetHealthComponentRef ()const;
+	UFUNCTION(BlueprintCallable, Category = "Refrences")
+	UStaminaComponent* GetStaminaComponentRef()const;
+	UFUNCTION(BlueprintCallable, Category = "Refrences")
+	UKnockBackComponent* GetKnockbackComponentRef()const;
+	UFUNCTION(BlueprintCallable, Category = "Refrences")
+	ABattleActionBase* GetCurrentAction()const;
+
+#pragma endregion Getters
+
 #pragma region Battle Actions
 
 	virtual void QuickAttack()override;

@@ -51,6 +51,16 @@ bool ABattleActionBase::HasSufficentStamina() const
 	return staminaComp->SuccesfullExecution(Cost);
 }
 
+bool ABattleActionBase::IsBlocking() const
+{
+	return m_ActionType == EActions::Block;
+}
+
+bool ABattleActionBase::IsHealing() const
+{
+	return m_ActionType == EActions::Heal;
+}
+
 
 UCharacterMovementComponent* ABattleActionBase::GetParentMovementComp() const
 {

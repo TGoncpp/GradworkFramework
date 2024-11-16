@@ -74,6 +74,11 @@ void ANPC_Controller::Tick(float DeltaTime)
     }
 }
 
+ASoulsCharacter* ANPC_Controller::GetControlledNpcRef() const
+{
+    return m_NpcRefrence;
+}
+
 
 
 void ANPC_Controller::OnPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
@@ -116,7 +121,7 @@ void ANPC_Controller::AddUtillityToBehaviourMap(AUtilityAIBehaviour* aiBehaviour
 
 }
 
-void ANPC_Controller::AddToBlackboard(const FString& key, float value)
+void ANPC_Controller::AddToBlackboard(float value, const FString& key)
 {
     if (m_Blackboard)
         m_Blackboard->AddBlackboardValue(key, value);

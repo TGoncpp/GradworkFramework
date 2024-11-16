@@ -30,7 +30,7 @@ public:
 	void AddUtillityToBehaviourMap(AUtilityAIBehaviour* actionScore);
 
 	UFUNCTION(BlueprintCallable, Category = "blackboard")
-	void AddToBlackboard(const FString& key, float value);
+	void AddToBlackboard( float value, const FString& key);
 	UFUNCTION(BlueprintCallable, Category = "blackboard")
 	void UpdateBlackboard(const FString& key, float value);
 	
@@ -48,6 +48,8 @@ protected:
 
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(BlueprintCallable, Category = "Refrences")
+	ASoulsCharacter* GetControlledNpcRef()const;
 	//void SelectBehaviourSystem(const EBehaviour& selectedState) { m_SelectedBehaviourSystem = m_BehaviourSystems[selectedState]; }
 
 private:
@@ -71,14 +73,14 @@ private:
 	UFUNCTION()
 	void OnPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
 
-	//CharacterRefrence
-	UPROPERTY()
-	ASoulsCharacter* m_NpcRefrence = nullptr;
-
 	//components
 	//UPROPERTY(VisibleAnywhere, Category = "AI")
 	UAIPerceptionComponent* AIPerceptionComponent = nullptr;
 	FTimerHandle  m_Timer;
+
+	//CharacterRefrence
+	UPROPERTY()
+	ASoulsCharacter* m_NpcRefrence = nullptr;
 
 	//behavioursystems
 	TMap< EBehaviour,AIBehaviourBase*> m_BehaviourSystems;
