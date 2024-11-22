@@ -17,7 +17,7 @@ public:
 	UStaminaComponent();
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	bool SuccesfullExecution(float cost);
+	bool SuccesfullExecution(float cost, bool intenseAction = false);
 	void ClearStamina();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)

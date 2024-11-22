@@ -38,13 +38,14 @@ void UStaminaComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 	Regenerate(DeltaTime);
 }
 
-bool UStaminaComponent::SuccesfullExecution(float cost)
+bool UStaminaComponent::SuccesfullExecution(float cost, bool intenseAction)
 {
+	float totalCost = intenseAction ? cost * 1.5f : cost;
 	//early return if not enough
-	if (m_Stamina < cost) return false;
+	if (m_Stamina < totalCost) return false;
 
 	//reduce stamina lowest at 0
-	m_Stamina -= cost;
+	m_Stamina -= totalCost;
 	if (m_Stamina < 0.0f) 
 		m_Stamina = 0.0f;
 

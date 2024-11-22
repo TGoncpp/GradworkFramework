@@ -68,6 +68,21 @@ bool ABattleActionBase::IsThrowing() const
 	return m_ActionType == EAction::Throw;
 }
 
+bool ABattleActionBase::IsAttacking() const
+{
+	return m_ActionType == EAction::QuickAttack || m_ActionType == EAction::HardAttack;
+}
+
+bool ABattleActionBase::IsQuickAttacking() const
+{
+	return m_ActionType == EAction::QuickAttack;
+}
+
+bool ABattleActionBase::IsStraightForwardAttacking() const
+{
+	return m_ActionType == EAction::HardAttack || m_ActionType == EAction::Throw;
+}
+
 
 UCharacterMovementComponent* ABattleActionBase::GetParentMovementComp() const
 {
@@ -102,7 +117,8 @@ void ABattleActionBase::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AAct
 		{
 			//adjust stamina if block
 			UStaminaComponent* enemyStaminaComp = OtherActor->FindComponentByClass<UStaminaComponent>();
-			if (enemyStaminaComp && enemyStaminaComp->SuccesfullExecution(Damage))
+			bool isHardAttack = m_ActionType == EAction::HardAttack;
+			if (enemyStaminaComp && enemyStaminaComp->SuccesfullExecution(Damage, isHardAttack))
 			{
 				GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "Blocked");
 				DeActivate();

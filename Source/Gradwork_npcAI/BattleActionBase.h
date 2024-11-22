@@ -47,7 +47,12 @@ public:
 	bool IsHealing() const;
 	UFUNCTION(BlueprintCallable, Category = "Actions")
 	bool IsThrowing() const;
-	
+	UFUNCTION(BlueprintCallable, Category = "Actions")
+	bool IsAttacking() const;
+	UFUNCTION(BlueprintCallable, Category = "Actions")
+	bool IsQuickAttacking() const;
+	UFUNCTION(BlueprintCallable, Category = "Actions")
+	bool IsStraightForwardAttacking() const;	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EAction m_ActionType;
 
