@@ -18,7 +18,6 @@ void ABattleActionBase::BeginPlay()
 	Super::BeginPlay();
 
 	Tags.Add("Weapon");
-	m_ActionType = EAction::Idle;
 
 	m_TriggerCapsule = FindComponentByClass< UCapsuleComponent>();
 	checkf(m_TriggerCapsule, TEXT("No capsuleComponent found in battle action called: %s"), *ActionName);
