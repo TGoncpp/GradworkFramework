@@ -26,12 +26,5 @@ public:
 
 private:
 	TArray< BlackboardValue> m_KeyValues;
-	//TMap<FString, float> m_KeyValues;
-	//TMap<FString, float> m_Health;
-	//TMap<FString, float> m_EnemyHealth;
-	//TMap<FString, float> m_Stamina;
-	//TMap<FString, float> m_EnemyStamina;
-	//TMap<FString, float> m_EnemyDistance;
-	//TMap<FString, float> m_EnemyIsBlocking;
-	//TMap<FString, float> m_EnemyIsHealing;
+	
 };

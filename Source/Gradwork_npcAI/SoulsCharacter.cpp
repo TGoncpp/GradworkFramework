@@ -3,6 +3,8 @@
 #include "StaminaComponent.h"
 #include "KnockbackComponent.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "AIBehaviourBase.h"// for enum values
+
 
 ASoulsCharacter::ASoulsCharacter()
 {
@@ -82,7 +84,7 @@ void ASoulsCharacter::Tick(float DeltaTime)
 		m_ActionQueue.PopFront();
 		
 		//if action is block -> continue until it is released. else stop after set amount off time
-		if (m_ActivatedAction->GetActionType() != EActions::Block)
+		if (m_ActivatedAction->GetActionType() != EAction::Block)
 			GetWorld()->GetTimerManager().SetTimer(m_Timer, this, &ASoulsCharacter::ReturnToIdle, m_ActivatedAction->GetExecutionTime(), false);
 		
 		
@@ -104,7 +106,7 @@ void ASoulsCharacter::RemoveActionsThatAreToLongInQueue()
 	for (auto action : m_ActionQueue)
 	{
 		// dont add block so the time after release and block stop remains consistent
-		if (action->ToLongInQueue(elapsedTime) && action->GetActionType() != EActions::Block) 
+		if (action->ToLongInQueue(elapsedTime) && action->GetActionType() != EAction::Block) 
 		{
 			++numOfOvertime;
 		}
@@ -122,21 +124,33 @@ void ASoulsCharacter::RemoveActionsThatAreToLongInQueue()
 void ASoulsCharacter::QuickAttack()
 {
 	if (m_ActionQueue.Num() < MAX_QUEUESIZE)
-		m_ActionQueue.Add(m_Actions[EActions::Quick]);
+	{
+		auto newAction = FindActionOffType(EAction::QuickAttack);
+		checkf(newAction, TEXT("quick action is invallid"));
+		m_ActionQueue.Add(newAction);
+	}
 	PrintQueue();
 }
 
 void ASoulsCharacter::HardAttack()
 {
 	if (m_ActionQueue.Num() < MAX_QUEUESIZE)
-		m_ActionQueue.Add(m_Actions[EActions::Hard]);
+	{
+		auto newAction = FindActionOffType(EAction::HardAttack);
+		checkf(newAction, TEXT("Hard action is invallid"));
+		m_ActionQueue.Add(newAction);
+	}
 	PrintQueue();
 }
 
 void ASoulsCharacter::ThrowAttack()
 {
 	if (m_ActionQueue.Num() < MAX_QUEUESIZE)
-		m_ActionQueue.Add(m_Actions[EActions::Throw]);
+	{
+		auto newAction = FindActionOffType(EAction::Throw);
+		checkf(newAction, TEXT("throw action is invallid"));
+		m_ActionQueue.Add(newAction);
+	}
 	PrintQueue();
 }
 
@@ -144,16 +158,16 @@ void ASoulsCharacter::Block()
 {
 	if (m_ActionQueue.Num() < MAX_QUEUESIZE)
 	{
-		
-		m_ActionQueue.Add(m_Actions[EActions::Block]);
+		auto newAction = FindActionOffType(EAction::Block);
+		checkf(newAction, TEXT("block action is invallid"));
+		m_ActionQueue.Add(newAction);
 	}
-	
 	PrintQueue();
 }
 
 void ASoulsCharacter::StopBlock()
 {
-	if (!m_ActivatedAction || m_ActivatedAction->GetActionType() != EActions::Block)
+	if (!m_ActivatedAction || m_ActivatedAction->GetActionType() != EAction::Block)
 		return;
 	
 	//set to true to activate the queue again
@@ -172,8 +186,11 @@ void ASoulsCharacter::StopBlock()
 void ASoulsCharacter::Heal()
 {
 	if (m_ActionQueue.Num() < MAX_QUEUESIZE)
-		m_ActionQueue.Add(m_Actions[EActions::Heal]);
-	PrintQueue();
+	{
+		auto newAction = FindActionOffType(EAction::Heal);
+		checkf(newAction, TEXT("heal action is invallid"));
+		m_ActionQueue.Add(newAction);
+	}	PrintQueue();
 }
 
 void ASoulsCharacter::LockOn()
@@ -195,7 +212,7 @@ void ASoulsCharacter::FoundTarget(ASoulsCharacter* target)
 
 void ASoulsCharacter::AddAction(ABattleActionBase* newAction)
 {
-	m_Actions.Add(newAction->m_ActionType, newAction);
+	m_Actions.Add(newAction);
 	newAction->AddParent(this);
 	newAction->AddParentMovementComp(GetCharacterMovement());
 
@@ -222,6 +239,16 @@ void ASoulsCharacter::PrintQueue()
 	//{
 	//	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue,action->GetActionName());
 	//}
+}
+
+ABattleActionBase* ASoulsCharacter::FindActionOffType(EAction actionType)
+{
+	for (const auto& action : m_Actions)
+	{
+		if (action->GetActionType() == actionType)
+			return action;
+	}
+	return nullptr;
 }
 
 void ASoulsCharacter::ResetQueue()

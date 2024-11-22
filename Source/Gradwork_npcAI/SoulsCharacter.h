@@ -13,7 +13,7 @@
 #include "SoulsCharacter.generated.h"
 
 //class ABattleActionBase;
-enum class EActions;
+enum class EAction : uint8;
 class UHealthComponent;
 class UStaminaComponent;
 class UKnockBackComponent;
@@ -53,6 +53,7 @@ public:
 	virtual void Block()override;				
 	virtual void StopBlock()override;
 	virtual void Heal()override;
+	UFUNCTION(BlueprintCallable, Category = "Actions")
 	virtual void LockOn()override;
 	
 #pragma endregion Battle Actions
@@ -67,7 +68,8 @@ public:
 	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TMap<EActions, ABattleActionBase*> m_Actions;
+	 TArray<ABattleActionBase*> m_Actions;
+	//TMap<EAction, ABattleActionBase*> m_Actions;
 protected:
 
 	UFUNCTION(BlueprintCallable)
@@ -93,6 +95,7 @@ private:
 
 	//DebugFunctions
 	void PrintQueue();
+	ABattleActionBase* FindActionOffType(EAction actionType);
 
 
 	FTimerHandle  m_Timer;

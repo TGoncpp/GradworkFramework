@@ -4,6 +4,8 @@
 #include "KnockbackComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "AIBehaviourBase.h" // for enum values
+
 
 ABattleActionBase::ABattleActionBase()
 {
@@ -16,6 +18,7 @@ void ABattleActionBase::BeginPlay()
 	Super::BeginPlay();
 
 	Tags.Add("Weapon");
+	m_ActionType = EAction::Idle;
 
 	m_TriggerCapsule = FindComponentByClass< UCapsuleComponent>();
 	checkf(m_TriggerCapsule, TEXT("No capsuleComponent found in battle action called: %s"), *ActionName);
@@ -53,17 +56,17 @@ bool ABattleActionBase::HasSufficentStamina() const
 
 bool ABattleActionBase::IsBlocking() const
 {
-	return m_ActionType == EActions::Block;
+	return m_ActionType == EAction::Block;
 }
 
 bool ABattleActionBase::IsHealing() const
 {
-	return m_ActionType == EActions::Heal;
+	return m_ActionType == EAction::Heal;
 }
 
 bool ABattleActionBase::IsThrowing() const
 {
-	return m_ActionType == EActions::Throw;
+	return m_ActionType == EAction::Throw;
 }
 
 

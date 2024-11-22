@@ -9,7 +9,7 @@ ANPC_Controller::ANPC_Controller()
 void ANPC_Controller::BeginPlay()
 {
     Super::BeginPlay();
-    m_BehaviourSystems.Empty() ;
+    //m_BehaviourSystems.Empty() ;
 
     AIPerceptionComponent = FindComponentByClass< UAIPerceptionComponent>();
     checkf(AIPerceptionComponent, TEXT("Invallid or missing AIPerceptioncomponent found in AIController"));

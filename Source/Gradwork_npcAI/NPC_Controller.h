@@ -83,7 +83,7 @@ private:
 	ASoulsCharacter* m_NpcRefrence = nullptr;
 
 	//behavioursystems
-	TMap< EBehaviour,AIBehaviourBase*> m_BehaviourSystems;
+	//TMap< EBehaviour,AIBehaviourBase*> m_BehaviourSystems;
 	AUtilityAIBehaviour* m_SelectedBehaviourSystem = nullptr;
 	TUniquePtr< BlackBoard> m_Blackboard = nullptr;
 };

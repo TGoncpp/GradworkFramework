@@ -8,16 +8,7 @@
 #include "BattleActionBase.generated.h"
 
 class UCharacterMovementComponent;
-
-UENUM()
-enum class EActions
-{
-	Quick,
-	Hard,
-	Throw,
-	Block,
-	Heal
-};
+enum class EAction : uint8;
 
 UCLASS(Blueprintable, BlueprintType)
 class GRADWORK_NPCAI_API ABattleActionBase : public AActor
@@ -46,9 +37,8 @@ public:
 
 	//getters
 	float GetExecutionTime() const { return ExecutionTime; }
-	FString GetActionName() const { return ActionName; }
 	UFUNCTION(BlueprintCallable, Category = "Actions")
-	EActions GetActionType() const { return m_ActionType; }
+	EAction GetActionType() const { return m_ActionType; }
 	UFUNCTION(BlueprintCallable, Category = "Actions")
 	AActor* GetParent() const { return m_ParentActor; }
 	UFUNCTION(BlueprintCallable, Category = "Actions")
@@ -59,7 +49,7 @@ public:
 	bool IsThrowing() const;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EActions m_ActionType = EActions::Quick;
+	EAction m_ActionType;
 
 	//is set only in blueprint
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Block")
