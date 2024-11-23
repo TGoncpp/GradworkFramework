@@ -40,26 +40,6 @@ void ASoulsCharacter::BeginPlay()
 		m_KnockbackComponent->OnGetHit.AddDynamic(this, &ASoulsCharacter::ResetQueue);
 }
 
-UHealthComponent* ASoulsCharacter::GetHealthComponentRef() const
-{
-	return m_HealthComponent;
-}
-
-UStaminaComponent* ASoulsCharacter::GetStaminaComponentRef() const
-{
-	return m_StaminaComponent;
-}
-
-UKnockBackComponent* ASoulsCharacter::GetKnockbackComponentRef() const
-{
-	return m_KnockbackComponent;
-}
-
-ABattleActionBase* ASoulsCharacter::GetCurrentAction() const
-{
-	return m_ActivatedAction;
-}
-
 void ASoulsCharacter::Tick(float DeltaTime)
 {
 	if (m_IsLockOn)
@@ -96,6 +76,26 @@ void ASoulsCharacter::Tick(float DeltaTime)
 	
 	//RemoveActionsThatAreToLongInQueue();
 
+}
+
+UHealthComponent* ASoulsCharacter::GetHealthComponentRef() const
+{
+	return m_HealthComponent;
+}
+
+UStaminaComponent* ASoulsCharacter::GetStaminaComponentRef() const
+{
+	return m_StaminaComponent;
+}
+
+UKnockBackComponent* ASoulsCharacter::GetKnockbackComponentRef() const
+{
+	return m_KnockbackComponent;
+}
+
+ABattleActionBase* ASoulsCharacter::GetCurrentAction() const
+{
+	return m_ActivatedAction;
 }
 
 void ASoulsCharacter::RemoveActionsThatAreToLongInQueue()
@@ -198,6 +198,8 @@ void ASoulsCharacter::LockOn()
 	if (!m_Target)
 	{
 		m_IsLockOn = false;
+		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("Lock on failed")));
+
 		return;
 	}
 

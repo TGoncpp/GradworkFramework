@@ -40,6 +40,12 @@ void ANPC_Controller::Tick(float DeltaTime)
     if (!m_SelectedBehaviourSystem || !m_NpcRefrence)
         return;
 
+    if (!m_LockedOnPlayer)
+    {
+        LockOn();
+        m_LockedOnPlayer = true;
+    }
+
     EAction newInput = m_SelectedBehaviourSystem->Execute(m_MovementVector);
 
     switch (newInput)
@@ -63,7 +69,16 @@ void ANPC_Controller::Tick(float DeltaTime)
         m_NpcRefrence->StopBlock();
         m_NpcRefrence->ThrowAttack();
         break;
-    case EAction::Walk:
+    case EAction::WalkBackwards:
+        m_MovementVector = { 0.0f, -1.0f };
+        m_NpcRefrence->Move(m_MovementVector);
+        break;
+    case EAction::WalkForward:
+        m_MovementVector = { 0.0f, 1.0f };
+        m_NpcRefrence->Move(m_MovementVector);
+        break;
+    case EAction::WalkSideways:
+        m_MovementVector = { -1.0f, 0.0f };
         m_NpcRefrence->Move(m_MovementVector);
         break;
     case EAction::Block:

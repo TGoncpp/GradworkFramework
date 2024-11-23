@@ -70,7 +70,7 @@ bool ABattleActionBase::IsThrowing() const
 
 bool ABattleActionBase::IsAttacking() const
 {
-	return m_ActionType == EAction::QuickAttack || m_ActionType == EAction::HardAttack;
+	return m_ActionType == EAction::QuickAttack || m_ActionType == EAction::HardAttack || m_ActionType == EAction::Throw;
 }
 
 bool ABattleActionBase::IsQuickAttacking() const

@@ -86,4 +86,5 @@ private:
 	//TMap< EBehaviour,AIBehaviourBase*> m_BehaviourSystems;
 	AUtilityAIBehaviour* m_SelectedBehaviourSystem = nullptr;
 	TUniquePtr< BlackBoard> m_Blackboard = nullptr;
+	bool m_LockedOnPlayer = false;
 };

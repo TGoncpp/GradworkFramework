@@ -16,7 +16,9 @@ UENUM(BlueprintType)
 enum class EAction : uint8
 {
 	Idle UMETA(DisplayName = "Idle"),
-	Walk UMETA(DisplayName = "Walk"),
+	WalkForward UMETA(DisplayName = "WalkForward"),
+	WalkSideways UMETA(DisplayName = "WalkSideways"),
+	WalkBackwards UMETA(DisplayName = "WalkBackwards"),
 	Block UMETA(DisplayName = "Block"),
 	Heal UMETA(DisplayName = "Heal"),
 	Throw UMETA(DisplayName = "Throw"),

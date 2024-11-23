@@ -75,6 +75,7 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void AddAction(ABattleActionBase* newAction);
 
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Debug")
 	ASoulsCharacter* m_Target = nullptr;
 
 #pragma region components

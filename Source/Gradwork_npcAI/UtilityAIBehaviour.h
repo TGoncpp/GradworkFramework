@@ -35,8 +35,8 @@ protected:
 	void AddCurvesToScoreableList(TArray<UCurveFloat*> curves, TArray<float> wheights, TArray<FString> blackboardKeys, EAction ActionToScoreType);
 
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<UCurveFloat*> actionCurves;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//TArray<UCurveFloat*> actionCurves;
 
 private:	
 	TArray< TUniquePtr< ActionScore>> m_ActionScores;
