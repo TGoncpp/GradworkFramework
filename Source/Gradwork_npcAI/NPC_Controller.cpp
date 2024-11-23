@@ -24,8 +24,8 @@ void ANPC_Controller::OnPossess(APawn* InPawn)
     m_NpcRefrence = Cast<ASoulsCharacter>(InPawn);
     m_Blackboard = MakeUnique<BlackBoard>();
     
-    
-    GetWorld()->GetTimerManager().SetTimer(m_Timer, this, &ANPC_Controller::Block, 4.0f, false);
+    //Test line for block command
+    //GetWorld()->GetTimerManager().SetTimer(m_Timer, this, &ANPC_Controller::Block, 4.0f, false);
 }
 
 void ANPC_Controller::OnUnPossess()

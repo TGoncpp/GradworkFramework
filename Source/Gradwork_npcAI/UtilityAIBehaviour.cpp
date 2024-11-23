@@ -50,7 +50,7 @@ void AUtilityAIBehaviour::Tick(float DeltaTime)
 
 EAction AUtilityAIBehaviour::Execute(FVector2D& moveInput)
 {
-	float highestScore = 0.0f;
+	float highestScore = 0.5f;
 	EAction selectedAction = EAction::Idle;
 	
 	if (m_ActionScores.Num() > 0 && m_ActionScores[0] != nullptr && m_BlackboardRef)
