@@ -89,6 +89,12 @@ UCharacterMovementComponent* ABattleActionBase::GetParentMovementComp() const
 	return m_parentMovementComp;;
 }
 
+void ABattleActionBase::SimulateHitActor(AActor* hitActor)
+{
+	FHitResult hitResult;
+	OnOverlapBegin(nullptr, hitActor, nullptr, 0, false, hitResult);
+}
+
 void ABattleActionBase::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (OtherActor != this && OtherActor->Tags.Contains("Body") && OtherActor != m_ParentActor)

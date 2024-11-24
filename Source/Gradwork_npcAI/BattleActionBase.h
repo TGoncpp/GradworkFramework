@@ -27,6 +27,8 @@ public:
 	void Execute();
 	UFUNCTION(BlueprintImplementableEvent)
 	void DeActivate();
+	UFUNCTION(BlueprintCallable, Category = "Actions")
+	void SimulateHitActor(AActor* hitAtor);
 	
 	//Queue functions
 	void EnQueue(float timePermitedInQueue);
