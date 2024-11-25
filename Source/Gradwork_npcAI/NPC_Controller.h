@@ -54,8 +54,6 @@ protected:
 
 private:
 	//Actions
-	//void Move(const FInputActionValue& Value) { m_NpcRefrence->Move(Value); };
-	//void Look(const FInputActionValue& Value) { m_NpcRefrence->Look(Value); };
 	void QuickAttack() { m_NpcRefrence->QuickAttack(); };
 	void HardAttack() { m_NpcRefrence->HardAttack(); };
 	void Heal() { m_NpcRefrence->Heal(); };

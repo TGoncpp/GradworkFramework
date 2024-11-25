@@ -58,23 +58,25 @@ void ASoulsCharacter::Tick(float DeltaTime)
 	//if not doing an action, start the first off the queue
 	if (m_IsIdle)
 	{
-		m_IsIdle = false;
-	
 		m_ActivatedAction = m_ActionQueue.First();
 		m_ActionQueue.PopFront();
 		
-		//if action is block -> continue until it is released. else stop after set amount off time
-		if (m_ActivatedAction->GetActionType() != EAction::Block)
-			GetWorld()->GetTimerManager().SetTimer(m_Timer, this, &ASoulsCharacter::ReturnToIdle, m_ActivatedAction->GetExecutionTime(), false);
-		
-		
-		m_ActivatedAction->EnQueue(MAX_IN_QUEUE_TIME);
-		
 		if (m_ActivatedAction->HasSufficentStamina())
+		{
+			m_IsIdle = false;
 			m_ActivatedAction->Execute();
+
+			//if action is block -> continue until it is released. else stop after set amount off time
+			if (m_ActivatedAction->GetActionType() != EAction::Block)
+				GetWorld()->GetTimerManager().SetTimer(m_Timer, this, &ASoulsCharacter::ReturnToIdle, m_ActivatedAction->GetExecutionTime(), false);
+		
+			m_ActivatedAction->EnQueue(m_MaxInQueueTime);
+		}
+		else
+			m_ActivatedAction = nullptr;
 	}
 	
-	//RemoveActionsThatAreToLongInQueue();
+	RemoveActionsThatAreToLongInQueue();
 
 }
 
@@ -190,7 +192,8 @@ void ASoulsCharacter::Heal()
 		auto newAction = FindActionOffType(EAction::Heal);
 		checkf(newAction, TEXT("heal action is invallid"));
 		m_ActionQueue.Add(newAction);
-	}	PrintQueue();
+	}	
+	PrintQueue();
 }
 
 void ASoulsCharacter::LockOn()
@@ -218,6 +221,11 @@ void ASoulsCharacter::AddAction(ABattleActionBase* newAction)
 	newAction->AddParent(this);
 	newAction->AddParentMovementComp(GetCharacterMovement());
 
+}
+
+void ASoulsCharacter::SetActionEnqueueTime(float newTime)
+{
+	m_MaxInQueueTime = newTime;
 }
 
 #pragma endregion inputhandeling
@@ -262,6 +270,7 @@ void ASoulsCharacter::ResetQueue()
 	if (m_ActivatedAction)
 	{
 		m_ActivatedAction->DeActivate();
+		m_ActivatedAction = nullptr;
 	}
 }
 
@@ -276,5 +285,6 @@ void ASoulsCharacter::LookAtTarget()
 	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(ActorLocation, TargetLocation);
 
 	// Set the actor's rotation to the calculated rotation
-	SetActorRotation(LookAtRotation);
+	
+	SetActorRotation(LookAtRotation, ETeleportType::None);
 }

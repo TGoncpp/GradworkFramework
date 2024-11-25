@@ -35,14 +35,14 @@ void ABattleActionBase::Tick(float DeltaTime)
 
 void ABattleActionBase::EnQueue(float timePermitedInQueue)
 {
-	M_InQueueTimeLeft = timePermitedInQueue;
+	m_InQueueTimeLeft = timePermitedInQueue;
 }
 
 bool ABattleActionBase::ToLongInQueue(float deltaTime)
 {
-	M_InQueueTimeLeft -= deltaTime;
+	m_InQueueTimeLeft -= deltaTime;
 
-	return M_InQueueTimeLeft <= 0.f;
+	return m_InQueueTimeLeft <= 0.f;
 }
 
 bool ABattleActionBase::HasSufficentStamina() const
@@ -86,7 +86,7 @@ bool ABattleActionBase::IsStraightForwardAttacking() const
 
 UCharacterMovementComponent* ABattleActionBase::GetParentMovementComp() const
 {
-	return m_parentMovementComp;;
+	return m_ParentMovementComp;;
 }
 
 void ABattleActionBase::SimulateHitActor(AActor* hitActor)
@@ -164,6 +164,6 @@ void ABattleActionBase::AddParent(AActor* parent)
 
 void ABattleActionBase::AddParentMovementComp(UCharacterMovementComponent* parentMoveComp)
 {
-	m_parentMovementComp = parentMoveComp;
+	m_ParentMovementComp = parentMoveComp;
 }
 

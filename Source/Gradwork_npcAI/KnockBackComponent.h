@@ -18,6 +18,7 @@ public:
 	UKnockBackComponent();
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void RecieveDamage(const FVector& direction, float knocktime);
+	UFUNCTION(BlueprintCallable, Category = "knockback")
 	bool IsStunned() const { return m_WasHit; }
 
 

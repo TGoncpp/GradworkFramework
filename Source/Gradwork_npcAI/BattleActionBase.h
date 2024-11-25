@@ -55,15 +55,20 @@ public:
 	bool IsQuickAttacking() const;
 	UFUNCTION(BlueprintCallable, Category = "Actions")
 	bool IsStraightForwardAttacking() const;	
+
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EAction m_ActionType;
-
 	//is set only in blueprint
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Block")
 	bool BlockIsActive = false;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UFUNCTION(BlueprintCallable, Category = "actions")
+	UCharacterMovementComponent* GetParentMovementComp()const;
+
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float ExecutionTime{ 1.0f };
@@ -75,12 +80,8 @@ protected:
 	float KnockTime{ 1.0f };
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString ActionName{ "default"};
-
-	UFUNCTION(BlueprintCallable, Category = "actions")
-	UCharacterMovementComponent* GetParentMovementComp()const;
-
 private:
-	float M_InQueueTimeLeft{ 0.0f };
+	float m_InQueueTimeLeft{ 0.0f };
 	UFUNCTION()
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, 
 						AActor* OtherActor, 
@@ -90,5 +91,5 @@ private:
 
 	class UCapsuleComponent* m_TriggerCapsule = nullptr;
 	AActor* m_ParentActor = nullptr;
-	UCharacterMovementComponent* m_parentMovementComp = nullptr;
+	UCharacterMovementComponent* m_ParentMovementComp = nullptr;
 };

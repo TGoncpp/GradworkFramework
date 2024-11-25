@@ -74,6 +74,9 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	void AddAction(ABattleActionBase* newAction);
+	
+	UFUNCTION(BlueprintCallable, Category = "Actions")
+	void SetActionEnqueueTime(float newTime);
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Debug")
 	ASoulsCharacter* m_Target = nullptr;
@@ -102,7 +105,7 @@ private:
 	FTimerHandle  m_Timer;
 	bool m_IsIdle = true;
 	const int MAX_QUEUESIZE = 5;
-	const float MAX_IN_QUEUE_TIME = 1.0f;
+	float m_MaxInQueueTime = 2.0f;
 	TRingBuffer< ABattleActionBase*> m_ActionQueue;
 	ABattleActionBase* m_ActivatedAction = nullptr;
 };
