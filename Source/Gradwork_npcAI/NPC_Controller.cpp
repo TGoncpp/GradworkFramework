@@ -84,6 +84,9 @@ void ANPC_Controller::Tick(float DeltaTime)
     case EAction::Block:
         m_NpcRefrence->Block();
         break;
+    case EAction::StopBlock:
+        m_NpcRefrence->StopBlock();
+        break;
     default:
         break;
     }

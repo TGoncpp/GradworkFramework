@@ -20,6 +20,7 @@ enum class EAction : uint8
 	WalkSideways UMETA(DisplayName = "WalkSideways"),
 	WalkBackwards UMETA(DisplayName = "WalkBackwards"),
 	Block UMETA(DisplayName = "Block"),
+	StopBlock UMETA(DisplayName = "StopBlock"),
 	Heal UMETA(DisplayName = "Heal"),
 	Throw UMETA(DisplayName = "Throw"),
 	QuickAttack UMETA(DisplayName = "QuickAttack"),
