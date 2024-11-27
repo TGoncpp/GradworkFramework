@@ -271,6 +271,7 @@ void ASoulsCharacter::ResetQueue()
 	{
 		m_ActivatedAction->DeActivate();
 		m_ActivatedAction = nullptr;
+		m_IsIdle = true;
 	}
 }
 

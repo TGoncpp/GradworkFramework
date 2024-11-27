@@ -97,6 +97,7 @@ void ABattleActionBase::SimulateHitActor(AActor* hitActor)
 
 void ABattleActionBase::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	//Checks the collision off the attack action against the body off opponent
 	if (OtherActor != this && OtherActor->Tags.Contains("Body") && OtherActor != m_ParentActor)
 	{
 		//STUNNED
