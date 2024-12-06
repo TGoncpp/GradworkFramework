@@ -1,5 +1,4 @@
 #include "WorldState.h"
-#include "UtilityAIBehaviour.h"
 
 WorldState::WorldState()
 {

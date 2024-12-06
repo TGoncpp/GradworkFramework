@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "WorldState.h"
 
 class WorldState;
 
@@ -11,8 +12,10 @@ public:
 	virtual ~GOAPGoalBase();
 
 	virtual bool IsVallid() const = 0;
+	WorldState* GetDisiredState()const;
+
 
 protected:
-	WorldState* m_DiseredState = nullptr;
+	TUniquePtr<WorldState> m_DiseredState = nullptr;
 	FString M_NameOfGoal{ "defaultGoal" };
 };
