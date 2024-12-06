@@ -4,6 +4,9 @@
 #include "GameFramework/Actor.h"
 #include "GOAPAction.generated.h"
 
+
+class WorldState;
+
 UCLASS()
 class GRADWORK_NPCAI_API AGOAPAction : public AActor
 {

@@ -4,6 +4,8 @@
 #include "GameFramework/Actor.h"
 #include "GOAPGoal.generated.h"
 
+class WorldState;
+
 UCLASS()
 class GRADWORK_NPCAI_API AGOAPGoal : public AActor
 {
@@ -15,7 +17,6 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-
-private:	
-
+	WorldState* m_DiseredState;
+	FString M_NameOfGoal{ "default" };
 };

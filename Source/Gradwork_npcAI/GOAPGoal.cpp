@@ -1,4 +1,6 @@
 #include "GOAPGoal.h"
+#include "WorldState.h"
+
 
 // Sets default values
 AGOAPGoal::AGOAPGoal()

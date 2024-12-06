@@ -1,4 +1,6 @@
 #include "GOAPAction.h"
+#include "WorldState.h"
+
 
 // Sets default values
 AGOAPAction::AGOAPAction()

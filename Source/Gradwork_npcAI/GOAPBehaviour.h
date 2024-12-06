@@ -5,8 +5,11 @@
 #include "ActionScore.h"
 #include "AIBehaviourBase.h"
 
-
 #include "GOAPBehaviour.generated.h"
+
+class WorldState;
+class AGOAPGoal;
+class AGOAPAction;
 
 UCLASS()
 class GRADWORK_NPCAI_API AGOAPBehaviour : public AActor, public AIBehaviourBase

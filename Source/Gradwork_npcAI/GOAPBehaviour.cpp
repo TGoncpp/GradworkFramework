@@ -1,4 +1,7 @@
 #include "GOAPBehaviour.h"
+#include "GOAPAction.h"
+#include "GOAPGoal.h"
+
 
 // Sets default values
 AGOAPBehaviour::AGOAPBehaviour()
