@@ -35,18 +35,38 @@ EAction AGOAPBehaviour::Execute(FVector2D& moveInput)
 
 }
 
+GOAPActionBase* AGOAPBehaviour::FindStartAction()
+{
+	WorldState* desiredState = m_CurrentGoal->GetDisiredState();
+
+	GOAPActionBase* possibleAction = nullptr;
+	float lowestScore = 0.0f;
+	for (const auto& action : m_AllGOAPActions)
+	{
+		if (action->DoesActionSatisfyGoal(desiredState) && action->GetActionScore() < lowestScore)
+		{
+			possibleAction = action.Get();
+			lowestScore = action->GetActionScore();
+		}
+	}
+	return possibleAction;
+}
+
 void AGOAPBehaviour::CreateNewPlan()
 {
 	m_CurrentGoal = SelectFirstVallidPriorityGoal();
 
-	WorldState* desiredState = m_CurrentGoal->GetDisiredState();
-
-
+	//Find the lowest scoring Action that satisfies the goal desired state
+	GOAPActionBase* startAction = FindStartAction();
+		
+	//Looks recursively for all the actions needed to achieve the current goal
+	FindAllNeccesaryGOAPActions(startAction);
 
 }
 
-void AGOAPBehaviour::FindAllNeccesaryGOAPActions()
+void AGOAPBehaviour::FindAllNeccesaryGOAPActions(GOAPActionBase* startAction)
 {
+
 }
 
 GOAPGoalBase* AGOAPBehaviour::SelectFirstVallidPriorityGoal()

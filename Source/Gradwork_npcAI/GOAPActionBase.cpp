@@ -22,10 +22,11 @@ WorldState* GOAPActionBase::GetDisiredState() const
 
 bool GOAPActionBase::DoesActionSatisfyGoal(WorldState* desiredState)
 {
-	return false;
+	return desiredState->GetGoalState() == m_SatisfiesState->GetGoalState();
 }
 
 bool GOAPActionBase::DoesActionSatisfyActionState(WorldState* desiredState, int indexOfWorldState)
 {
-	return false;
+	return m_SatisfiesState->GetIndexOffAllActiveStates().Contains(indexOfWorldState) 
+		&& m_SatisfiesState->IsWorldStateEqualOnIndex(desiredState, indexOfWorldState);
 }

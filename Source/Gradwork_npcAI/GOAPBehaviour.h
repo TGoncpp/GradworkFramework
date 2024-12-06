@@ -26,8 +26,9 @@ protected:
 	virtual void BeginPlay() override;
 
 private:	
+	GOAPActionBase* FindStartAction();
 	void CreateNewPlan();
-	void FindAllNeccesaryGOAPActions();
+	void FindAllNeccesaryGOAPActions(GOAPActionBase* startAction);
 	GOAPGoalBase* SelectFirstVallidPriorityGoal();
 
 	TArray <TUniquePtr< GOAPActionBase > > m_AllGOAPActions;

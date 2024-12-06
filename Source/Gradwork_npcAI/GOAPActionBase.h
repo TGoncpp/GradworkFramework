@@ -22,6 +22,7 @@ public:
 
 protected:
 	TUniquePtr<WorldState> m_DiseredState = nullptr;
+	TUniquePtr<WorldState> m_SatisfiesState = nullptr;
 	FString M_NameOfAction{ "defaultAction" };
 	float m_Cost = 0.0f;
 	float m_Heuristic = 0.0f;
