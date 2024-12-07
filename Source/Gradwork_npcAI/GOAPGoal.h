@@ -17,13 +17,13 @@ class GRADWORK_NPCAI_API AGOAPGoal : public AActor, public GOAPGoalBase
 public:	
 	AGOAPGoal();
 	virtual void Tick(float DeltaTime) override;
-	virtual bool IsVallid(BlackBoard* blackboard) ;
+	virtual bool IsVallid(BlackBoard* blackboard)const ;
 
 protected:
 	virtual void BeginPlay() override;
 	UFUNCTION(BlueprintCallable, Category = "Goal")
 	void SetDesiredWorldState(AWorldStateActor* desiredWorldState);
-	bool CheckValidationThroughBlackboard(BlackBoard* blackboard);
+	bool CheckValidationThroughBlackboard(BlackBoard* blackboard)const;
 
 	UPROPERTY(EditAnywhere, Category = "Goal")
 	FString ValidBlackboardKey;

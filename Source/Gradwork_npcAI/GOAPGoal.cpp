@@ -24,10 +24,9 @@ void AGOAPGoal::Tick(float DeltaTime)
 
 }
 
-bool AGOAPGoal::IsVallid(BlackBoard* blackboard) 
+bool AGOAPGoal::IsVallid(BlackBoard* blackboard)const 
 {
 	return CheckValidationThroughBlackboard(blackboard);
-	 ;
 }
 
 void AGOAPGoal::SetDesiredWorldState(AWorldStateActor* desiredWorldState)
@@ -35,7 +34,7 @@ void AGOAPGoal::SetDesiredWorldState(AWorldStateActor* desiredWorldState)
 	m_DiseredState = desiredWorldState;
 }
 
-bool AGOAPGoal::CheckValidationThroughBlackboard(BlackBoard* blackboard)
+bool AGOAPGoal::CheckValidationThroughBlackboard(BlackBoard* blackboard)const
 {
 	return blackboard->GetKeyValue(ValidBlackboardKey) == ValidBlackboardValue;
 }

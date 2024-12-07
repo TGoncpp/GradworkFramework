@@ -9,7 +9,7 @@ GOAPGoalBase::~GOAPGoalBase()
 {
 }
 
-AWorldStateActor* GOAPGoalBase::GetDisiredState() const
+AWorldStateActor* GOAPGoalBase::GetDesiredState() const
 {
 	return m_DiseredState;
 }

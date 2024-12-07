@@ -17,7 +17,7 @@ public:
 	virtual EAction GetActionInput()const = 0;
 
 	float GetActionScore()const;
-	AWorldStateActor* GetDisiredState()const;
+	AWorldStateActor* GetDesiredState()const;
 	bool DoesActionSatisfyGoal(AWorldStateActor* desiredState)const;
 	bool DoesActionSatisfyActionState(AWorldStateActor* desiredState, int indexOfWorldState)const;
 

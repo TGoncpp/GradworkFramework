@@ -64,7 +64,7 @@ GOAPGoalBase* AGOAPBehaviour::SelectFirstVallidPriorityGoal()
 {
 	for (const auto& goal : m_AllGOAPGoals)
 	{
-		if (goal->IsVallid())
+		if (goal->IsVallid(m_BlackboardRef))
 			return goal;
 	}
 	return nullptr;
@@ -72,7 +72,7 @@ GOAPGoalBase* AGOAPBehaviour::SelectFirstVallidPriorityGoal()
 
 GOAPActionBase* AGOAPBehaviour::FindStartAction()
 {
-	AWorldStateActor* desiredState = m_CurrentGoal->GetDisiredState();
+	AWorldStateActor* desiredState = m_CurrentGoal->GetDesiredState();
 
 	GOAPActionBase* possibleAction = nullptr;
 	float lowestScore = 0.0f;
@@ -89,7 +89,7 @@ GOAPActionBase* AGOAPBehaviour::FindStartAction()
 
 void AGOAPBehaviour::FindAllNeccesaryGOAPActions(GOAPActionBase* startAction)
 {
-	AWorldStateActor* currentDesiredWorldState = startAction->GetDisiredState();
+	AWorldStateActor* currentDesiredWorldState = startAction->GetDesiredState();
 	int numOffStatesToSatisfy = currentDesiredWorldState->GetNumOffUnsatisfiedStates();
 
 	//return out off recursion if no more actions to find

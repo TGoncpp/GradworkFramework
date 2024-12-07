@@ -15,7 +15,7 @@ float GOAPActionBase::GetActionScore() const
 	return m_Heuristic + m_Cost;
 }
 
-AWorldStateActor* GOAPActionBase::GetDisiredState() const
+AWorldStateActor* GOAPActionBase::GetDesiredState() const
 {
 	return m_DiseredState;
 }
