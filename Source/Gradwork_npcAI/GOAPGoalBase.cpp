@@ -1,5 +1,5 @@
 #include "GOAPGoalBase.h"
-//#include "WorldState.h"
+#include "WorldStateActor.h"
 
 GOAPGoalBase::GOAPGoalBase()
 {
@@ -9,7 +9,7 @@ GOAPGoalBase::~GOAPGoalBase()
 {
 }
 
-WorldState* GOAPGoalBase::GetDisiredState() const
+AWorldStateActor* GOAPGoalBase::GetDisiredState() const
 {
-	return m_DiseredState.Get();
+	return m_DiseredState;
 }

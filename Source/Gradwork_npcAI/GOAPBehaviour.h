@@ -4,11 +4,15 @@
 #include "GameFramework/Actor.h"
 #include "ActionScore.h"
 #include "AIBehaviourBase.h"
-#include "GOAPGoalBase.h"
-#include "GOAPActionBase.h"
+//#include "WorldState.h"
+//#include "GOAPGoalBase.h"
+//#include "GOAPActionBase.h"
 
 #include "GOAPBehaviour.generated.h"
 
+class GOAPActionBase; 
+class GOAPGoalBase;
+class AWorldStateActor;
 
 UCLASS()
 class GRADWORK_NPCAI_API AGOAPBehaviour : public AActor, public AIBehaviourBase
@@ -24,6 +28,8 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	void AddGOAPGoal(GOAPGoalBase* newGoal);
+	void AddGOAPAction(GOAPActionBase* newAction);
 
 private:	
 	GOAPActionBase* FindStartAction();
@@ -31,10 +37,10 @@ private:
 	void FindAllNeccesaryGOAPActions(GOAPActionBase* startAction);
 	GOAPGoalBase* SelectFirstVallidPriorityGoal();
 
-	TArray <TUniquePtr< GOAPActionBase > > m_AllGOAPActions;
-	TArray <TUniquePtr< GOAPGoalBase > > m_AllGOAPGoals;
+	TArray < GOAPActionBase* >  m_AllGOAPActions;
+	TArray < GOAPGoalBase* >  m_AllGOAPGoals;
 	TArray<GOAPActionBase*> m_CurrentPlan;
-	TUniquePtr <WorldState> m_CurrentWorldState = nullptr;
+	AWorldStateActor* m_CurrentWorldState = nullptr;
 	GOAPGoalBase* m_CurrentGoal = nullptr;
 	GOAPActionBase* m_CurrentAction = nullptr;
 

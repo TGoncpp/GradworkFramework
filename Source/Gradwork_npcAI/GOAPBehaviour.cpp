@@ -1,6 +1,7 @@
 #include "GOAPBehaviour.h"
-//#include "GOAPActionBase.h"
-//#include "GOAPGoalBase.h"
+#include "GOAPActionBase.h"
+#include "GOAPGoalBase.h"
+#include "WorldStateActor.h"
 
 
 // Sets default values
@@ -14,6 +15,16 @@ void AGOAPBehaviour::BeginPlay()
 {
 	Super::BeginPlay();
 	
+}
+
+void AGOAPBehaviour::AddGOAPGoal(GOAPGoalBase* newGoal)
+{
+	m_AllGOAPGoals.Add(newGoal);
+}
+
+void AGOAPBehaviour::AddGOAPAction(GOAPActionBase* newAction)
+{
+	m_AllGOAPActions.Add(newAction);
 }
 
 void AGOAPBehaviour::Tick(float DeltaTime)
@@ -53,15 +64,15 @@ GOAPGoalBase* AGOAPBehaviour::SelectFirstVallidPriorityGoal()
 {
 	for (const auto& goal : m_AllGOAPGoals)
 	{
-		if (goal.IsValid())
-			return goal.Get();
+		if (goal->IsVallid())
+			return goal;
 	}
 	return nullptr;
 }
 
 GOAPActionBase* AGOAPBehaviour::FindStartAction()
 {
-	WorldState* desiredState = m_CurrentGoal->GetDisiredState();
+	AWorldStateActor* desiredState = m_CurrentGoal->GetDisiredState();
 
 	GOAPActionBase* possibleAction = nullptr;
 	float lowestScore = 0.0f;
@@ -69,7 +80,7 @@ GOAPActionBase* AGOAPBehaviour::FindStartAction()
 	{
 		if (action->DoesActionSatisfyGoal(desiredState) && action->GetActionScore() < lowestScore)
 		{
-			possibleAction = action.Get();
+			possibleAction = action;
 			lowestScore = action->GetActionScore();
 		}
 	}
@@ -78,7 +89,7 @@ GOAPActionBase* AGOAPBehaviour::FindStartAction()
 
 void AGOAPBehaviour::FindAllNeccesaryGOAPActions(GOAPActionBase* startAction)
 {
-	WorldState* currentDesiredWorldState = startAction->GetDisiredState();
+	AWorldStateActor* currentDesiredWorldState = startAction->GetDisiredState();
 	int numOffStatesToSatisfy = currentDesiredWorldState->GetNumOffUnsatisfiedStates();
 
 	//return out off recursion if no more actions to find
@@ -104,7 +115,7 @@ void AGOAPBehaviour::FindAllNeccesaryGOAPActions(GOAPActionBase* startAction)
 				if (action->GetActionScore() < score)
 				{
 					score = action->GetActionScore();
-					bestAction = action.Get();
+					bestAction = action;
 				}
 			}
 		}

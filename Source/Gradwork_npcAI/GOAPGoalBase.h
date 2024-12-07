@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "WorldState.h"
 
-class WorldState;
+class AWorldStateActor;
 
 class GRADWORK_NPCAI_API GOAPGoalBase
 {
@@ -12,10 +12,10 @@ public:
 	virtual ~GOAPGoalBase();
 
 	virtual bool IsVallid() const = 0;
-	WorldState* GetDisiredState()const;
+	AWorldStateActor* GetDisiredState()const;
 
 
 protected:
-	TUniquePtr<WorldState> m_DiseredState = nullptr;
+	AWorldStateActor* m_DiseredState = nullptr;
 	FString M_NameOfGoal{ "defaultGoal" };
 };
