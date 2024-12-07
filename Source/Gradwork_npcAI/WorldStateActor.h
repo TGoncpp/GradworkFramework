@@ -32,7 +32,7 @@ enum class EGoal : uint8
 	Fight UMETA(DisplayName = "Fight"),
 	Dodge UMETA(DisplayName = "Dodge"),
 	Heal UMETA(DisplayName = "Heal"),
-	Counter UMETA(DisplayName = "Heal"),
+	Counter UMETA(DisplayName = "Counter"),
 
 };
 

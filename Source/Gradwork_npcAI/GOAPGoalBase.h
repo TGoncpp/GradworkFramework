@@ -1,7 +1,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "WorldState.h"
 
 class AWorldStateActor;
 

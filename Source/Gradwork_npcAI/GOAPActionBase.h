@@ -12,9 +12,9 @@ public:
 	GOAPActionBase();
 	virtual ~GOAPActionBase();
 	//virtual bool IsVallid() const = 0;
-	virtual bool IsFinished() const = 0;
-	virtual void UpdateAction() const = 0;
-	virtual EAction GetActionInput() const = 0;
+	virtual bool IsFinished()const = 0;
+	virtual void UpdateAction() = 0;
+	virtual EAction GetActionInput()const = 0;
 
 	float GetActionScore()const;
 	AWorldStateActor* GetDisiredState()const;

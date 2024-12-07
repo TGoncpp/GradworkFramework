@@ -2,7 +2,6 @@
 #include "WorldState.h"
 
 
-// Sets default values
 AGOAPAction::AGOAPAction()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -10,17 +9,30 @@ AGOAPAction::AGOAPAction()
 
 }
 
-// Called when the game starts or when spawned
 void AGOAPAction::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
 
-// Called every frame
 void AGOAPAction::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+bool AGOAPAction::IsFinished()const 
+{
+	return IsActionFinished;
+}
+
+void AGOAPAction::UpdateAction()
+{
+	UpdateActionImplementation();
+}
+
+EAction AGOAPAction::GetActionInput()const 
+{
+	return ActionInput;
 }
 
