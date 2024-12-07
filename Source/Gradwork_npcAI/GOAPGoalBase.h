@@ -10,7 +10,7 @@ public:
 	GOAPGoalBase();
 	virtual ~GOAPGoalBase();
 
-	virtual bool IsVallid() const = 0;
+	virtual bool IsVallid(BlackBoard* blackboard) = 0;
 	AWorldStateActor* GetDisiredState()const;
 
 

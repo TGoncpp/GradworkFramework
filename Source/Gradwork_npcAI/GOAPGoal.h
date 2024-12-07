@@ -4,6 +4,7 @@
 #include "GameFramework/Actor.h"
 #include "GOAPGoalBase.h"
 
+#include "BlackBoard.h"
 #include "GOAPGoal.generated.h"
 
 class WorldState;
@@ -16,13 +17,16 @@ class GRADWORK_NPCAI_API AGOAPGoal : public AActor, public GOAPGoalBase
 public:	
 	AGOAPGoal();
 	virtual void Tick(float DeltaTime) override;
-	virtual bool IsVallid() const;
+	virtual bool IsVallid(BlackBoard* blackboard) ;
 
 protected:
+	virtual void BeginPlay() override;
 	UFUNCTION(BlueprintCallable, Category = "Goal")
 	void SetDesiredWorldState(AWorldStateActor* desiredWorldState);
-	virtual void BeginPlay() override;
+	bool CheckValidationThroughBlackboard(BlackBoard* blackboard);
 
-	UPROPERTY(BlueprintReadWrite, Category = "Goal")
-	bool IsGoalVallid = false;
+	UPROPERTY(EditAnywhere, Category = "Goal")
+	FString ValidBlackboardKey;
+	UPROPERTY(EditAnywhere, Category = "Goal")
+	float ValidBlackboardValue;
 };

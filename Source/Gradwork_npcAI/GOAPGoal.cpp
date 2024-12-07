@@ -10,11 +10,6 @@ AGOAPGoal::AGOAPGoal()
 
 }
 
-void AGOAPGoal::SetDesiredWorldState(AWorldStateActor* desiredWorldState)
-{
-	m_DiseredState = desiredWorldState;
-}
-
 // Called when the game starts or when spawned
 void AGOAPGoal::BeginPlay()
 {
@@ -29,8 +24,19 @@ void AGOAPGoal::Tick(float DeltaTime)
 
 }
 
-bool AGOAPGoal::IsVallid() const
+bool AGOAPGoal::IsVallid(BlackBoard* blackboard) 
 {
-	return IsGoalVallid;
+	return CheckValidationThroughBlackboard(blackboard);
+	 ;
+}
+
+void AGOAPGoal::SetDesiredWorldState(AWorldStateActor* desiredWorldState)
+{
+	m_DiseredState = desiredWorldState;
+}
+
+bool AGOAPGoal::CheckValidationThroughBlackboard(BlackBoard* blackboard)
+{
+	return blackboard->GetKeyValue(ValidBlackboardKey) == ValidBlackboardValue;
 }
 
