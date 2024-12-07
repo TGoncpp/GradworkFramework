@@ -11,7 +11,7 @@ WorldState::~WorldState()
 int WorldState::GetNumOffUnsatisfiedStates() const
 {
 	int numOffUnsatisfiedStates = 0;
-	for (const bool& worldState : m_IsSatisfiedWorldStates)
+	for (const bool& worldState : m_IsActiveWorldStates)
 	{
 		if (worldState)
 			numOffUnsatisfiedStates++;
@@ -20,12 +20,17 @@ int WorldState::GetNumOffUnsatisfiedStates() const
 	return numOffUnsatisfiedStates;
 }
 
+int WorldState::GetNumOffAllStates() const
+{
+	return m_IsActiveWorldStates.Num();
+}
+
 TArray<int> WorldState::GetIndexOffAllActiveStates() const
 {
 	TArray<int> indexes;
-	for (int index{}; index < m_IsSatisfiedWorldStates.Num(); index++)
+	for (int index{}; index < m_IsActiveWorldStates.Num(); index++)
 	{
-		if (m_IsSatisfiedWorldStates[index])
+		if (m_IsActiveWorldStates[index])
 			indexes.Add(index);
 	}
 	return indexes;
@@ -84,4 +89,9 @@ bool WorldState::IsWorldStateEqualOnIndex(WorldState* otherWorldState, int index
 		return m_DistanceToOpponentState == otherWorldState->GetDistanceState();
 	}
 	return false;
+}
+
+bool WorldState::IsWorldStateActiveAtIndex(int index) const
+{
+	return m_IsActiveWorldStates[index];
 }

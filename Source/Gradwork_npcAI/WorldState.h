@@ -39,6 +39,7 @@ public:
 	~WorldState();
 
 	int GetNumOffUnsatisfiedStates()const;
+	int GetNumOffAllStates()const;
 	TArray<int> GetIndexOffAllActiveStates()const;
 	void UpdateWorldState(WorldState* WorldState);
 	EGoal GetGoalState()const;
@@ -48,9 +49,10 @@ public:
 	ECondition GetOpponentConditionState()const;
 	EDistance GetDistanceState()const;
 	bool IsWorldStateEqualOnIndex(WorldState* otherWorldState, int index)const;
+	bool IsWorldStateActiveAtIndex(int index)const;
 
 private:
-	TArray<bool> m_IsSatisfiedWorldStates;
+	TArray<bool> m_IsActiveWorldStates;
 	EGoal m_GoalState;                  //index =0 -> will always be the desired state off a Goal
 	EAction m_ActionState;              //index =1
 	EAction m_OpponentActionState;      //index =2
