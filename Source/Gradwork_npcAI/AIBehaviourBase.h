@@ -3,7 +3,8 @@
 #include "CoreMinimal.h"
 #include "BlackBoard.h"
 
-enum class EBehaviour
+UENUM(blueprintType)
+enum class EBehaviour :uint8
 {
 	Utility,
 	GOAP,

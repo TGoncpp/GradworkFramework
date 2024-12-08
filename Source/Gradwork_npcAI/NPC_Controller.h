@@ -27,7 +27,9 @@ public:
 	void LockOn() { m_NpcRefrence->LockOn(); };
 
 	UFUNCTION(BlueprintCallable, Category = "AI-Input")
-	void AddUtillityToBehaviourMap(AUtilityAIBehaviour* actionScore);
+	void AddUtillityToBehaviourMap(AUtilityAIBehaviour* UtillitAIBehaviour);
+	UFUNCTION(BlueprintCallable, Category = "AI-Input")
+	void AddGOAPToBehaviourMap(AGOAPBehaviour* GOAPBehaviour);
 
 	UFUNCTION(BlueprintCallable, Category = "blackboard")
 	void AddToBlackboard( float value, const FString& key);
@@ -82,7 +84,8 @@ private:
 
 	//behavioursystems
 	//TMap< EBehaviour,AIBehaviourBase*> m_BehaviourSystems;
-	AUtilityAIBehaviour* m_SelectedBehaviourSystem = nullptr;
+	//AUtilityAIBehaviour* m_SelectedBehaviourSystem = nullptr;
+	AIBehaviourBase* m_SelectedBehaviourSystem = nullptr;
 	TUniquePtr< BlackBoard> m_Blackboard = nullptr;
 	bool m_LockedOnPlayer = false;
 };

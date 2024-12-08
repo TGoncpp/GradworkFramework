@@ -1,5 +1,6 @@
 #include "NPC_Controller.h"
 #include "UtilityAIBehaviour.h"
+#include "GOAPBehaviour.h"
 #include "BlackBoard.h"
 
 ANPC_Controller::ANPC_Controller()
@@ -130,6 +131,21 @@ void ANPC_Controller::AddUtillityToBehaviourMap(AUtilityAIBehaviour* aiBehaviour
 
     checkf(m_SelectedBehaviourSystem, TEXT("adding off behaviour system failed"));
     
+
+
+    if (m_Blackboard)
+        m_SelectedBehaviourSystem->AddBlackboardRefrence(m_Blackboard.Get());
+    else
+        GEngine->AddOnScreenDebugMessage(-1, 13.0f, FColor::Blue, TEXT("No vallid blackboard passed to aibehaviour from controller"));
+
+}
+
+void ANPC_Controller::AddGOAPToBehaviourMap(AGOAPBehaviour* GOAPBehaviour)
+{
+    if (GOAPBehaviour)
+        m_SelectedBehaviourSystem = GOAPBehaviour;
+
+    checkf(m_SelectedBehaviourSystem, TEXT("adding off behaviour system failed"));
 
 
     if (m_Blackboard)
