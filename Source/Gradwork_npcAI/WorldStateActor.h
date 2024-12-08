@@ -14,6 +14,8 @@ enum class ECondition : uint8
 	LowHP UMETA(DisplayName = "LowHP"),
 	LowSP UMETA(DisplayName = "LowSP"),
 	Low UMETA(DisplayName = "Low"),
+	HighSP UMETA(DisplayName = "HighSP"),
+	HighHP UMETA(DisplayName = "HighHP"),
 
 };
 
@@ -38,7 +40,7 @@ enum class EGoal : uint8
 
 
 
-UCLASS()
+UCLASS(BlueprintType)
 class GRADWORK_NPCAI_API AWorldStateActor : public AActor
 {
 	GENERATED_BODY()

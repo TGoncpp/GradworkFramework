@@ -1,8 +1,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "WorldStateActor.h"
 
-class AWorldStateActor;
+//class AWorldStateActor;
 class BlackBoard;
 
 class GRADWORK_NPCAI_API GOAPGoalBase
@@ -16,6 +17,6 @@ public:
 
 
 protected:
-	AWorldStateActor* m_DiseredState = nullptr;
+	AWorldStateActor* m_DesiredState = nullptr;
 	FString M_NameOfGoal{ "defaultGoal" };
 };

@@ -14,7 +14,7 @@ AGOAPGoal::AGOAPGoal()
 void AGOAPGoal::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	m_DesiredState = DesiredState.Get();
 }
 
 // Called every frame
@@ -31,7 +31,7 @@ bool AGOAPGoal::IsVallid(BlackBoard* blackboard)const
 
 void AGOAPGoal::SetDesiredWorldState(AWorldStateActor* desiredWorldState)
 {
-	m_DiseredState = desiredWorldState;
+	m_DesiredState = desiredWorldState;
 }
 
 bool AGOAPGoal::CheckValidationThroughBlackboard(BlackBoard* blackboard)const

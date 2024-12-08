@@ -30,6 +30,12 @@ protected:
 	
 	UPROPERTY(EditAnywhere, Category = "GOAPAction")
 	EAction ActionInput;
+	UPROPERTY(EditAnywhere, Category = "GOAPAction")
+	TSoftObjectPtr <AWorldStateActor> DesiredState = nullptr;
+	UPROPERTY(EditAnywhere, Category = "GOAPAction")
+	TSoftObjectPtr <AWorldStateActor>  SatisfiesState = nullptr;
+
 	UPROPERTY(BlueprintReadWrite, Category = "GOAPAction")
 	bool IsActionFinished = false;
+
 };

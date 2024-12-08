@@ -1,8 +1,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "WorldStateActor.h"
 
-class AWorldStateActor;
+//class AWorldStateActor;
 enum class EAction : uint8;
 
 
@@ -22,7 +23,7 @@ public:
 	bool DoesActionSatisfyActionState(AWorldStateActor* desiredState, int indexOfWorldState)const;
 
 protected:
-	AWorldStateActor* m_DiseredState = nullptr;
+	AWorldStateActor* m_DesiredState = nullptr;
 	AWorldStateActor* m_SatisfiesState = nullptr;
 	float m_Cost = 0.0f;
 	float m_Heuristic = 0.0f;

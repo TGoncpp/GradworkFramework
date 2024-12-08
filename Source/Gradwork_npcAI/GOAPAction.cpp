@@ -12,7 +12,8 @@ AGOAPAction::AGOAPAction()
 void AGOAPAction::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	m_DesiredState = DesiredState.Get();
+	m_SatisfiesState = SatisfiesState.Get();
 }
 
 void AGOAPAction::Tick(float DeltaTime)

@@ -1,5 +1,5 @@
 #include "GOAPActionBase.h"
-#include "WorldStateActor.h"
+//#include "WorldStateActor.h"
 
 
 GOAPActionBase::GOAPActionBase()
@@ -17,7 +17,7 @@ float GOAPActionBase::GetActionScore() const
 
 AWorldStateActor* GOAPActionBase::GetDesiredState() const
 {
-	return m_DiseredState;
+	return m_DesiredState;
 }
 
 bool GOAPActionBase::DoesActionSatisfyGoal(AWorldStateActor* desiredState)const

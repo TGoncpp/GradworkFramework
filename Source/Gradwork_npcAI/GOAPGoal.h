@@ -26,6 +26,8 @@ protected:
 	bool CheckValidationThroughBlackboard(BlackBoard* blackboard)const;
 
 	UPROPERTY(EditAnywhere, Category = "Goal")
+	TSoftObjectPtr < AWorldStateActor> DesiredState;
+	UPROPERTY(EditAnywhere, Category = "Goal")
 	FString ValidBlackboardKey;
 	UPROPERTY(EditAnywhere, Category = "Goal")
 	float ValidBlackboardValue;
