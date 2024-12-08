@@ -1,7 +1,7 @@
 #include "GOAPBehaviour.h"
-#include "GOAPActionBase.h"
-#include "GOAPGoalBase.h"
-#include "WorldStateActor.h"
+//#include "GOAPActionBase.h"
+//#include "GOAPGoalBase.h"
+//#include "WorldStateActor.h"
 
 
 // Sets default values
@@ -17,12 +17,12 @@ void AGOAPBehaviour::BeginPlay()
 	
 }
 
-void AGOAPBehaviour::AddGOAPGoal(GOAPGoalBase* newGoal)
+void AGOAPBehaviour::AddGOAPGoal(AGOAPGoal* newGoal)
 {
 	m_AllGOAPGoals.Add(newGoal);
 }
 
-void AGOAPBehaviour::AddGOAPAction(GOAPActionBase* newAction)
+void AGOAPBehaviour::AddGOAPAction(AGOAPAction* newAction)
 {
 	m_AllGOAPActions.Add(newAction);
 }

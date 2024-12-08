@@ -8,6 +8,13 @@
 #include "GOAPGoal.generated.h"
 
 class WorldState;
+UENUM(blueprintType)
+enum class ECompareMethode : uint8
+{
+	Lower UMETA(DisplayName = "Lower"),
+	Equal UMETA(DisplayName = "Equal"),
+	Higher UMETA(DisplayName = "Higher")
+};
 
 UCLASS()
 class GRADWORK_NPCAI_API AGOAPGoal : public AActor, public GOAPGoalBase
@@ -29,6 +36,8 @@ protected:
 	TSoftObjectPtr < AWorldStateActor> DesiredState;
 	UPROPERTY(EditAnywhere, Category = "Goal")
 	FString ValidBlackboardKey;
+	UPROPERTY(EditAnywhere, Category = "Goal")
+	ECompareMethode CompareMethod;
 	UPROPERTY(EditAnywhere, Category = "Goal")
 	float ValidBlackboardValue;
 };

@@ -5,14 +5,14 @@
 #include "ActionScore.h"
 #include "AIBehaviourBase.h"
 //#include "WorldState.h"
-//#include "GOAPGoalBase.h"
-//#include "GOAPActionBase.h"
+#include "GOAPGoal.h"
+#include "GOAPAction.h"
 
 #include "GOAPBehaviour.generated.h"
 
-class GOAPActionBase; 
-class GOAPGoalBase;
-class AWorldStateActor;
+//class GOAPActionBase; 
+//class GOAPGoalBase;
+//class AWorldStateActor;
 
 UCLASS()
 class GRADWORK_NPCAI_API AGOAPBehaviour : public AActor, public AIBehaviourBase
@@ -28,8 +28,10 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-	void AddGOAPGoal(GOAPGoalBase* newGoal);
-	void AddGOAPAction(GOAPActionBase* newAction);
+	UFUNCTION(BlueprintCallable, Category = "GOAP")
+	void AddGOAPGoal(AGOAPGoal* newGoal);
+	UFUNCTION(BlueprintCallable, Category = "GOAP")
+	void AddGOAPAction(AGOAPAction* newAction);
 
 private:	
 	GOAPActionBase* FindStartAction();
