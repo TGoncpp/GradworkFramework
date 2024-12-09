@@ -1,7 +1,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
+UENUM(blueprintType)
+enum class ECompareMethode : uint8
+{
+	Lower UMETA(DisplayName = "Lower"),
+	Equal UMETA(DisplayName = "Equal"),
+	Higher UMETA(DisplayName = "Higher")
+};
 struct BlackboardValue
 {
 	FString key;

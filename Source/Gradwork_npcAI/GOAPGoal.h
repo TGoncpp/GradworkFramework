@@ -8,13 +8,7 @@
 #include "GOAPGoal.generated.h"
 
 class WorldState;
-UENUM(blueprintType)
-enum class ECompareMethode : uint8
-{
-	Lower UMETA(DisplayName = "Lower"),
-	Equal UMETA(DisplayName = "Equal"),
-	Higher UMETA(DisplayName = "Higher")
-};
+
 
 UCLASS()
 class GRADWORK_NPCAI_API AGOAPGoal : public AActor, public GOAPGoalBase

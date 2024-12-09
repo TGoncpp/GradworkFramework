@@ -5,7 +5,7 @@
 
 //class AWorldStateActor;
 enum class EAction : uint8;
-
+class BlackBoard;
 
 class GRADWORK_NPCAI_API GOAPActionBase
 {
@@ -14,7 +14,7 @@ public:
 	virtual ~GOAPActionBase();
 	//virtual bool IsVallid() const = 0;
 	virtual bool IsFinished()const = 0;
-	virtual void UpdateAction() = 0;
+	virtual void UpdateAction(BlackBoard* blackboard) = 0;
 	virtual EAction GetActionInput()const = 0;
 
 	float GetActionScore()const;

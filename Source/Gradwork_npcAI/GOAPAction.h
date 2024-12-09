@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "GOAPActionBase.h"
+#include "BlackBoard.h"
 
 #include "GOAPAction.generated.h"
 
@@ -19,7 +20,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual bool IsFinished()const override;
-	virtual void UpdateAction() override;
+	virtual void UpdateAction(BlackBoard* blackboard) override;
 	virtual EAction GetActionInput()const override;
 
 protected:
@@ -37,5 +38,15 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, Category = "GOAPAction")
 	bool IsActionFinished = false;
+	UPROPERTY(EditAnywhere, Category = "GOAPAction")
+	TArray<FString> UpdateBlackboardKey;
+	UPROPERTY(EditAnywhere, Category = "GOAPAction")
+	TArray<float> UpdateBlackboardValue;
+	UPROPERTY(EditAnywhere, Category = "GOAPAction")
+	TArray<ECompareMethode> UpdateCompareMethode;
+
+private:
+	bool CompareBlackboardValues(BlackBoard* blackboard, const FString& key, float comparedValue, ECompareMethode compareMethode);
+
 
 };

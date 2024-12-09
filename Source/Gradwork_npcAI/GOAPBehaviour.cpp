@@ -17,16 +17,6 @@ void AGOAPBehaviour::BeginPlay()
 	
 }
 
-void AGOAPBehaviour::AddGOAPGoal(AGOAPGoal* newGoal)
-{
-	m_AllGOAPGoals.Add(newGoal);
-}
-
-void AGOAPBehaviour::AddGOAPAction(AGOAPAction* newAction)
-{
-	m_AllGOAPActions.Add(newAction);
-}
-
 void AGOAPBehaviour::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -42,7 +32,7 @@ EAction AGOAPBehaviour::Execute(FVector2D& moveInput)
 	if (!m_CurrentAction || m_CurrentAction->IsFinished())
 		m_CurrentAction = m_CurrentPlan.Pop();
 	else
-		m_CurrentAction->UpdateAction();
+		m_CurrentAction->UpdateAction(m_BlackboardRef);
 
 	return m_CurrentAction->GetActionInput();
 
@@ -126,5 +116,15 @@ void AGOAPBehaviour::FindAllNeccesaryGOAPActions(GOAPActionBase* startAction)
 
 	}
 
+}
+
+void AGOAPBehaviour::AddGOAPGoal(AGOAPGoal* newGoal)
+{
+	m_AllGOAPGoals.Add(newGoal);
+}
+
+void AGOAPBehaviour::AddGOAPAction(AGOAPAction* newAction)
+{
+	m_AllGOAPActions.Add(newAction);
 }
 
