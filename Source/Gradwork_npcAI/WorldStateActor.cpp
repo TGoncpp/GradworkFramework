@@ -1,4 +1,8 @@
 #include "WorldStateActor.h"
+#include "BlackBoard.h"
+#include "SoulsController.h"
+#include "StaminaComponent.h"
+#include "HealthComponent.h"
 
 // Sets default values
 AWorldStateActor::AWorldStateActor()
@@ -51,8 +55,59 @@ TArray<int> AWorldStateActor::GetIndexOffAllActiveStates() const
 	return indexes;
 }
 
-void AWorldStateActor::UpdateWorldState(AWorldStateActor* WorldState)
+void AWorldStateActor::UpdateWorldState(AActor* playerRef, AActor* npcRef)
 {
+	ASoulsCharacter* player = Cast<ASoulsCharacter>(playerRef);
+	ASoulsCharacter* npc = Cast<ASoulsCharacter>(npcRef);
+
+	//Update distance state
+	float distance = player->GetDistanceTo(npc);
+	if (distance < m_DistanceOfReach)
+		m_DistanceToOpponentState = EDistance::Close;
+	else if (distance > m_DistanceOfReach && distance < m_DistanceOfHeal)
+		m_DistanceToOpponentState = EDistance::OutOfRange;
+	else
+		m_DistanceToOpponentState = EDistance::HealDistance;
+
+	//Update ActionState
+	m_ActionState = npc->GetCurrentAction()->GetActionType();
+
+	//Update enemy ActionState
+	m_OpponentActionState = player->GetCurrentAction()->GetActionType();
+
+	//Update condition
+	float stamina = npc->GetStaminaComponentRef()->GetStaminaPercentage();
+	float health = npc->GetHealthComponentRef()->GetHealthPercentage();
+	if (stamina < m_MinValue && health < m_MinValue)
+		m_ConditionState = ECondition::Low;
+	else if (stamina < m_MinValue )
+		m_ConditionState = ECondition::LowSP;
+	else if (health < m_MinValue )
+		m_ConditionState = ECondition::LowHP;
+	else if (stamina > m_HighValue && health > m_HighValue)
+		m_ConditionState = ECondition::Perfect;
+	else if (stamina > m_HighValue )
+		m_ConditionState = ECondition::HighSP;
+	else if (health > m_HighValue)
+		m_ConditionState = ECondition::HighHP;
+
+	//Update opponent condition
+	float stamina = player->GetStaminaComponentRef()->GetStaminaPercentage();
+	float health = player->GetHealthComponentRef()->GetHealthPercentage();
+	if (stamina < m_MinValue && health < m_MinValue)
+		m_OpponentConditionState = ECondition::Low;
+	else if (stamina < m_MinValue )
+		m_OpponentConditionState = ECondition::LowSP;
+	else if (health < m_MinValue )
+		m_OpponentConditionState = ECondition::LowHP;
+	else if (stamina > m_HighValue && health > m_HighValue)
+		m_OpponentConditionState = ECondition::Perfect;
+	else if (stamina > m_HighValue )
+		m_OpponentConditionState = ECondition::HighSP;
+	else if (health > m_HighValue)
+		m_OpponentConditionState = ECondition::HighHP;
+	
+
 
 }
 

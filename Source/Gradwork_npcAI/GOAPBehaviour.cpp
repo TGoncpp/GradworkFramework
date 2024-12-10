@@ -20,7 +20,7 @@ void AGOAPBehaviour::BeginPlay()
 void AGOAPBehaviour::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	UpdateCurrentWorldState();
 }
 
 EAction AGOAPBehaviour::Execute(FVector2D& moveInput)
@@ -58,6 +58,11 @@ GOAPGoalBase* AGOAPBehaviour::SelectFirstVallidPriorityGoal()
 			return goal;
 	}
 	return nullptr;
+}
+
+void AGOAPBehaviour::UpdateCurrentWorldState()
+{
+
 }
 
 GOAPActionBase* AGOAPBehaviour::FindStartAction()
@@ -102,9 +107,10 @@ void AGOAPBehaviour::FindAllNeccesaryGOAPActions(GOAPActionBase* startAction)
 			
 			if (action->DoesActionSatisfyActionState(currentDesiredWorldState, index))
 			{
-				if (action->GetActionScore() < score)
+				float newScore = action->GetActionScore();
+				if (newScore < score)
 				{
-					score = action->GetActionScore();
+					score = newScore;
 					bestAction = action;
 				}
 			}

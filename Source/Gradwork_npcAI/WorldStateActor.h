@@ -38,7 +38,7 @@ enum class EGoal : uint8
 
 };
 
-
+class BlackBoard;
 
 UCLASS(BlueprintType)
 class GRADWORK_NPCAI_API AWorldStateActor : public AActor
@@ -53,7 +53,8 @@ public:
 	int GetNumOffUnsatisfiedStates()const;
 	int GetNumOffAllStates()const;
 	TArray<int> GetIndexOffAllActiveStates()const;
-	void UpdateWorldState(AWorldStateActor* WorldState);
+	UFUNCTION(BlueprintCallable, Category = "GOAP")
+	void UpdateWorldState( AActor* player, AActor* npc);
 	EGoal GetGoalState()const;
 	EAction GetActionState()const;
 	EAction GetOpponentActionState()const;
@@ -82,4 +83,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldState")
 	EDistance m_DistanceToOpponentState;//index =5
 
+private:
+	const float m_DistanceOfReach = 150.0f;
+	const float m_DistanceOfHeal = 650.0f;
+	const float m_MinValue = 0.4f;
+	const float m_HighValue = 0.7f;
 };

@@ -29,13 +29,17 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = "GOAPAction")
 	void UpdateActionImplementation();
 	
+	//Action state
 	UPROPERTY(EditAnywhere, Category = "GOAPAction")
 	EAction ActionInput;
 	UPROPERTY(EditAnywhere, Category = "GOAPAction")
 	TSoftObjectPtr <AWorldStateActor> DesiredState = nullptr;
 	UPROPERTY(EditAnywhere, Category = "GOAPAction")
 	TSoftObjectPtr <AWorldStateActor>  SatisfiesState = nullptr;
+	UPROPERTY(EditAnywhere, Category = "GOAPAction")
+	float Cost = 0.0f;
 
+	//Action validation state
 	UPROPERTY(BlueprintReadWrite, Category = "GOAPAction")
 	bool IsActionFinished = false;
 	UPROPERTY(EditAnywhere, Category = "GOAPAction")
@@ -47,6 +51,7 @@ protected:
 
 private:
 	bool CompareBlackboardValues(BlackBoard* blackboard, const FString& key, float comparedValue, ECompareMethode compareMethode);
+	float CalculateHeuristic() const;
 
 
 };

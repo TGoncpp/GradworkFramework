@@ -38,6 +38,7 @@ private:
 	void CreateNewPlan();
 	void FindAllNeccesaryGOAPActions(GOAPActionBase* startAction);
 	GOAPGoalBase* SelectFirstVallidPriorityGoal();
+	void UpdateCurrentWorldState();
 
 	TArray < GOAPActionBase* >  m_AllGOAPActions;
 	TArray < GOAPGoalBase* >  m_AllGOAPGoals;
