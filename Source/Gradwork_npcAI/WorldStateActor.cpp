@@ -3,6 +3,7 @@
 #include "SoulsController.h"
 #include "StaminaComponent.h"
 #include "HealthComponent.h"
+#include "AIBehaviourBase.h"
 
 // Sets default values
 AWorldStateActor::AWorldStateActor()
@@ -70,10 +71,19 @@ void AWorldStateActor::UpdateWorldState(AActor* playerRef, AActor* npcRef)
 		m_DistanceToOpponentState = EDistance::HealDistance;
 
 	//Update ActionState
-	m_ActionState = npc->GetCurrentAction()->GetActionType();
+	ABattleActionBase* action =  npc->GetCurrentAction();
+	if (action)
+		m_ActionState = npc->GetCurrentAction()->GetActionType();
+	else
+		m_ActionState = EAction::Idle;
 
 	//Update enemy ActionState
-	m_OpponentActionState = player->GetCurrentAction()->GetActionType();
+	action = player->GetCurrentAction();
+	if (action)
+		m_OpponentActionState = action->GetActionType();
+	else
+		m_OpponentActionState = EAction::Idle;
+
 
 	//Update condition
 	float stamina = npc->GetStaminaComponentRef()->GetStaminaPercentage();

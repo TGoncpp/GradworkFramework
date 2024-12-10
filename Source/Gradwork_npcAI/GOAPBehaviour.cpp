@@ -27,9 +27,12 @@ EAction AGOAPBehaviour::Execute(FVector2D& moveInput)
 {
 	if (m_CurrentPlan.IsEmpty())
 		CreateNewPlan();
-	
 
-	if (!m_CurrentAction || m_CurrentAction->IsFinished())
+	//if creating plan fails return idle
+	if (m_CurrentPlan.IsEmpty())
+		return EAction::Idle;
+
+	if (!m_CurrentAction || m_CurrentAction->IsFinished() )
 		m_CurrentAction = m_CurrentPlan.Pop();
 	else
 		m_CurrentAction->UpdateAction(m_BlackboardRef);
@@ -46,7 +49,8 @@ void AGOAPBehaviour::CreateNewPlan()
 	GOAPActionBase* startAction = FindStartAction();
 		
 	//Looks recursively for all the actions needed to achieve the current goal
-	FindAllNeccesaryGOAPActions(startAction);
+	if (startAction)
+		FindAllNeccesaryGOAPActions(startAction);
 
 }
 
