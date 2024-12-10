@@ -143,7 +143,10 @@ void ANPC_Controller::AddUtillityToBehaviourMap(AUtilityAIBehaviour* aiBehaviour
 void ANPC_Controller::AddGOAPToBehaviourMap(AGOAPBehaviour* GOAPBehaviour)
 {
     if (GOAPBehaviour)
+    {
         m_SelectedBehaviourSystem = GOAPBehaviour;
+        m_GOAPBehaviourSystem = GOAPBehaviour;
+    }
 
     checkf(m_SelectedBehaviourSystem, TEXT("adding off behaviour system failed"));
 

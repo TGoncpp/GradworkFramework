@@ -32,6 +32,11 @@ protected:
 	void AddGOAPGoal(AGOAPGoal* newGoal);
 	UFUNCTION(BlueprintCallable, Category = "GOAP")
 	void AddGOAPAction(AGOAPAction* newAction);
+	//UFUNCTION(BlueprintCallable, BlueprintPure, Category = "GOAP")
+	//AWorldStateActor* GetCurrentState();
+
+	UPROPERTY(BlueprintReadWrite, Category = "GOAP")
+	AWorldStateActor* CurrentWorldState = nullptr;
 
 private:	
 	GOAPActionBase* FindStartAction();
@@ -43,7 +48,6 @@ private:
 	TArray < GOAPActionBase* >  m_AllGOAPActions;
 	TArray < GOAPGoalBase* >  m_AllGOAPGoals;
 	TArray<GOAPActionBase*> m_CurrentPlan;
-	AWorldStateActor* m_CurrentWorldState = nullptr;
 	GOAPGoalBase* m_CurrentGoal = nullptr;
 	GOAPActionBase* m_CurrentAction = nullptr;
 

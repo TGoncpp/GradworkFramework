@@ -53,6 +53,8 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "Refrences")
 	ASoulsCharacter* GetControlledNpcRef()const;
 	//void SelectBehaviourSystem(const EBehaviour& selectedState) { m_SelectedBehaviourSystem = m_BehaviourSystems[selectedState]; }
+	UFUNCTION(BlueprintCallable, Category = "GOAP")
+	AGOAPBehaviour* GetGOAPResultRef()const { return m_GOAPBehaviourSystem; }
 
 private:
 	//Actions
@@ -86,6 +88,7 @@ private:
 	//TMap< EBehaviour,AIBehaviourBase*> m_BehaviourSystems;
 	//AUtilityAIBehaviour* m_SelectedBehaviourSystem = nullptr;
 	AIBehaviourBase* m_SelectedBehaviourSystem = nullptr;
+	AGOAPBehaviour* m_GOAPBehaviourSystem = nullptr;
 	TUniquePtr< BlackBoard> m_Blackboard = nullptr;
 	bool m_LockedOnPlayer = false;
 };

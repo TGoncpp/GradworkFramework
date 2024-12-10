@@ -134,3 +134,8 @@ void AGOAPBehaviour::AddGOAPAction(AGOAPAction* newAction)
 	m_AllGOAPActions.Add(newAction);
 }
 
+//AWorldStateActor* AGOAPBehaviour::GetCurrentState()
+//{
+//	return CurrentWorldState;
+//}
+

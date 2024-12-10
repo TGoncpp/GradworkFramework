@@ -92,8 +92,8 @@ void AWorldStateActor::UpdateWorldState(AActor* playerRef, AActor* npcRef)
 		m_ConditionState = ECondition::HighHP;
 
 	//Update opponent condition
-	float stamina = player->GetStaminaComponentRef()->GetStaminaPercentage();
-	float health = player->GetHealthComponentRef()->GetHealthPercentage();
+	stamina = player->GetStaminaComponentRef()->GetStaminaPercentage();
+	health = player->GetHealthComponentRef()->GetHealthPercentage();
 	if (stamina < m_MinValue && health < m_MinValue)
 		m_OpponentConditionState = ECondition::Low;
 	else if (stamina < m_MinValue )
