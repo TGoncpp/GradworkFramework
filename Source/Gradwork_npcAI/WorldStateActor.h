@@ -79,7 +79,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldState")
-	TArray<bool> m_IsActiveWorldStates;
+	TArray<bool> m_IsActiveWorldStates{false, false, false, false, false, false};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldState")
 	EGoal m_GoalState = EGoal::Idle;                  //index =0 -> will always be the desired state off a Goal
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldState")
