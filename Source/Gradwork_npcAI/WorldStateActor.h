@@ -31,6 +31,7 @@ enum class EDistance : uint8
 UENUM(BlueprintType)
 enum class EGoal : uint8
 {
+	Idle UMETA(DisplayName = "Idle"),
 	Fight UMETA(DisplayName = "Fight"),
 	Dodge UMETA(DisplayName = "Dodge"),
 	Heal UMETA(DisplayName = "Heal"),
@@ -62,7 +63,10 @@ public:
 	ECondition GetOpponentConditionState()const;
 	EDistance GetDistanceState()const;
 	bool IsWorldStateEqualOnIndex(AWorldStateActor* otherWorldState, int index)const;
+	void CompareWithCurrentState(AWorldStateActor* currentWorldState, AWorldStateActor* otherWorldState)const;
 	bool IsWorldStateActiveAtIndex(int index)const;
+	void SetDesiredIndex(int index);
+	void ResetWorldState();
 
 protected:
 	// Called when the game starts or when spawned
@@ -71,17 +75,17 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldState")
 	TArray<bool> m_IsActiveWorldStates;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldState")
-	EGoal m_GoalState;                  //index =0 -> will always be the desired state off a Goal
+	EGoal m_GoalState = EGoal::Idle;                  //index =0 -> will always be the desired state off a Goal
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldState")
-	EAction m_ActionState;              //index =1
+	EAction m_ActionState;                            //index =1
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldState")
-	EAction m_OpponentActionState;      //index =2
+	EAction m_OpponentActionState;                    //index =2
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldState")
-	ECondition m_ConditionState;        //index =3
+	ECondition m_ConditionState = ECondition::Perfect;        //index =3
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldState")
-	ECondition m_OpponentConditionState;//index =4
+	ECondition m_OpponentConditionState = ECondition::Perfect;//index =4
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldState")
-	EDistance m_DistanceToOpponentState;//index =5
+	EDistance m_DistanceToOpponentState = EDistance::OutOfRange;//index =5
 
 private:
 	const float m_DistanceOfReach = 150.0f;

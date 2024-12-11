@@ -10,7 +10,9 @@ AWorldStateActor::AWorldStateActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	m_IsActiveWorldStates.SetNum(6, false);
+	m_ActionState = EAction::Idle;
+	m_OpponentActionState = EAction::Idle;
 }
 
 // Called when the game starts or when spawned
@@ -171,7 +173,32 @@ bool AWorldStateActor::IsWorldStateEqualOnIndex(AWorldStateActor* otherWorldStat
 	return false;
 }
 
+void AWorldStateActor::CompareWithCurrentState(AWorldStateActor* currentWorldState, AWorldStateActor* newWorldState) const
+{
+	for (int index{}; index < m_IsActiveWorldStates.Num(); index++)
+	{
+		if (m_IsActiveWorldStates[index] && IsWorldStateEqualOnIndex(currentWorldState, index))
+		{
+			newWorldState->SetDesiredIndex(index);
+		}
+	}
+
+}
+
 bool AWorldStateActor::IsWorldStateActiveAtIndex(int index) const
 {
 	return m_IsActiveWorldStates[index];
+}
+
+void AWorldStateActor::SetDesiredIndex(int index)
+{
+	m_IsActiveWorldStates[index] = true;
+}
+
+void AWorldStateActor::ResetWorldState()
+{
+	for (bool& e : m_IsActiveWorldStates)
+	{
+		e = false;
+	}
 }

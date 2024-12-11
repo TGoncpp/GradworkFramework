@@ -66,18 +66,22 @@ GOAPGoalBase* AGOAPBehaviour::SelectFirstVallidPriorityGoal()
 
 void AGOAPBehaviour::UpdateCurrentWorldState()
 {
-
+	
 }
 
 GOAPActionBase* AGOAPBehaviour::FindStartAction()
 {
+	//compare currentWorldState with the desiredworldState off the goal
 	AWorldStateActor* desiredState = m_CurrentGoal->GetDesiredState();
+	ComparedWorldState->ResetWorldState();
+	desiredState->CompareWithCurrentState(CurrentWorldState, ComparedWorldState);
 
+	//find the lowest scoring action based from the compared DesiredworldState
 	GOAPActionBase* possibleAction = nullptr;
 	float lowestScore = 0.0f;
 	for (const auto& action : m_AllGOAPActions)
 	{
-		if (action->DoesActionSatisfyGoal(desiredState) && action->GetActionScore() < lowestScore)
+		if (action->DoesActionSatisfyGoal(ComparedWorldState) && action->GetActionScore() < lowestScore)
 		{
 			possibleAction = action;
 			lowestScore = action->GetActionScore();
@@ -88,8 +92,12 @@ GOAPActionBase* AGOAPBehaviour::FindStartAction()
 
 void AGOAPBehaviour::FindAllNeccesaryGOAPActions(GOAPActionBase* startAction)
 {
+	//compare currentWorldState with the desiredworldState off the goal
 	AWorldStateActor* currentDesiredWorldState = startAction->GetDesiredState();
-	int numOffStatesToSatisfy = currentDesiredWorldState->GetNumOffUnsatisfiedStates();
+	ComparedWorldState->ResetWorldState();
+	currentDesiredWorldState->CompareWithCurrentState(CurrentWorldState, ComparedWorldState);
+
+	int numOffStatesToSatisfy = ComparedWorldState->GetNumOffUnsatisfiedStates();
 
 	//return out off recursion if no more actions to find
 	if (numOffStatesToSatisfy == 0)
@@ -97,10 +105,10 @@ void AGOAPBehaviour::FindAllNeccesaryGOAPActions(GOAPActionBase* startAction)
 
 	//every action can have multiple states to satisfy, first it will create a plan for the first one 
 	//the last plan is the one that will be executed first 
-	for (int index{ 0 }; index < currentDesiredWorldState->GetNumOffAllStates(); index++)
+	for (int index{ 0 }; index < ComparedWorldState->GetNumOffAllStates(); index++)
 	{
 		//look at next one if current state in worldstate is not active
-		if (currentDesiredWorldState->IsWorldStateActiveAtIndex(index))
+		if (ComparedWorldState->IsWorldStateActiveAtIndex(index))
 			continue;
 
 		//loop over all actions to find the lowest scoring action that satisfies current desired state
@@ -109,7 +117,7 @@ void AGOAPBehaviour::FindAllNeccesaryGOAPActions(GOAPActionBase* startAction)
 		for (const auto& action: m_AllGOAPActions)
 		{
 			
-			if (action->DoesActionSatisfyActionState(currentDesiredWorldState, index))
+			if (action->DoesActionSatisfyActionState(ComparedWorldState, index))
 			{
 				float newScore = action->GetActionScore();
 				if (newScore < score)

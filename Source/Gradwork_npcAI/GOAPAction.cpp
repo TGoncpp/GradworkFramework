@@ -1,5 +1,4 @@
 #include "GOAPAction.h"
-#include "WorldState.h"
 
 
 AGOAPAction::AGOAPAction()

@@ -37,6 +37,8 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, Category = "GOAP")
 	AWorldStateActor* CurrentWorldState = nullptr;
+	UPROPERTY(BlueprintReadWrite, Category = "GOAP")
+	AWorldStateActor* ComparedWorldState = nullptr;
 
 private:	
 	GOAPActionBase* FindStartAction();
