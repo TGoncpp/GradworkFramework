@@ -73,18 +73,16 @@ GOAPActionBase* AGOAPBehaviour::FindStartAction()
 {
 	//compare currentWorldState with the desiredworldState off the goal
 	AWorldStateActor* desiredState = m_CurrentGoal->GetDesiredState();
-	ComparedWorldState->ResetWorldState();
-	desiredState->CompareWithCurrentState(CurrentWorldState, ComparedWorldState);
-
+	
 	//find the lowest scoring action based from the compared DesiredworldState
 	GOAPActionBase* possibleAction = nullptr;
 	float lowestScore = 0.0f;
 	for (const auto& action : m_AllGOAPActions)
 	{
-		if (action->DoesActionSatisfyGoal(ComparedWorldState) && action->GetActionScore() < lowestScore)
+		if (action->DoesActionSatisfyGoal(desiredState) && action->GetActionScore(CurrentWorldState) < lowestScore)
 		{
 			possibleAction = action;
-			lowestScore = action->GetActionScore();
+			lowestScore = action->GetActionScore(CurrentWorldState);
 		}
 	}
 	return possibleAction;
@@ -119,7 +117,7 @@ void AGOAPBehaviour::FindAllNeccesaryGOAPActions(GOAPActionBase* startAction)
 			
 			if (action->DoesActionSatisfyActionState(ComparedWorldState, index))
 			{
-				float newScore = action->GetActionScore();
+				float newScore = action->GetActionScore(CurrentWorldState);
 				if (newScore < score)
 				{
 					score = newScore;

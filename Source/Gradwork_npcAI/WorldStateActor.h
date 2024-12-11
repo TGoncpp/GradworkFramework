@@ -57,15 +57,21 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "GOAP")
 	void UpdateWorldState( AActor* player, AActor* npc);
 	EGoal GetGoalState()const;
+	void SetGoalState(EGoal newGoal);
 	EAction GetActionState()const;
+	void SetActionState(EAction newAction);
 	EAction GetOpponentActionState()const;
+	void SetOpponentActionState(EAction newAction);
 	ECondition GetConditionState()const;
+	void SetConditionState(ECondition newCondition);
 	ECondition GetOpponentConditionState()const;
+	void SetOpponentConditionState(ECondition newCondition);
 	EDistance GetDistanceState()const;
+	void SetDistanceState(EDistance newDistance);
 	bool IsWorldStateEqualOnIndex(AWorldStateActor* otherWorldState, int index)const;
 	void CompareWithCurrentState(AWorldStateActor* currentWorldState, AWorldStateActor* otherWorldState)const;
 	bool IsWorldStateActiveAtIndex(int index)const;
-	void SetDesiredIndex(int index);
+	void SetDesiredIndex(int index, AWorldStateActor* newWorldState);
 	void ResetWorldState();
 
 protected:

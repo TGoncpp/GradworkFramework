@@ -128,9 +128,19 @@ EGoal AWorldStateActor::GetGoalState() const
 	return m_GoalState;
 }
 
+void AWorldStateActor::SetGoalState(EGoal newGoal)
+{
+	m_GoalState = newGoal;
+}
+
 EAction AWorldStateActor::GetActionState() const
 {
 	return m_ActionState;
+}
+
+void AWorldStateActor::SetActionState(EAction newAction)
+{
+	m_ActionState = newAction;
 }
 
 EAction AWorldStateActor::GetOpponentActionState() const
@@ -138,9 +148,19 @@ EAction AWorldStateActor::GetOpponentActionState() const
 	return m_OpponentActionState;
 }
 
+void AWorldStateActor::SetOpponentActionState(EAction newAction)
+{
+	m_OpponentActionState = newAction;
+}
+
 ECondition AWorldStateActor::GetConditionState() const
 {
 	return m_ConditionState;
+}
+
+void AWorldStateActor::SetConditionState(ECondition newCondition)
+{
+	m_ConditionState = newCondition;
 }
 
 ECondition AWorldStateActor::GetOpponentConditionState() const
@@ -148,9 +168,19 @@ ECondition AWorldStateActor::GetOpponentConditionState() const
 	return m_OpponentConditionState;
 }
 
+void AWorldStateActor::SetOpponentConditionState(ECondition newCondition)
+{
+	m_OpponentConditionState = newCondition;
+}
+
 EDistance AWorldStateActor::GetDistanceState() const
 {
 	return m_DistanceToOpponentState;
+}
+
+void AWorldStateActor::SetDistanceState(EDistance newDistance)
+{
+	m_DistanceToOpponentState = newDistance;
 }
 
 bool AWorldStateActor::IsWorldStateEqualOnIndex(AWorldStateActor* otherWorldState, int index) const
@@ -179,7 +209,28 @@ void AWorldStateActor::CompareWithCurrentState(AWorldStateActor* currentWorldSta
 	{
 		if (m_IsActiveWorldStates[index] && IsWorldStateEqualOnIndex(currentWorldState, index))
 		{
-			newWorldState->SetDesiredIndex(index);
+			newWorldState->SetDesiredIndex(index, newWorldState);
+			switch (index)
+			{
+			case 0:
+				newWorldState->SetGoalState(m_GoalState);
+				break;
+			case 1:
+				newWorldState->SetActionState(m_ActionState);
+				break;
+			case 2:
+				newWorldState->SetOpponentActionState(m_OpponentActionState);
+				break;
+			case 3:
+				newWorldState->SetConditionState(m_ConditionState);
+				break;
+			case 4:
+				newWorldState->SetOpponentConditionState(m_OpponentConditionState);
+				break;
+			case 5:
+				newWorldState->SetDistanceState(m_DistanceToOpponentState);
+				break;
+			}
 		}
 	}
 
@@ -190,9 +241,10 @@ bool AWorldStateActor::IsWorldStateActiveAtIndex(int index) const
 	return m_IsActiveWorldStates[index];
 }
 
-void AWorldStateActor::SetDesiredIndex(int index)
+void AWorldStateActor::SetDesiredIndex(int index, AWorldStateActor* newWorldState)
 {
 	m_IsActiveWorldStates[index] = true;
+	
 }
 
 void AWorldStateActor::ResetWorldState()

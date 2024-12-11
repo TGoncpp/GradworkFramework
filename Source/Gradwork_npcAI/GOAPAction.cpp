@@ -13,6 +13,7 @@ void AGOAPAction::BeginPlay()
 	Super::BeginPlay();
 	m_DesiredState = DesiredState.Get();
 	m_SatisfiesState = SatisfiesState.Get();
+	m_ComparedWorldState = ComparedState.Get();
 	m_Cost = Cost;
 }
 
@@ -20,14 +21,6 @@ void AGOAPAction::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-}
-
-float AGOAPAction::CalculateHeuristic() const
-{
-	int numOfDesiredStates = m_DesiredState->GetNumOffUnsatisfiedStates();
-
-
-	return 0.0f;
 }
 
 bool AGOAPAction::IsFinished()const 
