@@ -194,11 +194,11 @@ bool AWorldStateActor::IsWorldStateEqualOnIndex(AWorldStateActor* otherWorldStat
 	case 2:
 		return m_OpponentActionState == otherWorldState->GetOpponentActionState();
 	case 3:
-		return m_ConditionState == otherWorldState->GetConditionState();
-	case 4:
 		return m_OpponentConditionState == otherWorldState->GetOpponentConditionState();
-	case 5:
+	case 4:
 		return m_DistanceToOpponentState == otherWorldState->GetDistanceState();
+	case 5:
+		return m_ConditionState == otherWorldState->GetConditionState();
 	}
 	return false;
 }
@@ -222,13 +222,13 @@ void AWorldStateActor::CompareWithCurrentState(AWorldStateActor* currentWorldSta
 				newWorldState->SetOpponentActionState(m_OpponentActionState);
 				break;
 			case 3:
-				newWorldState->SetConditionState(m_ConditionState);
-				break;
-			case 4:
 				newWorldState->SetOpponentConditionState(m_OpponentConditionState);
 				break;
-			case 5:
+			case 4:
 				newWorldState->SetDistanceState(m_DistanceToOpponentState);
+				break;
+			case 5:
+				newWorldState->SetConditionState(m_ConditionState);
 				break;
 			}
 		}

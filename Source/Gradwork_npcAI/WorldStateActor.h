@@ -87,11 +87,11 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldState")
 	EAction m_OpponentActionState;                    //index =2
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldState")
-	ECondition m_ConditionState = ECondition::Perfect;        //index =3
+	ECondition m_OpponentConditionState = ECondition::Perfect;//index =3
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldState")
-	ECondition m_OpponentConditionState = ECondition::Perfect;//index =4
+	EDistance m_DistanceToOpponentState = EDistance::OutOfRange;//index =4
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldState")
-	EDistance m_DistanceToOpponentState = EDistance::OutOfRange;//index =5
+	ECondition m_ConditionState = ECondition::Perfect;        //index =5
 
 private:
 	const float m_DistanceOfReach = 150.0f;
