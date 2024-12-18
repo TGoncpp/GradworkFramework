@@ -14,7 +14,7 @@ public:
 
 	virtual bool IsVallid(BlackBoard* blackboard)const = 0;
 	AWorldStateActor* GetDesiredState()const;
-
+	FString GetGoalName()const;
 
 protected:
 	AWorldStateActor* m_DesiredState = nullptr;

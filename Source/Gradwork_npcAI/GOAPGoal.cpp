@@ -15,6 +15,7 @@ void AGOAPGoal::BeginPlay()
 {
 	Super::BeginPlay();
 	m_DesiredState = DesiredState.Get();
+	M_NameOfGoal = GoalName;
 }
 
 // Called every frame

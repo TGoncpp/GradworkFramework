@@ -26,6 +26,10 @@ protected:
 	void SetDesiredWorldState(AWorldStateActor* desiredWorldState);
 	bool CheckValidationThroughBlackboard(BlackBoard* blackboard)const;
 
+
+	UPROPERTY(EditAnywhere, Category = "Goal")
+	FString GoalName;
+
 	UPROPERTY(EditAnywhere, Category = "Goal")
 	TSoftObjectPtr < AWorldStateActor> DesiredState;
 	UPROPERTY(EditAnywhere, Category = "Goal")

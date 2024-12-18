@@ -71,7 +71,7 @@ public:
 	bool IsWorldStateEqualOnIndex(AWorldStateActor* otherWorldState, int index)const;
 	void CompareWithCurrentState(AWorldStateActor* currentWorldState, AWorldStateActor* otherWorldState)const;
 	bool IsWorldStateActiveAtIndex(int index)const;
-	void SetDesiredIndex(int index, AWorldStateActor* newWorldState);
+	void SetDesiredIndex(int index);
 	void ResetWorldState();
 
 protected:

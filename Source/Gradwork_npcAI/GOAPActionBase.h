@@ -13,7 +13,7 @@ public:
 	GOAPActionBase();
 	virtual ~GOAPActionBase();
 	//virtual bool IsVallid() const = 0;
-	virtual bool IsFinished()const = 0;
+	virtual bool IsFinished() = 0;
 	virtual void UpdateAction(BlackBoard* blackboard) = 0;
 	virtual EAction GetActionInput()const = 0;
 
@@ -25,7 +25,7 @@ public:
 protected:
 	float CalculateHeuristic(AWorldStateActor* currentWorldState) const;
 
-
+	
 	AWorldStateActor* m_DesiredState = nullptr;
 	AWorldStateActor* m_SatisfiesState = nullptr;
 	AWorldStateActor* m_ComparedWorldState = nullptr;

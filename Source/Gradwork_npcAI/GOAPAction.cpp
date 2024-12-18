@@ -23,9 +23,14 @@ void AGOAPAction::Tick(float DeltaTime)
 
 }
 
-bool AGOAPAction::IsFinished()const 
+bool AGOAPAction::IsFinished()
 {
-	return IsActionFinished;
+	if (IsActionFinished)
+	{
+		IsActionFinished = false;
+		return true;
+	}
+	return false;
 }
 
 void AGOAPAction::UpdateAction(BlackBoard* blackboard)
@@ -51,6 +56,14 @@ EAction AGOAPAction::GetActionInput()const
 	return ActionInput;
 }
 
+FString AGOAPAction::GetActionName() const
+{
+	if (ActionName.IsEmpty())
+		return "NoName";
+
+	return ActionName;
+}
+
 bool  AGOAPAction::CompareBlackboardValues(BlackBoard* blackboard, const FString& key, float comparedValue, ECompareMethode compareMethode)
 {
 	switch (compareMethode)
@@ -58,12 +71,15 @@ bool  AGOAPAction::CompareBlackboardValues(BlackBoard* blackboard, const FString
 	case ECompareMethode::Higher:
 		if (blackboard->GetKeyValue(key) <= comparedValue)
 			return false;
+		break;
 	case ECompareMethode::Equal:
 		if (blackboard->GetKeyValue(key) != comparedValue)
 			return false;
+		break;
 	case ECompareMethode::Lower:
 		if (blackboard->GetKeyValue(key) >= comparedValue)
 			return false;
+		break;
 	}
 	return true;
 }

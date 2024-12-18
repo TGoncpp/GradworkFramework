@@ -19,9 +19,10 @@ public:
 	virtual ~AGOAPAction()= default;
 	virtual void Tick(float DeltaTime) override;
 
-	virtual bool IsFinished()const override;
+	virtual bool IsFinished() override;
 	virtual void UpdateAction(BlackBoard* blackboard) override;
 	virtual EAction GetActionInput()const override;
+	FString GetActionName()const;
 
 protected:
 	virtual void BeginPlay() override;
@@ -29,6 +30,9 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = "GOAPAction")
 	void UpdateActionImplementation();
 	
+	//Action state
+	UPROPERTY(EditAnywhere, Category = "GOAPAction")
+	FString ActionName;
 	//Action state
 	UPROPERTY(EditAnywhere, Category = "GOAPAction")
 	EAction ActionInput;

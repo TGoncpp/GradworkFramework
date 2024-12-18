@@ -207,9 +207,9 @@ void AWorldStateActor::CompareWithCurrentState(AWorldStateActor* currentWorldSta
 {
 	for (int index{}; index < m_IsActiveWorldStates.Num(); index++)
 	{
-		if (m_IsActiveWorldStates[index] && IsWorldStateEqualOnIndex(currentWorldState, index))
+		if (m_IsActiveWorldStates[index] && !IsWorldStateEqualOnIndex(currentWorldState, index))
 		{
-			newWorldState->SetDesiredIndex(index, newWorldState);
+			newWorldState->SetDesiredIndex(index);
 			switch (index)
 			{
 			case 0:
@@ -241,7 +241,7 @@ bool AWorldStateActor::IsWorldStateActiveAtIndex(int index) const
 	return m_IsActiveWorldStates[index];
 }
 
-void AWorldStateActor::SetDesiredIndex(int index, AWorldStateActor* newWorldState)
+void AWorldStateActor::SetDesiredIndex(int index)
 {
 	m_IsActiveWorldStates[index] = true;
 	

@@ -39,18 +39,21 @@ protected:
 	AWorldStateActor* CurrentWorldState = nullptr;
 	UPROPERTY(BlueprintReadWrite, Category = "GOAP")
 	AWorldStateActor* ComparedWorldState = nullptr;
+	//Make the plan and all actions visible in editor
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GOAP")
+	TArray < AGOAPAction* >  m_AllGOAPActions;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GOAP")
+	TArray<AGOAPAction*> m_CurrentPlan;
 
 private:	
-	GOAPActionBase* FindStartAction();
+	AGOAPAction* FindStartAction();
 	void CreateNewPlan();
 	void FindAllNeccesaryGOAPActions(GOAPActionBase* startAction);
 	GOAPGoalBase* SelectFirstVallidPriorityGoal();
 	void UpdateCurrentWorldState();
 
-	TArray < GOAPActionBase* >  m_AllGOAPActions;
 	TArray < GOAPGoalBase* >  m_AllGOAPGoals;
-	TArray<GOAPActionBase*> m_CurrentPlan;
 	GOAPGoalBase* m_CurrentGoal = nullptr;
-	GOAPActionBase* m_CurrentAction = nullptr;
+	AGOAPAction* m_CurrentAction = nullptr;
 
 };
