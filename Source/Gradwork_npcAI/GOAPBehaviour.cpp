@@ -51,6 +51,8 @@ void AGOAPBehaviour::CreateNewPlan()
 	m_CurrentGoal = SelectFirstVallidPriorityGoal();
 	if (m_CurrentGoal)
 		GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, FString::Printf(TEXT(" goal selected : %s"), *m_CurrentGoal->GetGoalName()));
+	else
+		return;
 
 	//Find the lowest scoring Action that satisfies the goal's desired state
 	AGOAPAction* startAction = FindStartAction();
@@ -131,9 +133,15 @@ void AGOAPBehaviour::FindAllNeccesaryGOAPActions(GOAPActionBase* startAction)
 	//the last plan is the one that will be executed first 
 	for (int index{ 0 }; index < ComparedWorldState->GetNumOffAllStates(); index++)
 	{
+		//Redo the worldState since it might have been changed by recursion
+		ComparedWorldState->ResetWorldState();
+		currentDesiredWorldState->CompareWithCurrentState(CurrentWorldState, ComparedWorldState);
+
 		//look at next one if current state in worldstate is not active
 		if (!ComparedWorldState->IsWorldStateActiveAtIndex(index))
 			continue;
+
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, FString::Printf(TEXT(" worldState of goal/action selected : %i"), index));
 
 		//loop over all actions to find the lowest scoring action that satisfies current desired state
 		float score = 1000.0f;
