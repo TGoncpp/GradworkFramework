@@ -19,9 +19,12 @@ public:
 	AGOAPGoal();
 	virtual void Tick(float DeltaTime) override;
 	virtual bool IsVallid(BlackBoard* blackboard)const ;
+	virtual void StartTimer() override;
 
 protected:
 	virtual void BeginPlay() override;
+	UFUNCTION(BlueprintCallable, Category = "Goal")
+	void SetValid(bool newValue);
 	UFUNCTION(BlueprintCallable, Category = "Goal")
 	void SetDesiredWorldState(AWorldStateActor* desiredWorldState);
 	bool CheckValidationThroughBlackboard(BlackBoard* blackboard)const;
@@ -29,6 +32,8 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Goal")
 	FString GoalName;
+	UPROPERTY(BlueprintReadWrite, Category = "Goal")
+	bool IsTimed = false;
 
 	UPROPERTY(EditAnywhere, Category = "Goal")
 	TSoftObjectPtr < AWorldStateActor> DesiredState;

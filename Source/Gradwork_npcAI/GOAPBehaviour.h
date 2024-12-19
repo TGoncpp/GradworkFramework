@@ -51,6 +51,7 @@ private:
 	void FindAllNeccesaryGOAPActions(GOAPActionBase* startAction);
 	GOAPGoalBase* SelectFirstVallidPriorityGoal();
 	void UpdateCurrentWorldState();
+	bool CurrentGoalInvallid();
 
 	TArray < GOAPGoalBase* >  m_AllGOAPGoals;
 	GOAPGoalBase* m_CurrentGoal = nullptr;

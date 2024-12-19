@@ -25,6 +25,12 @@ void AGOAPBehaviour::Tick(float DeltaTime)
 
 EAction AGOAPBehaviour::Execute(FVector2D& moveInput)
 {
+	if (CurrentGoalInvallid())
+	{
+		m_CurrentPlan.Empty();
+		m_CurrentAction = nullptr;
+	}
+	
 	if (m_CurrentPlan.IsEmpty())
 		CreateNewPlan();
 
@@ -73,7 +79,10 @@ GOAPGoalBase* AGOAPBehaviour::SelectFirstVallidPriorityGoal()
 	for (const auto& goal : m_AllGOAPGoals)
 	{
 		if (goal->IsVallid(m_BlackboardRef))
+		{
+			goal->StartTimer();
 			return goal;
+		}
 	}
 	return nullptr;
 }
@@ -81,6 +90,13 @@ GOAPGoalBase* AGOAPBehaviour::SelectFirstVallidPriorityGoal()
 void AGOAPBehaviour::UpdateCurrentWorldState()
 {
 	
+}
+
+bool AGOAPBehaviour::CurrentGoalInvallid()
+{
+	if (m_CurrentGoal && !m_CurrentGoal->IsVallid())
+		return true;
+	return false;
 }
 
 AGOAPAction* AGOAPBehaviour::FindStartAction()

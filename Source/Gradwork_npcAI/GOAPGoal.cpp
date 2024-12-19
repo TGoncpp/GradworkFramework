@@ -27,7 +27,12 @@ void AGOAPGoal::Tick(float DeltaTime)
 
 bool AGOAPGoal::IsVallid(BlackBoard* blackboard)const 
 {
-	return CheckValidationThroughBlackboard(blackboard);
+	return CheckValidationThroughBlackboard(blackboard) && m_IsVallid;
+}
+
+void AGOAPGoal::StartTimer()
+{
+	IsTimed = true;
 }
 
 void AGOAPGoal::SetDesiredWorldState(AWorldStateActor* desiredWorldState)
@@ -48,5 +53,10 @@ bool AGOAPGoal::CheckValidationThroughBlackboard(BlackBoard* blackboard)const
 	}
 	return false;
 	
+}
+
+void AGOAPGoal::SetValid(bool newValue)
+{
+	m_IsVallid = newValue;
 }
 

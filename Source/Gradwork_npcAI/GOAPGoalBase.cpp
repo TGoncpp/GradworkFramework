@@ -20,3 +20,8 @@ FString GOAPGoalBase::GetGoalName() const
 		return "NoName";
 	return M_NameOfGoal;
 }
+
+bool GOAPGoalBase::IsVallid() const
+{
+	return m_IsVallid;
+}
