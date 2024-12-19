@@ -23,10 +23,14 @@ public:
 	virtual void UpdateAction(BlackBoard* blackboard) override;
 	virtual EAction GetActionInput()const override;
 	FString GetActionName()const;
+	void UpdateCost();
 
 protected:
 	virtual void BeginPlay() override;
 	
+	UFUNCTION(BlueprintImplementableEvent, Category = "GOAPAction")
+	void NewCostImplementation();
+
 	UFUNCTION(BlueprintImplementableEvent, Category = "GOAPAction")
 	void UpdateActionImplementation();
 	
@@ -42,7 +46,7 @@ protected:
 	TSoftObjectPtr <AWorldStateActor>  SatisfiesState = nullptr;
 	UPROPERTY(EditAnywhere, Category = "GOAPAction")
 	TSoftObjectPtr <AWorldStateActor>  ComparedState = nullptr;
-	UPROPERTY(EditAnywhere, Category = "GOAPAction")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GOAPAction")
 	float Cost = 0.0f;
 
 	//Action validation state

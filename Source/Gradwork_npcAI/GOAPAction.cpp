@@ -17,6 +17,12 @@ void AGOAPAction::BeginPlay()
 	m_Cost = Cost;
 }
 
+void AGOAPAction::UpdateCost()
+{
+	NewCostImplementation();
+	m_Cost = Cost;
+}
+
 void AGOAPAction::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -38,6 +44,9 @@ void AGOAPAction::UpdateAction(BlackBoard* blackboard)
 	//set to isFinished in blueprint if action allows it
 	UpdateActionImplementation();
 
+	//Update cost from blueprint
+	m_Cost = Cost;
+
 	//check through blackboard if action is finished, the keys to check are set in the blueprint off the action
 	if (UpdateBlackboardKey.Num() == 0)
 		return;
@@ -49,6 +58,7 @@ void AGOAPAction::UpdateAction(BlackBoard* blackboard)
 			return;
 	}
 	IsActionFinished = true;
+
 }
 
 EAction AGOAPAction::GetActionInput()const 

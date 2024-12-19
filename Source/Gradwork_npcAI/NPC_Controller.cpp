@@ -52,7 +52,7 @@ void ANPC_Controller::Tick(float DeltaTime)
     switch (newInput)
     {
     case EAction::Idle:
-        GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Blue, TEXT("selected Idle action"));
+        //GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Blue, TEXT("selected Idle action"));
         break;
     case EAction::HardAttack:
         m_NpcRefrence->StopBlock();

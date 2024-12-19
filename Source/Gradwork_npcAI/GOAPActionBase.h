@@ -24,7 +24,6 @@ public:
 
 protected:
 	float CalculateHeuristic(AWorldStateActor* currentWorldState) const;
-
 	
 	AWorldStateActor* m_DesiredState = nullptr;
 	AWorldStateActor* m_SatisfiesState = nullptr;

@@ -12,7 +12,6 @@ GOAPActionBase::~GOAPActionBase()
 
 float GOAPActionBase::GetActionScore(AWorldStateActor* currentWorldState) const
 {
-	
 	return CalculateHeuristic(currentWorldState) + m_Cost;
 }
 

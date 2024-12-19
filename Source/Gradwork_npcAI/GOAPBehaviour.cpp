@@ -28,7 +28,7 @@ EAction AGOAPBehaviour::Execute(FVector2D& moveInput)
 	if (m_CurrentPlan.IsEmpty())
 		CreateNewPlan();
 
-	GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, FString::Printf(TEXT("size off plan: %i"), m_CurrentPlan.Num()));
+	//GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, FString::Printf(TEXT("size off plan: %i"), m_CurrentPlan.Num()));
 	//if creating plan fails return idle
 	if (m_CurrentPlan.IsEmpty())
 		return EAction::Idle;
@@ -97,7 +97,8 @@ AGOAPAction* AGOAPBehaviour::FindStartAction()
 	for (const auto& action : m_AllGOAPActions)
 	{
 		float newScore = action->GetActionScore(CurrentWorldState);
-		GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Black, FString::Printf(TEXT(" actionscore : %f"), newScore));
+		action->UpdateCost();
+		//GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Black, FString::Printf(TEXT(" actionscore : %s->score : %f"), *action->GetActionName(), newScore));
 
 		if (action->DoesActionSatisfyGoal(desiredState) && newScore < lowestScore)
 		{
@@ -122,7 +123,7 @@ void AGOAPBehaviour::FindAllNeccesaryGOAPActions(GOAPActionBase* startAction)
 	currentDesiredWorldState->CompareWithCurrentState(CurrentWorldState, ComparedWorldState);
 
 	int numOffStatesToSatisfy = ComparedWorldState->GetNumOffUnsatisfiedStates();
-	GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, FString::Printf(TEXT(" states to satisfy: %i"), numOffStatesToSatisfy));
+	//GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, FString::Printf(TEXT(" states to satisfy: %i"), numOffStatesToSatisfy));
 
 
 	//return out off recursion if no more actions to find
@@ -141,7 +142,7 @@ void AGOAPBehaviour::FindAllNeccesaryGOAPActions(GOAPActionBase* startAction)
 		if (!ComparedWorldState->IsWorldStateActiveAtIndex(index))
 			continue;
 
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, FString::Printf(TEXT(" worldState of goal/action selected : %i"), index));
+		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, FString::Printf(TEXT(" worldState of goal/action selected : %i"), index));
 
 		//loop over all actions to find the lowest scoring action that satisfies current desired state
 		float score = 1000.0f;
@@ -151,9 +152,10 @@ void AGOAPBehaviour::FindAllNeccesaryGOAPActions(GOAPActionBase* startAction)
 			
 			if (action->DoesActionSatisfyActionState(ComparedWorldState, index))
 			{
-				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, FString::Printf(TEXT(" action satisfy state: %s"), *action->GetActionName()));
+				//GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, FString::Printf(TEXT(" action satisfy state: %s"), *action->GetActionName()));
 
 				float newScore = action->GetActionScore(CurrentWorldState);
+				action->UpdateCost();
 				if (newScore < score)
 				{
 					score = newScore;
