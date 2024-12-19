@@ -19,7 +19,7 @@ public:
 	AGOAPGoal();
 	virtual void Tick(float DeltaTime) override;
 	virtual bool IsVallid(BlackBoard* blackboard)const ;
-	virtual void StartTimer() override;
+	virtual void StartTimer(bool start) override;
 
 protected:
 	virtual void BeginPlay() override;
@@ -32,6 +32,10 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Goal")
 	FString GoalName;
+	UPROPERTY(EditAnywhere, Category = "Goal")
+	float MaxGoalRunTime = 3.0f;
+	UPROPERTY(EditAnywhere, Category = "Goal")
+	float MaxGoalTimeOutTime = 3.0f;
 	UPROPERTY(BlueprintReadWrite, Category = "Goal")
 	bool IsTimed = false;
 
@@ -43,4 +47,10 @@ protected:
 	ECompareMethode CompareMethod;
 	UPROPERTY(EditAnywhere, Category = "Goal")
 	float ValidBlackboardValue;
+
+private:
+	void UpdateTimer(float deltaTime);
+	void UpdateTimeOutTimer(float deltaTime);
+
+	float m_CurrentStoredTime = 0.0f;
 };

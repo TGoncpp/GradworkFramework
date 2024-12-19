@@ -25,6 +25,7 @@ void AGOAPBehaviour::Tick(float DeltaTime)
 
 EAction AGOAPBehaviour::Execute(FVector2D& moveInput)
 {
+	//Start a new plan if current goal takes to long or gets invallid
 	if (CurrentGoalInvallid())
 	{
 		m_CurrentPlan.Empty();
@@ -54,6 +55,11 @@ EAction AGOAPBehaviour::Execute(FVector2D& moveInput)
 
 void AGOAPBehaviour::CreateNewPlan()
 {
+	//reset the timer off previous goal
+	if (m_CurrentGoal)
+		m_CurrentGoal->StartTimer(false);
+
+	//take the first available goal in list. ordered by priority in array
 	m_CurrentGoal = SelectFirstVallidPriorityGoal();
 	if (m_CurrentGoal)
 		GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, FString::Printf(TEXT(" goal selected : %s"), *m_CurrentGoal->GetGoalName()));
@@ -80,7 +86,7 @@ GOAPGoalBase* AGOAPBehaviour::SelectFirstVallidPriorityGoal()
 	{
 		if (goal->IsVallid(m_BlackboardRef))
 		{
-			goal->StartTimer();
+			goal->StartTimer(true);
 			return goal;
 		}
 	}

@@ -13,7 +13,7 @@ public:
 	virtual ~GOAPGoalBase();
 
 	virtual bool IsVallid(BlackBoard* blackboard)const = 0;
-	virtual void StartTimer() = 0;
+	virtual void StartTimer(bool start) = 0;
 	AWorldStateActor* GetDesiredState()const;
 	FString GetGoalName()const;
 	bool IsVallid()const;

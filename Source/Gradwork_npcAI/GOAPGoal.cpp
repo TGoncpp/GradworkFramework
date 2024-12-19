@@ -22,6 +22,8 @@ void AGOAPGoal::BeginPlay()
 void AGOAPGoal::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	UpdateTimer(DeltaTime);
+	UpdateTimeOutTimer(DeltaTime);
 
 }
 
@@ -30,9 +32,11 @@ bool AGOAPGoal::IsVallid(BlackBoard* blackboard)const
 	return CheckValidationThroughBlackboard(blackboard) && m_IsVallid;
 }
 
-void AGOAPGoal::StartTimer()
+void AGOAPGoal::StartTimer(bool start)
 {
-	IsTimed = true;
+	IsTimed = start;
+	if (!start)
+		m_CurrentStoredTime = 0.0f;
 }
 
 void AGOAPGoal::SetDesiredWorldState(AWorldStateActor* desiredWorldState)
@@ -53,6 +57,33 @@ bool AGOAPGoal::CheckValidationThroughBlackboard(BlackBoard* blackboard)const
 	}
 	return false;
 	
+}
+
+void AGOAPGoal::UpdateTimer(float deltaTime)
+{
+	if (IsTimed)
+	{
+		m_CurrentStoredTime += deltaTime;
+		if (m_CurrentStoredTime >= MaxGoalRunTime)
+		{
+			m_CurrentStoredTime = 0.0f;
+			m_IsVallid = false;
+			IsTimed = false;
+		}
+	}
+}
+
+void AGOAPGoal::UpdateTimeOutTimer(float deltaTime)
+{
+	if (!m_IsVallid)
+	{
+		m_CurrentStoredTime += deltaTime;
+		if (m_CurrentStoredTime >= MaxGoalTimeOutTime)
+		{
+			m_CurrentStoredTime = 0.0f;
+			m_IsVallid = true;
+		}
+	}
 }
 
 void AGOAPGoal::SetValid(bool newValue)
