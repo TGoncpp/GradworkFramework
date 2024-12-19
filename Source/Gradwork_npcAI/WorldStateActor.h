@@ -94,7 +94,7 @@ protected:
 	ECondition m_ConditionState = ECondition::Perfect;        //index =5
 
 private:
-	const float m_DistanceOfReach = 150.0f;
+	const float m_DistanceOfReach = 160.0f;
 	const float m_DistanceOfHeal = 650.0f;
 	const float m_MinValue = 0.4f;
 	const float m_HighValue = 0.7f;
