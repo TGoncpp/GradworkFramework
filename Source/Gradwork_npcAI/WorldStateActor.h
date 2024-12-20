@@ -36,7 +36,7 @@ enum class EGoal : uint8
 	Dodge UMETA(DisplayName = "Dodge"),
 	Heal UMETA(DisplayName = "Heal"),
 	Counter UMETA(DisplayName = "Counter"),
-
+	Throw UMETA(DisplayName = "Throw"),
 };
 
 class BlackBoard;
