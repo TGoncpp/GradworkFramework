@@ -42,11 +42,11 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Goal")
 	TSoftObjectPtr < AWorldStateActor> DesiredState;
 	UPROPERTY(EditAnywhere, Category = "Goal")
-	FString ValidBlackboardKey;
+	TArray< FString > ValidBlackboardKey;
 	UPROPERTY(EditAnywhere, Category = "Goal")
-	ECompareMethode CompareMethod;
+	TArray< ECompareMethode > CompareMethod;
 	UPROPERTY(EditAnywhere, Category = "Goal")
-	float ValidBlackboardValue;
+	TArray< float > ValidBlackboardValue;
 
 private:
 	void UpdateTimer(float deltaTime);

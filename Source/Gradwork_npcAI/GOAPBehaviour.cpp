@@ -100,9 +100,8 @@ void AGOAPBehaviour::UpdateCurrentWorldState()
 
 bool AGOAPBehaviour::CurrentGoalInvallid()
 {
-	if (m_CurrentGoal && !m_CurrentGoal->IsVallid())
-		return true;
-	return false;
+	return (m_CurrentGoal && !m_CurrentGoal->IsVallid(m_BlackboardRef));
+	
 }
 
 AGOAPAction* AGOAPBehaviour::FindStartAction()

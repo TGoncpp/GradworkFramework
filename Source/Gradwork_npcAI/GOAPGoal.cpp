@@ -46,17 +46,26 @@ void AGOAPGoal::SetDesiredWorldState(AWorldStateActor* desiredWorldState)
 
 bool AGOAPGoal::CheckValidationThroughBlackboard(BlackBoard* blackboard)const
 {
-	switch (CompareMethod)
+	bool isVallid = true;
+	for (int index{}; index < ValidBlackboardKey.Num(); index++)
 	{
-	case ECompareMethode::Higher:
-		return blackboard->GetKeyValue(ValidBlackboardKey) > ValidBlackboardValue;
-	case ECompareMethode::Equal:
-		return blackboard->GetKeyValue(ValidBlackboardKey) == ValidBlackboardValue;
-	case ECompareMethode::Lower:
-		return blackboard->GetKeyValue(ValidBlackboardKey) < ValidBlackboardValue;
+		switch (CompareMethod[index])
+		{
+		case ECompareMethode::Higher:
+			isVallid = blackboard->GetKeyValue(ValidBlackboardKey[index]) > ValidBlackboardValue[index];
+			break;
+		case ECompareMethode::Equal:
+			isVallid = blackboard->GetKeyValue(ValidBlackboardKey[index]) == ValidBlackboardValue[index];
+			break;
+		case ECompareMethode::Lower:
+			isVallid = blackboard->GetKeyValue(ValidBlackboardKey[index]) < ValidBlackboardValue[index];
+			break;
+		}
+		if (!isVallid)
+			return false;
 	}
-	return false;
-	
+	return isVallid;
+
 }
 
 void AGOAPGoal::UpdateTimer(float deltaTime)
