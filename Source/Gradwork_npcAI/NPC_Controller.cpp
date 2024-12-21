@@ -47,6 +47,7 @@ void ANPC_Controller::Tick(float DeltaTime)
         m_LockedOnPlayer = true;
     }
 
+    //Get input from the active DecisionMaking algorithm 
     EAction newInput = m_SelectedBehaviourSystem->Execute(m_MovementVector);
 
     switch (newInput)
