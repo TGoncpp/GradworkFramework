@@ -41,6 +41,10 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Goal")
 	TSoftObjectPtr < AWorldStateActor> DesiredState;
+
+	//Vallid Goal state
+	UPROPERTY(EditAnywhere, Category = "Goal")
+	bool AllMethodsMustBeTrue = true;
 	UPROPERTY(EditAnywhere, Category = "Goal")
 	TArray< FString > ValidBlackboardKey;
 	UPROPERTY(EditAnywhere, Category = "Goal")

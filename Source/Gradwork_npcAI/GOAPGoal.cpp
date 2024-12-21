@@ -61,8 +61,10 @@ bool AGOAPGoal::CheckValidationThroughBlackboard(BlackBoard* blackboard)const
 			isVallid = blackboard->GetKeyValue(ValidBlackboardKey[index]) < ValidBlackboardValue[index];
 			break;
 		}
-		if (!isVallid)
+		if (AllMethodsMustBeTrue && !isVallid)
 			return false;
+		else if (!AllMethodsMustBeTrue && isVallid)
+			return true;
 	}
 	return isVallid;
 
