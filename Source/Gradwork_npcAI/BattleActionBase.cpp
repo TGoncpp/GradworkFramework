@@ -127,7 +127,6 @@ void ABattleActionBase::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AAct
 			bool isHardAttack = m_ActionType == EAction::HardAttack;
 			if (enemyStaminaComp && enemyStaminaComp->SuccesfullExecution(Damage, isHardAttack))
 			{
-				GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "Blocked");
 				DeActivate();
 				return;
 			}
