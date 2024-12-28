@@ -103,7 +103,7 @@ ASoulsCharacter* ANPC_Controller::GetControlledNpcRef() const
 
 void ANPC_Controller::OnPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 {
-    GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Blue, TEXT("update perception"));  
+    //GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Blue, TEXT("update perception"));  
 }
 
 void ANPC_Controller::SetMovement(const FVector2D& newMoveInput)

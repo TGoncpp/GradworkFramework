@@ -27,6 +27,8 @@ protected:
 	void CreateHud();
 	UFUNCTION(BlueprintImplementableEvent, Category = "GameMode")
 	void LogWinLoss();
+	UFUNCTION(BlueprintImplementableEvent, Category = "GameMode")
+	void ControllerCreated();
 
 	void StartGame();
 
@@ -35,6 +37,7 @@ protected:
 
 private:
 	void PauseGame();
+	void Quit();
 
 	FTimerHandle m_Timer;
 };

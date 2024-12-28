@@ -210,6 +210,11 @@ void ASoulsCharacter::LockOn()
 
 }
 
+void ASoulsCharacter::LockOnValue(bool lock)
+{
+	m_IsLockOn = lock;
+}
+
 void ASoulsCharacter::FoundTarget(ASoulsCharacter* target)
 {
 	m_Target = target;
@@ -244,7 +249,7 @@ void ASoulsCharacter::ReturnToIdle()
 
 void ASoulsCharacter::PrintQueue()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::FromInt( m_ActionQueue.Num()));
+	//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::FromInt( m_ActionQueue.Num()));
 	//for (const auto& action : m_ActionQueue)
 	//{
 	//	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue,action->GetActionName());

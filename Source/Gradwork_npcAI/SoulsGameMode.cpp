@@ -14,6 +14,8 @@ void ASoulsGameMode::BeginPlay()
 
 	CreateHud();
 	StartGame();
+	GetWorld()->GetTimerManager().SetTimer(m_Timer, this, &ASoulsGameMode::ControllerCreated, 1.0f, false);
+
 }
 
 void ASoulsGameMode::StartGame()
@@ -26,4 +28,12 @@ void ASoulsGameMode::PauseGame()
 {
 	LogWinLoss();
 	UGameplayStatics::SetGamePaused(GetWorld(), true);
+	GetWorld()->GetTimerManager().SetTimer(m_Timer, this, &ASoulsGameMode::Quit, 2.0f, false);
+
+}
+
+void ASoulsGameMode::Quit()
+{
+	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	UKismetSystemLibrary::QuitGame(GetWorld(), PlayerController, EQuitPreference::Quit, true);
 }

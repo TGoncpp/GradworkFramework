@@ -43,7 +43,7 @@ EAction AGOAPBehaviour::Execute(FVector2D& moveInput)
 	if (!m_CurrentAction || m_CurrentAction->IsFinished() )
 	{
 		m_CurrentAction = m_CurrentPlan.Pop();
-		GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, FString::Printf(TEXT("current action is vallid: %i"), m_CurrentAction != nullptr));
+		//GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, FString::Printf(TEXT("current action is vallid: %i"), m_CurrentAction != nullptr));
 
 	}
 	else
@@ -61,17 +61,17 @@ void AGOAPBehaviour::CreateNewPlan()
 
 	//take the first available goal in list. ordered by priority in array
 	m_CurrentGoal = SelectFirstVallidPriorityGoal();
-	if (m_CurrentGoal)
-		GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, FString::Printf(TEXT(" goal selected : %s"), *m_CurrentGoal->GetGoalName()));
-	else
+	if (!m_CurrentGoal)
 		return;
+		//GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, FString::Printf(TEXT(" goal selected : %s"), *m_CurrentGoal->GetGoalName()));
+	
 
 	//Find the lowest scoring Action that satisfies the goal's desired state
 	AGOAPAction* startAction = FindStartAction();
 	if (startAction)
 	{
 		m_CurrentPlan.Add(startAction);
-		GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, FString::Printf(TEXT(" start action selected : %s"), *startAction->GetActionName()));
+		//GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, FString::Printf(TEXT(" start action selected : %s"), *startAction->GetActionName()));
 	}
 		
 	//Looks recursively for all the actions needed to achieve the current goal
@@ -189,7 +189,7 @@ void AGOAPBehaviour::FindAllNeccesaryGOAPActions(GOAPActionBase* startAction)
 		if (bestAction)
 		{
 			m_CurrentPlan.Add(bestAction);
-			GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Blue, FString::Printf(TEXT(" add to plan : %s"), *bestAction->GetActionName()));
+			//GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Blue, FString::Printf(TEXT(" add to plan : %s"), *bestAction->GetActionName()));
 			FindAllNeccesaryGOAPActions(bestAction);
 		}
 

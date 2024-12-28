@@ -55,7 +55,7 @@ float ActionScore::CalculateActionScore(BlackBoard* blackboard) const
 		totalscore += score.CalculateActionScore(blackboard);
 	}
 
-	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("ToatalScore off action : %f, totalweight: %f, score : %f"), totalscore, totalWeight, totalscore / totalWeight));
+	//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("ToatalScore off action : %f, totalweight: %f, score : %f"), totalscore, totalWeight, totalscore / totalWeight));
 
 	return totalscore/totalWeight;
 }
@@ -76,12 +76,12 @@ float Score::CalculateActionScore(BlackBoard* blackboard) const
 		float blackBoardValue = blackboard->GetKeyValue(blackboardKey);
 		float curveValue = curve->GetFloatValue(blackBoardValue);
 		
-		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("blackboardValue : %f"), blackBoardValue));
-		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("weighted value from curve : %f"), curveValue * weight));
+		//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("blackboardValue : %f"), blackBoardValue));
+		//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("weighted value from curve : %f"), curveValue * weight));
 		return curveValue * weight;
 	}
 
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, FString::Printf(TEXT("no vallid curve in score for calculations")));
+	//GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, FString::Printf(TEXT("no vallid curve in score for calculations")));
 	return 0.0f;
 }
 

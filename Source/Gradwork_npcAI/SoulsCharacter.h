@@ -55,6 +55,8 @@ public:
 	virtual void Heal()override;
 	UFUNCTION(BlueprintCallable, Category = "Actions")
 	virtual void LockOn()override;
+	UFUNCTION(BlueprintCallable, Category = "Actions")
+	void LockOnValue(bool lock);
 	
 #pragma endregion Battle Actions
 
