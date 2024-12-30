@@ -57,3 +57,8 @@ void UStaminaComponent::ClearStamina()
 	m_Stamina = 0.0f;
 }
 
+void UStaminaComponent::FullStamina()
+{
+	m_Stamina = MAX_STAMINA;
+}
+

@@ -19,6 +19,7 @@ public:
 
 	bool SuccesfullExecution(float cost, bool intenseAction = false);
 	void ClearStamina();
+	void FullStamina();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	float GetStaminaPercentage() const { return m_Stamina / MAX_STAMINA; }

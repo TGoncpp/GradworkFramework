@@ -38,6 +38,10 @@ void ANPC_Controller::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
+    //when switching between systemns, stop executing
+    if (!IsExecuting)
+        return;
+
     if (!m_SelectedBehaviourSystem || !m_NpcRefrence)
         return;
 

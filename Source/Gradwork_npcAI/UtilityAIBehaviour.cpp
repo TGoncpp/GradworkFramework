@@ -38,6 +38,12 @@ void AUtilityAIBehaviour::AddCurvesToScoreableList(TArray<UCurveFloat*> curves, 
 
 }
 
+bool AUtilityAIBehaviour::IsOpponentDead()
+{
+	float enemyHP = m_BlackboardRef->GetKeyValue("EnemyHealth");
+	return enemyHP <= 0.0f;
+}
+
 // Called every frame
 void AUtilityAIBehaviour::Tick(float DeltaTime)
 {
@@ -47,6 +53,9 @@ void AUtilityAIBehaviour::Tick(float DeltaTime)
 
 EAction AUtilityAIBehaviour::Execute(FVector2D& moveInput)
 {
+	if (IsOpponentDead())
+		return EAction::Idle;
+
 	float highestScore = 0.5f;
 	EAction selectedAction = EAction::Idle;
 	

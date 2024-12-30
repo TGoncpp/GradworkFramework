@@ -56,3 +56,8 @@ void UHealthComponent::Revive()
 	OnRevive.Broadcast();
 }
 
+void UHealthComponent::FullHealth()
+{
+	m_Health = MAX_HEALTH;
+}
+

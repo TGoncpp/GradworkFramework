@@ -34,6 +34,7 @@ void ASoulsCharacter::BeginPlay()
 	{
 		m_HealthComponent->OnDead.AddDynamic(this, &ASoulsCharacter::Ragdoll);
 		m_HealthComponent->OnRevive.AddDynamic(this, &ASoulsCharacter::RiseAgain);
+		m_HealthComponent->OnRevive.AddDynamic(this, &ASoulsCharacter::RecoverStamina);
 	}
 	//add event for knockback from knockbackcomponent
 	if (m_KnockbackComponent)
@@ -215,6 +216,12 @@ void ASoulsCharacter::LockOnValue(bool lock)
 	m_IsLockOn = lock;
 }
 
+void ASoulsCharacter::Revive()
+{
+	RecoverStamina();
+	RiseAgain();
+}
+
 void ASoulsCharacter::FoundTarget(ASoulsCharacter* target)
 {
 	m_Target = target;
@@ -226,6 +233,16 @@ void ASoulsCharacter::AddAction(ABattleActionBase* newAction)
 	newAction->AddParent(this);
 	newAction->AddParentMovementComp(GetCharacterMovement());
 
+}
+
+void ASoulsCharacter::RecoverStamina()
+{
+	m_StaminaComponent->FullStamina();
+}
+
+void ASoulsCharacter::RecoverHealth()
+{
+	m_HealthComponent->FullHealth();
 }
 
 void ASoulsCharacter::SetActionEnqueueTime(float newTime)

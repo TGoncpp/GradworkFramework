@@ -56,6 +56,9 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "GOAP")
 	AGOAPBehaviour* GetGOAPResultRef()const { return m_GOAPBehaviourSystem; }
 
+	UPROPERTY(BlueprintReadWrite, Category = "NPCController")
+	bool IsExecuting = true;
+
 private:
 	//Actions
 	void QuickAttack() { m_NpcRefrence->QuickAttack(); };

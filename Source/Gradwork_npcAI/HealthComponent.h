@@ -27,6 +27,7 @@ public:
 
 	void Die();
 	void Revive();
+	void FullHealth();
 
 	UPROPERTY()
 	FDeadEvent OnDead;

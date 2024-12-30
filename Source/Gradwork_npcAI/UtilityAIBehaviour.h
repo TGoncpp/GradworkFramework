@@ -37,5 +37,7 @@ protected:
 	//TArray<UCurveFloat*> actionCurves;
 
 private:	
+	bool IsOpponentDead();
+
 	TArray< TUniquePtr< ActionScore>> m_ActionScores;
 };

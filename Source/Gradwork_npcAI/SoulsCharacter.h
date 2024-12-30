@@ -64,6 +64,7 @@ public:
 	void Ragdoll();
 	UFUNCTION(BlueprintImplementableEvent)
 	void RiseAgain();
+	void Revive();
 
 	UFUNCTION(BlueprintCallable)
 	void FoundTarget(ASoulsCharacter* target);
@@ -76,6 +77,10 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	void AddAction(ABattleActionBase* newAction);
+	UFUNCTION(BlueprintCallable)
+	void RecoverStamina();
+	UFUNCTION(BlueprintCallable)
+	void RecoverHealth();
 	
 	UFUNCTION(BlueprintCallable, Category = "Actions")
 	void SetActionEnqueueTime(float newTime);

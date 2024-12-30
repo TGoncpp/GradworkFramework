@@ -29,15 +29,22 @@ protected:
 	void LogWinLoss();
 	UFUNCTION(BlueprintImplementableEvent, Category = "GameMode")
 	void ControllerCreated();
+	UFUNCTION(BlueprintImplementableEvent, Category = "GameMode")
+	void SwitchBehaviourToGOAP();
 
+	UFUNCTION(BlueprintCallable, Category = "GameMode")
+	void Quit();
 	void StartGame();
 
 	UPROPERTY(EditAnywhere, Category = "GameMode")
 	float TimeToFinish = 300.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GameMode")
+	float TimeBetweenSytems = 3.0f;
 
 private:
 	void PauseGame();
-	void Quit();
 
 	FTimerHandle m_Timer;
+	FTimerHandle m_Timer2;
+	FTimerHandle  m_Timer3;
 };
